@@ -17,7 +17,7 @@ jobs:
       - name: Deploy
         run: |
           run: |
-            chmod +x .github/scripts/deploy-listing.sh
+            chmod +x .github/scripts/deploy.sh
             .github/scripts/deploy.sh
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN_AKIENI_ACADEMY }}
