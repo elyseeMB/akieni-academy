@@ -19,11 +19,14 @@ jobs:
           for dir in tp*/; do
             name=$(basename $dir)
             npx wrangler pages project create ${name}-akieniacademy-eembouz-com \
-            --production-branch main || true
+              --production-branch main || true
             npx wrangler pages deploy $dir \
               --project-name=${name}-akieniacademy-eembouz-com
-            npx wrangler pages domain add ${name}-akieniacademy-eembouz-com \
-            ${name}.akieniacademy.eembouz.com || true
+            curl -s -X POST \
+              "https://api.cloudflare.com/client/v4/accounts/$CLOUDFLARE_ACCOUNT_ID/pages/projects/${name}-akieniacademy-eembouz-com/domains" \
+              -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" \
+              -H "Content-Type: application/json" \
+              -d "{\"name\": \"${name}.akieniacademy.eembouz.com\"}" || true
           done
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN_AKIENI_ACADEMY }}
