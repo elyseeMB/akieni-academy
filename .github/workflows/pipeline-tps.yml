@@ -1,11 +1,10 @@
 name: Deploy TPs
 
 on:
-  push:
-    branches:
-      - main
-    paths:
-      - "tp*/**"
+  workflow_run:
+    workflows: ["Listing"]
+    types:
+      - completed
 
 jobs:
   deploy-tps:
