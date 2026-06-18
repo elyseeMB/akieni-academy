@@ -14,9 +14,10 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-      - uses: cloudflare/wrangler-action@v3
-        with:
-          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN_AKIENI_ACADEMY }}
-          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: pages deploy . --project-name=akieniacademy-eembouz-com
-          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
+      - name: Deploy
+        run: |
+          npx wrangler pages project create akieniacademy-eembouz-com 2>/dev/null || true
+          npx wrangler pages deploy . --project-name=akieniacademy-eembouz-com
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN_AKIENI_ACADEMY }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
