@@ -3,29 +3,31 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Akienia Academy</title>
+    <title>Akieni Academy</title>
 
-    <link rel="stylesheet" href="css/pico.css" />
+    <link rel="stylesheet" href="css/index.css" />
   </head>
   <body>
     <main class="container">
-      <h1>Akienia Academy</h1>
-      <ul id="tps"></ul>
+      <h1>Akieni Academy</h1>
+      <ul id="tps" class="lists"></ul>
     </main>
 
     <script>
       fetch("/listing.json")
         .then((r) => r.json())
         .then(({ tps }) => {
+          console.log(tps);
           const ul = document.getElementById("tps");
           const li = document.createElement("li");
           ul.innerHTML = tps
             .map(
-              (tp) => `<li>
+              (tp) => `<li class="lists__item">
+                    <h2>${tp.name}</h2>
                   <a target="_blank" rel="noopener noreferrer" href="${tp.url}">
-                    <h2>${tp.title}</h2>
-                    <p>${tp.description}</p>
+                    <h3>${tp.title}</h3>
                   </a>
+                   <p>${tp.description}</p>
                 </li>`,
             )
             .join("");

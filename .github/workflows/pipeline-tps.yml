@@ -9,12 +9,25 @@ on:
 jobs:
   deploy-tps:
     runs-on: ubuntu-latest
-    permissions:
-      deployments: write
-
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: Check if changed
+        id: check
+        run: |
+          CHANGED=$(git diff --name-only HEAD~1 HEAD)
+          echo "Changing: $CHANGED"
+
+          if echo "$CHANGED" | grep -q "^tp"; then
+            echo "changed=true" >> $GITHUB_OUTPUT
+          else
+            echo "changed=false" >> $GITHUB_OUTPUT
+          fi
+
       - name: Deploy each TP
+        if: steps.check.outputs.changed == 'true'
         run: |
           chmod +x .github/scripts/deploy-tp.sh
           for dir in tp*/; do

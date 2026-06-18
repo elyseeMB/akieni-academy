@@ -1,0 +1,16 @@
+@import "./reset.css";
+@import "./comps/lists.css";
+@import "./layout.css";
+
+:root {
+  --background: black;
+  --color: white;
+}
+
+body {
+  color: var(--color);
+  height: 100vh;
+  background-color: var(--background);
+  font-family: monospace;
+  letter-spacing: -0.8px;
+}
