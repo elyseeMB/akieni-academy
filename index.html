@@ -17,7 +17,6 @@
       fetch("/listing.json")
         .then((r) => r.json())
         .then(({ tps }) => {
-          console.log(tps);
           const ul = document.getElementById("tps");
           const li = document.createElement("li");
           ul.innerHTML = tps
