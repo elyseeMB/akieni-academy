@@ -2,7 +2,7 @@ name: Deploy
 
 on:
   workflow_run:
-    workflows: ["Listing"]
+    workflows: ["Generate Listing"]
     types:
       - completed
 
