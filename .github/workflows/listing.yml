@@ -1,0 +1,26 @@
+name: Generate Listing
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  listing:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+      - run: npm install node-html-parser
+      - run: node .github/scripts/getMeta.mjs
+      - run: |
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git add listing.json
+          git diff --cached --quiet || git commit -m "update listing [skip ci]"
+          git push origin main
