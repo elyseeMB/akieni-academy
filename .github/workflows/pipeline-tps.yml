@@ -18,7 +18,7 @@ jobs:
         run: |
           for dir in tp*/; do
             name=$(basename $dir)
-            npx wrangler pages project create ${name}-akieniacademy-eembouz-com 2>/dev/null || true
+            npx wrangler pages project create ${name}-akieniacademy-eembouz-com || true
             npx wrangler pages deploy $dir \
               --project-name=${name}-akieniacademy-eembouz-com
           done
