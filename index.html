@@ -4,60 +4,14 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Akienia Academy</title>
-    <style>
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
 
-      body {
-        font-family: system-ui, sans-serif;
-        background: #0f0f0f;
-        color: #fff;
-        padding: 2rem;
-      }
-
-      h1 {
-        font-size: 2rem;
-        margin-bottom: 2rem;
-      }
-
-      #tp {
-        list-style: none;
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-        gap: 1rem;
-      }
-
-      #tp li a {
-        display: block;
-        padding: 1.5rem;
-        background: #1a1a1a;
-        border-radius: 8px;
-        text-decoration: none;
-        color: #fff;
-        transition: background 0.2s;
-      }
-
-      #tp li a:hover {
-        background: #2a2a2a;
-      }
-
-      #tp li a h2 {
-        font-size: 1.1rem;
-        margin-bottom: 0.5rem;
-      }
-
-      #tp li a p {
-        font-size: 0.9rem;
-        color: #888;
-      }
-    </style>
+    <link rel="stylesheet" href="css/pico.css" />
   </head>
   <body>
-    <h1>Akienia Academy</h1>
-    <ul id="tps"></ul>
+    <main class="container">
+      <h1>Akienia Academy</h1>
+      <ul id="tps"></ul>
+    </main>
 
     <script>
       fetch("/listing.json")
