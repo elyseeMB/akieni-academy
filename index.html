@@ -60,10 +60,21 @@
     <ul id="liste"></ul>
 
     <script>
-      const { tps } = await fetch('/listing.json').then(r => r.json());
-      document.getElementById('liste').innerHTML = tps
-        .map(tp => `<li><a href="${tp.url}">${tp.title}</a></li>`)
-        .join('');
+      fetch("/listing.json")
+        .then((r) => r.json())
+        .then(({ tps }) => {
+          document.getElementById("liste").innerHTML = tps
+            .map(
+              (tp) =>
+                html`<li>
+                  <a href="${tp.url}">
+                    <h2>${tp.title}</h2>
+                    <p>${tp.description}</p>
+                  </a>
+                </li>`,
+            )
+            .join("");
+        });
     </script>
   </body>
 </html>
