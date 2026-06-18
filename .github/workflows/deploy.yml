@@ -16,7 +16,7 @@ jobs:
       - uses: actions/checkout@v4
       - name: Deploy
         run: |
-          npnpx wrangler pages project create akieniacademy-eembouz-com \
+          npx wrangler pages project create akieniacademy-eembouz-com \
           --production-branch main || true
           npx wrangler pages deploy . --project-name=akieniacademy-eembouz-com
         env:
