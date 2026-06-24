@@ -1,0 +1,83 @@
+@import "./reset.css";
+
+@import "./blocks/navbar.css";
+@import "./blocks/btn.css";
+@import "./blocks/hero.css";
+@import "./blocks/pill.css";
+
+:root {
+  /* Color */
+
+  --background: #ffffff;
+  --foreground: #111111;
+  --secondary: #efefef;
+
+  --button-background-primary: #0075de;
+  --button-background-primary-hover: #005bab;
+  --button-secondary: #005bab;
+  --button-background-secondary: #e6f3fe;
+  --primary-foreground: var(--background);
+
+  --border: #efefef;
+  --text-base: 14px;
+  --text-md: calc(var(--text-base) * 1.2);
+  --text-lg: calc(var(--text-base) * 1.4);
+  --text-xl: calc(var(--text-base) * 3);
+  --text-2xl: calc(var(--text-base) * 4);
+  --text-3xl: calc(var(--text-base) * 4.8);
+  --text-4xl: calc(var(--text-base) * 5.8);
+  --text-5xl: calc(var(--text-base) * 6.8);
+
+  --rounded-full: calc((var(--text-base) + 2px) * 10);
+  --rounded: calc((var(--text-base) + 2px) * 0.5);
+  --font-sans: inter, sans-serif;
+  --leading-normal: 1;
+  --leading-1: 1.1;
+
+  --container-padding: 1rem;
+  --container-width: calc(100vw - var(--container-padding) * 2);
+
+  --background-dot: #e9d5ff;
+  --color-dot: #a855f7;
+
+  --size-pill-lg: calc(var(--text-base) * 2);
+  --size-pill-xl: var(--text-4xl);
+}
+
+@media only screen and(min-width: 900px) {
+  :root {
+    --container-padding: 1.5rem;
+  }
+}
+
+@media only screen and (min-width: 1200px) {
+  :root {
+    --container-padding: 6rem;
+  }
+}
+
+@media only screen and (min-width: 1920px) {
+  :root {
+    --container-padding: 22rem;
+  }
+}
+
+body {
+  width: 100%;
+  height: 100vh;
+  font-family: var(--font-sans);
+  font-size: var(--text-base);
+  display: flex;
+  flex-direction: column;
+}
+
+.layout_main,
+.container_base {
+  width: 100%;
+  height: 100%;
+  padding-inline: calc(50% - var(--container-width) / 2);
+}
+
+.layout_main {
+  padding-top: 70px;
+}
