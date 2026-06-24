@@ -14,7 +14,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          fetch-depth: 2
+          fetch-depth: 0
 
       - uses: actions/setup-node@v4
         with:
@@ -23,13 +23,11 @@ jobs:
       - run: npm install node-html-parser
       - run: node .github/scripts/getMeta.mjs
 
-      - name: Detect changed TPs
+      - name: changed TPs
         run: |
-          git diff --name-only HEAD^1 HEAD^2 | grep -oE "^tp[^/]+" | sort -u > changed-tps.txt
-          cat changed-tps.txt
+          git diff --name-only HEAD~1 HEAD | grep -oE "^tp[^/]+" | sort -u > changed-tps.txt
 
-      - name: Upload artifact
-        uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v4
         with:
           name: changed-tps
           path: changed-tps.txt
