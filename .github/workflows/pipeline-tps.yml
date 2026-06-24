@@ -3,37 +3,39 @@ name: Deploy TPs
 on:
   workflow_run:
     workflows: ["Generate Listing"]
-    types:
-      - completed
+    types: [completed]
+
+permissions:
+  actions: read
 
 jobs:
   deploy-tps:
     runs-on: ubuntu-latest
+    if: github.event.workflow_run.conclusion == 'success'
     steps:
       - uses: actions/checkout@v4
+
+      - uses: actions/download-artifact@v4
         with:
-          fetch-depth: 2
+          name: changed-tps
+          run-id: ${{ github.event.workflow_run.id }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Check if changed
-        id: check
-        run: |
-          CHANGED=$(git diff --name-only HEAD~1 HEAD)
-          echo "Changing: $CHANGED"
-
-          if echo "$CHANGED" | grep -q "^tp"; then
-            echo "changed=true" >> $GITHUB_OUTPUT
-          else
-            echo "changed=false" >> $GITHUB_OUTPUT
-          fi
-
-      - name: Deploy each TP
-        if: steps.check.outputs.changed == 'true'
+      - name: Deploy
         run: |
           chmod +x .github/scripts/deploy-tp.sh
-          for dir in tp*/; do
-            name=$(basename $dir)
-            .github/scripts/deploy-tp.sh $name
-          done
+
+          if [ ! -s changed-tps.txt ]; then
+            echo "skipping deploy"
+            exit 0
+          fi
+
+          while read name; do
+            [ -z "$name" ] && continue
+            echo "→ Deploying $name"
+            .github/scripts/deploy-tp.sh "$name"
+          done < changed-tps.txt
+
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN_AKIENI_ACADEMY }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
