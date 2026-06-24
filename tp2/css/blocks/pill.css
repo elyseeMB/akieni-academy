@@ -1,0 +1,38 @@
+.dot {
+  position: relative;
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  width: fit-content;
+  background: var(--background-dot);
+  border-radius: var(--rounded-full);
+  font-size: var(--size-pill-lg);
+  padding-block: 0.5rem;
+  padding-inline: 1rem;
+  font-weight: 600;
+}
+
+.dot::before {
+  display: block;
+  align-self: center;
+  content: "";
+  width: 15px;
+  height: 15px;
+  top: 0;
+  left: 0;
+  background-color: var(--color-dot);
+  border-radius: var(--rounded-full);
+}
+
+@media only screen and (min-width: 1200px) {
+  .dot {
+    font-size: var(--size-pill-xl);
+    padding-block: 0.5rem;
+    padding-inline: 2rem;
+  }
+
+  .dot::before {
+    width: 35px;
+    height: 35px;
+  }
+}
