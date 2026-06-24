@@ -13,26 +13,11 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-
       - uses: actions/setup-node@v4
         with:
           node-version: "24"
-
       - run: npm install node-html-parser
       - run: node .github/scripts/getMeta.mjs
-
-      - name: changed TPs
-        run: |
-          git diff --name-only HEAD~1 HEAD | grep -oE "^tp[^/]+" | sort -u > changed-tps.txt
-
-      - uses: actions/upload-artifact@v4
-        with:
-          name: changed-tps
-          path: changed-tps.txt
-          retention-days: 1
-
       - run: |
           git config user.name "github-actions"
           git config user.email "actions@github.com"
