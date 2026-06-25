@@ -3,8 +3,7 @@ name: Deploy TPs
 on:
   workflow_run:
     workflows: ["Generate Listing"]
-    types:
-      - completed
+    types: [completed]
 
 jobs:
   deploy-tps:
@@ -14,12 +13,13 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - name: Deploy changed TPs
+
+      - name: Deploy each TP
         run: |
           chmod +x .github/scripts/deploy-tp.sh
           SHA=${{ github.event.workflow_run.head_sha }}
           CHANGED=$(git diff --name-only $SHA~1 $SHA | grep -oE "^tp[^/]+" | sort -u)
-
+          
           while read name; do
             .github/scripts/deploy-tp.sh "$name"
           done <<< "$CHANGED"
