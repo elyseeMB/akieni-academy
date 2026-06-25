@@ -14,27 +14,15 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Check if TPs changed
-        id: check
-        run: |
-          SHA=${{ github.event.workflow_run.head_sha }}
-          CHANGED=$(git diff --name-only $SHA~1 $SHA)
-          echo "Changed: $CHANGED"
-
-          if echo "$CHANGED" | grep -q "^tp"; then
-            echo "changed=true" >> $GITHUB_OUTPUT
-          else
-            echo "changed=false" >> $GITHUB_OUTPUT
-          fi
-
       - name: Deploy each TP
-        if: steps.check.outputs.changed == 'true'
         run: |
           chmod +x .github/scripts/deploy-tp.sh
-          for dir in tp*/; do
-            name=$(basename $dir)
-            .github/scripts/deploy-tp.sh $name
-          done
+          SHA=${{ github.event.workflow_run.head_sha }}
+          CHANGED=$(git diff --name-only $SHA~1 $SHA | grep -oE "^tp[^/]+" | sort -u)
+          
+          while read name; do
+            .github/scripts/deploy-tp.sh "$name"
+          done <<< "$CHANGED"
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN_AKIENI_ACADEMY }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
