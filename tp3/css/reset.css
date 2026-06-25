@@ -25,6 +25,11 @@ a {
   color: inherit;
 }
 
+figure {
+  padding: 0;
+  margin: 0;
+}
+
 body {
   margin: 0;
   padding: 0;
