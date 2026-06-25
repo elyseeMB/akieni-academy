@@ -14,6 +14,7 @@
 
   --button-background-primary: #0075de;
   --button-background-primary-hover: #005bab;
+  --button-background-secondary-hover: #f2f9ff;
   --button-secondary: #005bab;
   --button-background-secondary: #e6f3fe;
   --primary-foreground: var(--background);

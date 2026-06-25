@@ -58,10 +58,8 @@ h6 {
 }
 
 a {
+  padding: 0;
+  margin: 0;
   text-decoration: none;
-}
-
-#root,
-#__next {
-  isolation: isolate;
+  color: inherit;
 }
