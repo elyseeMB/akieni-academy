@@ -9,31 +9,20 @@ on:
 jobs:
   deploy-tps:
     runs-on: ubuntu-latest
+    if: github.event.workflow_run.conclusion == 'success'
     steps:
       - uses: actions/checkout@v4
         with:
-          fetch-depth: 2
-
-      - name: Check if changed
-        id: check
-        run: |
-          CHANGED=$(git diff --name-only HEAD~1 HEAD)
-          echo "Changing: $CHANGED"
-
-          if echo "$CHANGED" | grep -q "^tp"; then
-            echo "changed=true" >> $GITHUB_OUTPUT
-          else
-            echo "changed=false" >> $GITHUB_OUTPUT
-          fi
-
-      - name: Deploy each TP
-        if: steps.check.outputs.changed == 'true'
+          fetch-depth: 0
+      - name: Deploy changed TPs
         run: |
           chmod +x .github/scripts/deploy-tp.sh
-          for dir in tp*/; do
-            name=$(basename $dir)
-            .github/scripts/deploy-tp.sh $name
-          done
+          SHA=${{ github.event.workflow_run.head_sha }}
+          CHANGED=$(git diff --name-only $SHA~1 $SHA | grep -oE "^tp[^/]+" | sort -u)
+
+          while read name; do
+            .github/scripts/deploy-tp.sh "$name"
+          done <<< "$CHANGED"
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN_AKIENI_ACADEMY }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
