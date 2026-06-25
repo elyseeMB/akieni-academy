@@ -1,0 +1,8 @@
+.taxonomy {
+  line-height: 1;
+  font-family: "JetBrains Mono", monospace;
+  font-size: var(--text-xs);
+  letter-spacing: -0.5px;
+  color: var(--contrast);
+  border-radius: 0.3rem;
+}

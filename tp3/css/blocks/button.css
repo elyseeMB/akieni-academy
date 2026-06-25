@@ -1,0 +1,26 @@
+.card-float-bottom button {
+  cursor: pointer;
+  border: none;
+  text-transform: uppercase;
+  aspect-ratio: 1 / 1;
+  background-color: var(--contrast);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.3rem;
+  padding: var(--space-md);
+}
+
+.card-float-bottom button svg {
+  width: 1.8em;
+  height: 1.8em;
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.card-float-bottom button + button {
+  border-left: 1px solid black;
+}
+
+.card-float-bottom button:hover svg {
+  transform: scale(1.2);
+}
