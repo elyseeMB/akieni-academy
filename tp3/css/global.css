@@ -10,8 +10,6 @@
   --space-xs: calc(var(--space-base) * 0.25);
   --space-sm: calc(var(--space-base) * 0.5);
   --space-md: calc(var(--space-base) * 1);
-  --space-lg: calc(var(--space-base) * 1.5);
-  --space-xl: calc(var(--space-base) * 2);
   --border: rgba(0, 0, 0, 0.1);
   --border-contrast: rgba(0, 0, 0, 0.26);
   --rounded-full: 100%;
@@ -20,6 +18,8 @@
   --text-sm: 14px;
   --text-xs: 12px;
   --contrast: rgb(249, 105, 52);
+
+  --font-sans: "inter", sans-serif;
 }
 
 body {
@@ -27,7 +27,7 @@ body {
   height: 100vh;
   display: grid;
   place-items: center;
-  font-family: "inter", sans-serif;
+  font-family: var(--font-sans);
   font-size: var(--text-base);
 }
 
@@ -48,5 +48,17 @@ body {
 @media (min-width: 1000px) {
   .grid {
     grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media (min-width: 1000px) {
+  .grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media (min-width: 1500px) {
+  .grid {
+    grid-template-columns: repeat(5, 1fr);
   }
 }
