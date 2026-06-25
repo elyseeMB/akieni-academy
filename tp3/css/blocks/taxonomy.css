@@ -5,7 +5,6 @@
   letter-spacing: -0.5px;
   color: var(--contrast);
   border-radius: 0.3rem;
-
   z-index: 5;
   opacity: 0.5;
   transition: 0.2s opacity;
