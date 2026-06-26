@@ -16,7 +16,6 @@ jobs:
       - uses: actions/checkout@v4
       - name: Deploy
         run: |
-          run: |
             chmod +x .github/scripts/deploy.sh
             .github/scripts/deploy.sh
         env:
