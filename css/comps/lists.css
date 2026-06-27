@@ -71,7 +71,7 @@ ul {
 }
 
 .lists__item--offline {
-  opacity: 0.5;
+  opacity: 0.3;
 }
 
 .lists__item--offline h3 {
