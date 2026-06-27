@@ -5,6 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Je me remets à la lecture | Elysee</title>
+  <meta name="description" content="Il est 3h du matin">
 
   <meta property="og:title" content="Je me remets à la lecture">
   <meta property="og:description" content="Il est 3h du matin">
@@ -25,8 +26,12 @@
   <link rel="icon"
     href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCAxMDAgMTAwJz48dGV4dCB5PScuOWVtJyBmb250LXNpemU9JzkwJz4mI3gxRjRENjs8L3RleHQ+PC9zdmc+">
 
-  <meta name="description" content="Il est 3h du matin">
-  <link rel="stylesheet" href="semanstyle.css">
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+    rel="stylesheet">
 </head>
 
 <body>
@@ -43,7 +48,7 @@
     <section aria-label="meta">
       <h1>Je me remets à la lecture</h1>
 
-      <p>
+      <p class="info">
         <time datetime="2026-06-18">18 juin</time>, Quelque part dans le monde
         <br>
         <span>griffonné par elysee</span>
@@ -147,7 +152,7 @@
       </aside>
     </section>
 
-    <section aria-label="references">
+    <section class="references" aria-label="references">
       <hr>
       <ol>
         <li id="fn1">
@@ -178,20 +183,8 @@
 
     <section aria-label="articles">
       <h2>Mes autres articles</h2>
-      <article>
-        <div>
-          <h3>
-            <a href="#">J'essaie de dormir plus</a>
-          </h3>
-          <p>
-            Il est temps de fermer le laptop avant que mes nuits ne fassent
-            moins de quatre heures.
-          </p>
-        </div>
-      </article>
-
-      <article>
-        <div>
+      <article class="card">
+        <div class="metadata">
           <h3>
             <a href="#">Apprendre à faire des sections de pause</a>
           </h3>
@@ -200,17 +193,21 @@
             j'avais oublié comment m'arrêter.
           </p>
         </div>
+        <div class="media">
+          <img
+            src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExdDhyOTljc3d3cndjMXZoam81cGFmeXVycmZvcTdkZjlhcDVrM2w4ZiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/ZtvZrRyujc4sST4fL1/giphy.gif"
+            alt="gif">
+        </div>
       </article>
     </section>
 
     <section aria-label="Newsletter" id="contact">
       <h2>Newsletter</h2>
-      <p>
-        S'abonner pour ne rater aucun nouvel article et news sur mon site...
-      </p>
       <form>
         <fieldset>
-          <legend>S'abonner à ma Newsletter</legend>
+          <legend>
+            S'abonner pour ne rater aucun nouvel article et news sur mon site
+          </legend>
           <label for="email">Email</label>
           <input type="email" id="email" name="email" placeholder="johnDoe@doe.com">
           <button type="submit">S'abonner</button>
