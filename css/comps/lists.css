@@ -70,6 +70,19 @@ ul {
   text-decoration: line-through;
 }
 
+.lists__item--offline {
+  opacity: 0.5;
+}
+
+.lists__item--offline h3 {
+  text-decoration: line-through;
+}
+
+.lists__item--offline p {
+  text-decoration: line-through;
+}
+
+
 @media only screen and (min-width: 900px) {
   .lists__item a::after {
     content: "=>";
