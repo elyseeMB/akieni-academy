@@ -64,6 +64,25 @@ ul {
   content: none;
 }
 
+[aria-disabled="true"] {
+  opacity: 0.3;
+  cursor: not-allowed;
+  text-decoration: line-through;
+}
+
+.lists__item--offline {
+  opacity: 0.3;
+}
+
+.lists__item--offline h2 {
+  text-decoration: line-through;
+}
+
+.lists__item--offline p {
+  text-decoration: line-through;
+}
+
+
 @media only screen and (min-width: 900px) {
   .lists__item a::after {
     content: "=>";
