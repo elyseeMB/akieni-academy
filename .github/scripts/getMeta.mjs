@@ -13,6 +13,13 @@ function extractTitle(root) {
   return root.querySelector("title")?.text ?? "";
 }
 
+function extractStatus(root) {
+  return (
+    root.querySelector('meta[name="status"]')?.getAttribute("content") ??
+    "online"
+  );
+}
+
 function extractDescription(root) {
   return (
     root.querySelector('meta[name="description"]')?.getAttribute("content") ??
@@ -27,6 +34,7 @@ function buildTP(folder) {
     title: extractTitle(root),
     description: extractDescription(root),
     url: `https://${folder}.akieniacademy.eembouz.com`,
+    status: extractStatus(root),
   };
 }
 
