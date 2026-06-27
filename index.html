@@ -1,36 +1,44 @@
 <!doctype html>
 <html lang="fr">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Akieni Academy</title>
 
-    <link rel="stylesheet" href="css/index.css" />
-  </head>
-  <body>
-    <main class="container">
-      <h1>(Tp)</h1>
-      <ul id="tps" class="lists"></ul>
-    </main>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Akieni Academy</title>
+  <link rel="stylesheet" href="css/index.css" />
+</head>
 
-    <script>
-      fetch("/listing.json")
-        .then((r) => r.json())
-        .then(({ tps }) => {
-          const ul = document.getElementById("tps");
-          const li = document.createElement("li");
-          ul.innerHTML = tps
-            .map(
-              (tp) => `<li class="lists__item">
-                    <h2>${tp.name}</h2>
+<body>
+  <main class="container">
+    <h1>(Tps)</h1>
+    <ul id="tps" class="lists"></ul>
+  </main>
+
+  <script>
+    fetch("/listing.json")
+      .then((r) => r.json())
+      .then(({ tps }) => {
+        const ul = document.getElementById("tps");
+        const li = document.createElement("li");
+        ul.innerHTML = tps
+          .map(
+            (tp) => `
+            <li class="lists__item">
+              <div class="lists__item-info">
+                <h2>${tp.name}</h2>
+                <h3>
                   <a target="_blank" rel="noopener noreferrer" href="${tp.url}">
-                    <h3>${tp.title}</h3>
+                    ${tp.title}
                   </a>
-                   <p>${tp.description}</p>
-                </li>`,
-            )
-            .join("");
-        });
-    </script>
-  </body>
+                </h3>
+                <p>${tp.description}</p>
+              </div>
+              ${tp.status === "offline" ? `<span class="status--offline">${tp.status}</span>` : ""}
+            </li>`,
+          )
+          .join("");
+      });
+  </script>
+</body>
+
 </html>

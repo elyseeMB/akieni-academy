@@ -19,8 +19,15 @@ jobs:
           chmod +x .github/scripts/deploy-tp.sh
           SHA=${{ github.event.workflow_run.head_sha }}
           CHANGED=$(git diff --name-only $SHA~1 $SHA | grep -oE "^tp[^/]+" | sort -u)
-          
+
           while read name; do
+            STATUS=$(node .github/scripts/getStatus.mjs "$name")
+
+            if [ "$STATUS" = "offline" ]; then
+              echo "$name disabled, skip"
+              continue
+            fi
+
             .github/scripts/deploy-tp.sh "$name"
           done <<< "$CHANGED"
         env:
