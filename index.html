@@ -27,9 +27,12 @@
               <div class="lists__item-info">
                 <h2>${tp.name}</h2>
                 <h3>
-                  <a target="_blank" rel="noopener noreferrer" href="${tp.url}">
-                    ${tp.title}
-                  </a>
+                  <h3>
+                    ${tp.status === 'offline' 
+                      ? `<span aria-disabled="true">${tp.title}</span>`
+                      : `<a target="_blank" rel="noopener noreferrer" href="${tp.url}">${tp.title}</a>`
+                      }
+                  </h3>
                 </h3>
                 <p>${tp.description}</p>
               </div>
