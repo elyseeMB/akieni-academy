@@ -23,7 +23,7 @@
         ul.innerHTML = tps
           .map(
             (tp) => `
-            <li class="lists__item">
+            <li class="lists__item ${tp.status === 'offline' ? 'lists__item--offline' : ''}">
               <div class="lists__item-info">
                 <h2>${tp.name}</h2>
                 <h3>
