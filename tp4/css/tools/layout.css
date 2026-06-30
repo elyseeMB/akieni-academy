@@ -1,0 +1,10 @@
+:root {
+  --container-padding: 2rem;
+  --container-width: calc(100vw - var(--container-padding) * 2);
+}
+
+.container,
+.wrapper {
+  width: 100%;
+  padding-inline: calc(50% - var(--container-width) / 2);
+}

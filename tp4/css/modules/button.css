@@ -1,0 +1,31 @@
+.button {
+  border: none;
+  padding-block: var(--space-xs);
+  padding-inline: var(--space-xs);
+  border-radius: var(--rounded-sm);
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  font-size: var(--text-xs);
+  line-height: 1;
+  font-weight: 400;
+  cursor: pointer;
+}
+
+.button_primary {
+  background-blend-mode: soft-light, normal;
+  background: var(--bg-button-primary);
+}
+
+.button_primary:hover {
+  background: var(--bg-button-primary-hover);
+}
+
+.button_secondary {
+  background-blend-mode: soft-light, normal;
+  background: var(--bg-button-secondary);
+  color: var(--color-foreground);
+}
+
+.button_secondary:hover {
+  background: var(--bg-button-secondary-hover);
+}
