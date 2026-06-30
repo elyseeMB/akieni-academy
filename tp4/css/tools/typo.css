@@ -1,0 +1,28 @@
+:root {
+  --text-xs: calc(var(--text-base) / pow(var(--ratio), 2));
+  --text-sm: calc(var(--text-base) / pow(var(--ratio), 1));
+  --text-md: calc(var(--text-base) * pow(var(--ratio), 1));
+  --text-lg: calc(var(--text-base) * pow(var(--ratio), 2));
+  --text-xl: calc(var(--text-base) * pow(var(--ratio), 3));
+  --text-2xl: calc(var(--text-base) * pow(var(--ratio), 4));
+  --text-3xl: calc(var(--text-base) * pow(var(--ratio), 5));
+  --text-4xl: calc(var(--text-base) * pow(var(--ratio), 6));
+}
+
+h1 {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-size: var(--text-xl);
+}
+
+p,
+body {
+  font-family: var(--font-sans);
+  font-size: var(--text-base);
+  background-color: var(--background);
+  color: var(--color-foreground);
+}
+
+p {
+  padding-block: var(--space-xs);
+}
