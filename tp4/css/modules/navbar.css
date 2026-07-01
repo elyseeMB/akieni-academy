@@ -20,7 +20,9 @@
 
 .globalNavigation_links {
   display: flex;
-  gap: var(--space-xl);
+  gap: var(--space-base);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
 }
 
 .globalNavigation_wrp__link {

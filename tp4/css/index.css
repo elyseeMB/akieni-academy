@@ -7,6 +7,9 @@
 @import "./modules/navbar.css";
 @import "./modules/hero.css";
 @import "./modules/button.css";
+@import "./modules/video.css";
+
+@import "./sections/projects.css";
 
 :root {
   --font-mono: "Geist Mono", monospace;
@@ -53,4 +56,18 @@
   --bg-button-secondary: linear-gradient(180deg, #fff3 0%, #fff0 100%), #131313;
   --bg-button-secondary-hover: #212224;
   --bg-button-primary-hover: #d3d3d3;
+}
+
+.homepageHero_heroContainer {
+  display: flex;
+  height: calc(100vh - 70px);
+  width: 100%;
+  align-items: end;
+  padding-bottom: var(--space-2xl);
+}
+
+.homepageHero_typography {
+  line-height: 0.8;
+  font-size: 5rem;
+  text-wrap: balance;
 }

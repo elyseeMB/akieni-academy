@@ -15,7 +15,6 @@ h1 {
   font-size: var(--text-xl);
 }
 
-p,
 body {
   font-family: var(--font-sans);
   font-size: var(--text-base);
@@ -24,5 +23,8 @@ body {
 }
 
 p {
+  font-family: var(--font-sans);
+  font-size: var(--text-base);
   padding-block: var(--space-xs);
+  color: var(--color-foreground);
 }
