@@ -13,6 +13,7 @@
   align-items: center;
   filter: blur(50%);
   border-bottom: 1px solid var(--border-color);
+  z-index: 100;
 }
 
 .globalNavigation_wrapper {

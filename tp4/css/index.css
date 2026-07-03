@@ -10,6 +10,7 @@
 @import "./modules/video.css";
 @import "./modules/container.css";
 @import "./modules/input.css";
+@import "./modules/img.css";
 
 @import "./sections/projects.css";
 @import "./sections/heroSection.css";
@@ -43,6 +44,7 @@
 
   /* Transition */
   --transition: 0.1s;
+  --transition-smooth: 0.4s;
 
   /* Rounded */
   --ratio-rounded: 6;
