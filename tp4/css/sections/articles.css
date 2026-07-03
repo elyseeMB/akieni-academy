@@ -90,12 +90,8 @@
   }
 
   &:hover {
-    text-decoration: underline;
+    background-color: var(--border-color);
   }
-}
-
-.homepageGrid-item:hover .homepageGrid_left__img {
-  opacity: 0.8;
 }
 
 .homepageGrid_left__item-taxonomy {

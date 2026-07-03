@@ -74,7 +74,6 @@
 
 .blogpageGrid__secondary-item__info h2 {
   font-size: var(--text-xs);
-  color: white;
   padding: 0;
 }
 
@@ -93,14 +92,13 @@
   }
 
   &:hover {
-    text-decoration: underline;
+    background-color: var(--border-color);
   }
 }
 
 .blogpageGrid__secondary-item__meta {
   font-size: var(--text-xs);
   font-family: var(--font-mono);
-  color: white;
 }
 
 /* ----main---- */
@@ -140,7 +138,6 @@
   font-size: var(--text-xl);
   line-height: 1.2;
   padding: 0;
-  color: white;
 }
 
 .blogpageGrid__main-item__info a {
@@ -158,14 +155,13 @@
   }
 
   &:hover {
-    text-decoration: underline;
+    background-color: var(--border-color);
   }
 }
 
 .blogpageGrid__main-item__meta {
   font-size: var(--text-xs);
   font-family: var(--font-mono);
-  color: white;
 }
 
 /* ----aside---- */
@@ -210,7 +206,7 @@
   }
 
   &:hover {
-    text-decoration: underline;
+    background-color: var(--border-color);
   }
 }
 
