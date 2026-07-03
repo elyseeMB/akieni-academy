@@ -11,7 +11,7 @@
 }
 
 .heroGrid {
-  --i: calc(532px - var(--space-xl));
+  --i: calc(100% - var(--space-xl));
   /* margin-block: auto; */
   display: grid;
   min-height: var(--globalNavigation-height);
