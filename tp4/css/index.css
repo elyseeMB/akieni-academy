@@ -8,8 +8,12 @@
 @import "./modules/hero.css";
 @import "./modules/button.css";
 @import "./modules/video.css";
+@import "./modules/container.css";
+@import "./modules/input.css";
 
 @import "./sections/projects.css";
+@import "./sections/heroSection.css";
+@import "./sections/articles.css";
 
 :root {
   --font-mono: "Geist Mono", monospace;
@@ -32,15 +36,13 @@
   --space-2xl: calc(var(--space-base) * pow(var(--ratio), 4));
   --space-3xl: calc(var(--space-base) * pow(var(--ratio), 5));
 
-  --background: #060606;
-  --color-foreground: #fff;
+  --background: #fff;
+  --color-foreground: #060606;
   --color-secondary-foreground: #888;
+  --border-color: #e6e6e6;
 
   /* Transition */
   --transition: 0.1s;
-
-  /* Metier */
-  --globalNavigation-height: 70px;
 
   /* Rounded */
   --ratio-rounded: 6;
@@ -56,14 +58,10 @@
   --bg-button-secondary: linear-gradient(180deg, #fff3 0%, #fff0 100%), #131313;
   --bg-button-secondary-hover: #212224;
   --bg-button-primary-hover: #d3d3d3;
-}
 
-.homepageHero_heroContainer {
-  display: flex;
-  height: calc(100vh - 70px);
-  width: 100%;
-  align-items: end;
-  padding-bottom: var(--space-2xl);
+  /* Metier */
+  --globalNavigation-height: 120px;
+  --border-width: 1px;
 }
 
 .homepageHero_typography {

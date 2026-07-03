@@ -1,0 +1,7 @@
+.homepageHero_heroContainer {
+  max-width: 1400px;
+  margin: 0 auto;
+  overflow: hidden;
+  margin-inline: calc(var(--space-xl) * -1);
+  padding-inline: var(--space-xl);
+}
