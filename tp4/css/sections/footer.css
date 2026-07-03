@@ -27,6 +27,11 @@
 .footerGrid_left a {
   text-decoration: none;
   color: inherit;
+  transition: var(--transition);
+}
+
+.footerGrid_left a:hover {
+  background-color: var(--border-color);
 }
 
 /*  */

@@ -33,6 +33,19 @@
 
 .globalNavigation_wrp__link {
   position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.2rem;
+  width: fit-content;
+}
+
+.globalNavigation_wrp__logo {
+  width: 11px;
+  height: 11px;
+}
+
+.globalNavigation_wrp__link:hover {
+  background-color: var(--border-color);
 }
 
 .globalNavigation_middle {
@@ -110,8 +123,4 @@
   color: inherit;
   text-transform: uppercase;
   transition: var(--transition);
-}
-
-.globalNavigation_link:hover {
-  color: var(--color-foreground);
 }

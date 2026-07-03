@@ -11,15 +11,22 @@
 
 .projectspageGrid {
   display: grid;
-  grid-template-columns: repeat(8, 1fr);
-  grid-template-rows: repeat(6, 1fr);
+  grid-template-columns: repeat(8, minmax(0, 1fr));
+  grid-template-rows: repeat(6, minmax(0, 1fr));
   gap: var(--space-xs);
   padding-block: var(--space-3xl);
   font-family: var(--font-mono);
   font-size: var(--text-xs);
 }
 
+.projectspageGrid > * {
+  min-width: 0;
+  min-height: 0;
+}
+
 .projectspageGrid > img {
+  width: 100%;
+
   height: auto;
   object-fit: cover;
   aspect-ratio: 1 / 1;

@@ -14,7 +14,7 @@
   /* margin-block: auto; */
   display: grid;
   min-height: var(--globalNavigation-height);
-  grid-template-columns: repeat(8, 1fr);
+  grid-template-columns: repeat(8, minmax(0, 1fr));
   border-bottom: var(--border-width) solid var(--border-color);
   padding-block: var(--space-xs);
   margin-inline: calc(var(--i) * -1);
