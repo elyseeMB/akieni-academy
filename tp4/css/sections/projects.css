@@ -1,0 +1,105 @@
+.projectspage_Container {
+  padding-block: var(--space-2xl);
+}
+
+.projectspage__title {
+  font-family: var(--font-serif);
+  line-height: 1;
+  font-size: var(--text-4xl);
+}
+
+.projectspageGrid {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  grid-template-rows: repeat(8, 1fr);
+  gap: var(--space-xs);
+  padding-block: var(--space-3xl);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+}
+
+.projectspageGrid > img {
+  height: auto;
+  object-fit: cover;
+  aspect-ratio: 1 / 1;
+}
+
+.projectspageGrid > div {
+  height: 100%;
+}
+
+.projectspage__item-1 {
+  grid-area: 1 / 1 / 5 / 5;
+}
+
+.projectspage__item-2 {
+  grid-area: 1 / 5 / 2 / 6;
+  border-top: 1px solid var(--color-secondary-foreground);
+  margin-inline: calc(var(--space-xs) * -1);
+  padding-inline: var(--space-xs);
+}
+
+.projectspage__item-3 {
+  grid-area: 2 / 5 / 3 / 7;
+}
+
+.projectspage__item-4 {
+  border-top: 1px solid var(--color-secondary-foreground);
+  margin-inline: calc(var(--space-xs) * -1);
+  padding-inline: var(--space-xs);
+  grid-area: 2 / 7 / 4 / 8;
+}
+/*  */
+
+.projectspage__item-5 {
+  background: red;
+  grid-area: 3 / 5 / 5 / 9;
+}
+
+.projectspage__item-6 {
+  grid-area: 3 / 3 / 4 / 5;
+}
+
+.projectspage__item-5_1 {
+  grid-area: 4 / 4 / 5 / 5;
+  border-top: 1px solid var(--color-secondary-foreground);
+  margin-inline: calc(var(--space-xs) * -1);
+  padding-inline: var(--space-xs);
+}
+
+.projectspage__item-7 {
+  grid-area: 3 / 2 / 4 / 3;
+  border-top: 1px solid var(--color-secondary-foreground);
+  margin-inline: calc(var(--space-xs) * -1);
+  padding-inline: var(--space-xs);
+}
+
+.projectspage__item-8 {
+  grid-area: 5 / 3 / 5 / 5;
+}
+
+.projectspage__item-8_1 {
+  grid-area: 5 / 2 / 5 / 3;
+  border-top: 1px solid var(--color-secondary-foreground);
+  margin-inline: calc(var(--space-xs) * -1);
+  padding-inline: var(--space-xs);
+}
+
+.projectspage__item-9 {
+  grid-area: 5 / 5 / 5 / 7;
+}
+
+.projectspage__item-9_1 {
+  border-top: 1px solid var(--color-secondary-foreground);
+  margin-inline: calc(var(--space-xs) * -1);
+  padding-inline: var(--space-xs);
+  grid-area: 5 / 7 / 5 / 8;
+}
+
+/*
+.projectspage__item-8 {
+  grid-area: 3 / 1 / 5 / 2;
+  border-top: 1px solid var(--color-secondary-foreground);
+  margin-inline: calc(var(--space-xs) * -1);
+  padding-inline: var(--space-xs);
+}  */

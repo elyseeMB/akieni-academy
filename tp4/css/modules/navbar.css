@@ -4,32 +4,110 @@
   left: 0;
   height: var(--globalNavigation-height);
   width: 100%;
-  /* background-color: var(--background); */
+  margin: 0 auto;
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  backdrop-filter: blur(20px);
+  background-color: transparent;
   display: flex;
   align-items: center;
+  filter: blur(50%);
+  border-bottom: 1px solid var(--border-color);
 }
 
 .globalNavigation_wrapper {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
   width: 100%;
+  max-width: 1400px;
   mix-blend-mode: exclusion;
   padding-block: var(--space-xs);
 }
 
 .globalNavigation_links {
   display: flex;
-  gap: var(--space-xl);
+  flex-direction: column;
+  cursor: pointer;
 }
 
 .globalNavigation_wrp__link {
   position: relative;
 }
 
+.globalNavigation_middle {
+  --cross-size: var(--text-sm);
+  --cross-stroke: 1.8px;
+  --border-width: 1px;
+  position: relative;
+  margin-block: calc(var(--space-xs) * -1);
+  padding-block: var(--space-xs);
+  padding-inline-start: var(--space-xs);
+  border-left: var(--border-width) solid var(--border-color);
+  align-self: start;
+  grid-column: 4;
+
+  &::before,
+  &::after {
+    content: "";
+    position: absolute;
+    background: var(--color-secondary-foreground);
+    left: calc(var(--border-width) / -2);
+    bottom: 0;
+  }
+
+  &::before {
+    width: var(--cross-size);
+    height: var(--cross-stroke);
+    transform: translate(-50%, 50%);
+  }
+
+  &::after {
+    width: var(--cross-stroke);
+    height: var(--cross-size);
+    transform: translate(-50%, 50%);
+  }
+}
+
+.globalNavigation_end {
+  --cross-size: var(--text-sm);
+  --cross-stroke: 1.8px;
+  --border-width: 1px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  margin-block: calc(var(--space-xs) * -1);
+  padding-block: var(--space-xs);
+  padding-inline-start: var(--space-xs);
+  border-left: var(--border-width) solid var(--border-color);
+  grid-column: 8;
+
+  &::before,
+  &::after {
+    content: "";
+    position: absolute;
+    background: var(--color-secondary-foreground);
+    left: calc(var(--border-width) / -2);
+    bottom: 0;
+  }
+
+  &::before {
+    width: var(--cross-size);
+    height: var(--cross-stroke);
+    transform: translate(-50%, 50%);
+  }
+
+  &::after {
+    width: var(--cross-stroke);
+    height: var(--cross-size);
+    transform: translate(-50%, 50%);
+  }
+}
+
 .globalNavigation_link {
   text-decoration: none;
-  color: var(--color-secondary-foreground);
+  color: inherit;
+  text-transform: uppercase;
   transition: var(--transition);
 }
 

@@ -1,10 +1,11 @@
 :root {
-  --container-padding: 2rem;
-  --container-width: calc(100vw - var(--container-padding) * 2);
+  --container-padding: var(--space-xl);
+  --container-width: calc(100% - var(--container-padding) * 2);
 }
 
 .container,
 .wrapper {
   width: 100%;
-  padding-inline: calc(50% - var(--container-width) / 2);
+  padding-inline: var(--container-padding);
+  margin-inline: auto;
 }

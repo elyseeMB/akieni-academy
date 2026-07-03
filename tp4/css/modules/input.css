@@ -1,0 +1,11 @@
+fieldset {
+  display: flex;
+  flex-direction: row-reverse;
+  font-size: var(--text-xs);
+}
+
+.input_search {
+  border: none;
+  border-bottom: var(--border-width) solid var(--color-secondary-foreground);
+  z-index: 5 !important;
+}

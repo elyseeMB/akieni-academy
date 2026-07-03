@@ -1,0 +1,11 @@
+.heroVideo {
+  position: absolute;
+  top: 0;
+  left: 0;
+  object-fit: cover;
+  width: 100vw;
+  height: 100vh;
+  opacity: 0.4;
+  filter: grayscale(1.2);
+  z-index: -10;
+}
