@@ -52,7 +52,7 @@
                     <a class="globalNavigation_link" href="#projects">Twitter</a>
                     <svg class="globalNavigation_wrp__logo" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round" class="lucide lucide-move-up-right-icon lucide-move-up-right">
+                        stroke-linejoin="round">
                         <path d="M13 5H19V11" />
                         <path d="M19 5L5 19" />
                     </svg>
@@ -61,7 +61,7 @@
                     <a class="globalNavigation_link" href="#about">Pinterest</a>
                     <svg class="globalNavigation_wrp__logo" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round" class="lucide lucide-move-up-right-icon lucide-move-up-right">
+                        stroke-linejoin="round">
                         <path d="M13 5H19V11" />
                         <path d="M19 5L5 19" />
                     </svg>
@@ -70,7 +70,7 @@
                     <a class="globalNavigation_link" href="#contact">Newsletter</a>
                     <svg class="globalNavigation_wrp__logo" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round" class="lucide lucide-move-up-right-icon lucide-move-up-right">
+                        stroke-linejoin="round">
                         <path d="M13 5H19V11" />
                         <path d="M19 5L5 19" />
                     </svg>
@@ -80,13 +80,6 @@
     </header>
 
     <main class="layout_main wrapper">
-        <!-- <h1 class="layout-main_title">Open House</h1>
-        <p class="layout-main_description">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod corrupti voluptatem, deserunt magnam
-            voluptatum maxime reiciendis non commodi quos eaque expedita neque deleniti! Ex voluptatem harum hic, eum
-            repellat quisquam!
-        </p> -->
-
 
         <!-- <video class="heroVideo" autoplay loop muted preload="metadata" src="public/img/hero.mp4"></video> -->
 
@@ -101,9 +94,9 @@
                         </p>
                     </div>
                     <div class="heroGrid_right">
-                        <h2 class="heroGrid_left__title">
+                        <span class="heroGrid_left__title">
                             [Magazine]
-                        </h2>
+                        </span>
                         <form>
                             <fieldset>
                                 <label for="search">Search</label>
@@ -118,20 +111,25 @@
                             <img src="public/img/1.jpeg" alt="img">
                         </figure>
                         <div class="heroGrid_current_taxonomies">
-                            <span>mode</span>
-                            <span>luxe</span>
+                            <span>[mode]</span>
+                            <span>[luxe]</span>
                         </div>
-                        <h2 class="heroGrid_current_title">Empathy shapes everything we
-                            create, from the first
-                            impression to the final detail.
-                        </h2>
+                        <h1 class="heroGrid_current_title">
+                            <a href="#">
+                                Empathy shapes everything we
+                                create, from the first
+                                impression to the final detail.
+                            </a>
+                        </h1>
                         <p class="heroGrid_current_description">
                             Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid, enim officiis asperiores
                             tenetur distinctio incidunt corporis saepe optio perferendis neque sequi vitae dolores
                             quidem sapiente eos debitis in, alias doloribus?
                         </p>
                         <div class="heroGrid_current-action">
-                            <button class="button button_primary">Read article</button>
+                            <a href="#" class="button button_primary">
+                                Read article
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -140,90 +138,124 @@
 
 
         <section class="homepageGrid_Container max-w-layout">
-            <!-- <h2 class="homepageGrid__title">Empathy shapes everything we
+            <h2 class="homepageGrid__title">Empathy shapes everything we
                 create, from the first
-                impression to the final detail.</h2> -->
-            <div class="homepageGrid ">
+                impression to the final detail.</h2>
+            <div class="homepageGrid">
                 <article class="homepageGrid-item">
-                    <div> <span class="homepageGrid_left__item-title">[Lorem ipsum dolor]</span>
-                        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Optio quia sapiente amet odio modi
-                        </p>
+                    <div class="homepageGrid-item__wrapper">
+                        <span class="homepageGrid_left__item-taxonomy">[Lorem ipsum dolor]
+                        </span>
+                        <h2 class="homepageGrid_left__item-title">
+                            <a href="#">
+                                Lorem ipsum, dolor sit amet consectetur
+                                adipisicing elit. Optio quia sapiente amet odio modi
+                            </a>
+                        </h2>
                     </div>
                     <figure>
                         <img class="homepageGrid_left__img" src="public/img/2.jpeg" alt="img">
                     </figure>
                 </article>
                 <article class="homepageGrid-item">
-                    <div>
-                        <span class="homepageGrid_left__item-title">[Lorem ipsum dolor]</span>
-                        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Optio quia sapiente amet odio modi
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                        </p>
+                    <div class="homepageGrid-item__wrapper">
+                        <span class="homepageGrid_left__item-taxonomy">[Lorem ipsum dolor]
+                        </span>
+                        <h2 class="homepageGrid_left__item-title">
+                            <a href="#">
+                                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Aliquid eius minus quidem odit
+                                rem ullam molestiae, sequi
+                            </a>
+                        </h2>
                     </div>
                     <figure>
                         <img class="homepageGrid_left__img" src="public/img/3.jpeg" alt="img">
                     </figure>
                 </article>
                 <article class="homepageGrid-item">
-                    <div><span class="homepageGrid_left__item-title">[Lorem ipsum dolor]</span>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad, voluptatem optio. Reprehenderit
-                            perferendis obcaecati,
-                        </p>
+                    <div class="homepageGrid-item__wrapper">
+                        <span class="homepageGrid_left__item-taxonomy">[Lorem ipsum dolor]
+                        </span>
+                        <h2 class="homepageGrid_left__item-title">
+                            <a href="#">
+                                Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+                            </a>
+                        </h2>
                     </div>
                     <figure>
                         <img class="homepageGrid_left__img" src="public/img/4.jpeg" alt="img">
                     </figure>
                 </article>
                 <article class="homepageGrid-item">
-                    <div> <span class="homepageGrid_left__item-title">[Lorem ipsum dolor]</span>
-                        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Optio quia sapiente amet odio modi
-                        </p>
+                    <div class="homepageGrid-item__wrapper">
+                        <span class="homepageGrid_left__item-taxonomy">[Lorem ipsum dolor]
+                        </span>
+                        <h2 class="homepageGrid_left__item-title">
+                            <a href="#">
+                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Exercitationem blanditiis
+                                doloremque expedita, laboriosam
+                            </a>
+                        </h2>
                     </div>
                     <figure>
                         <img class="homepageGrid_left__img" src="public/img/5.jpeg" alt="img">
                     </figure>
                 </article>
                 <article class="homepageGrid-item">
-                    <div> <span class="homepageGrid_left__item-title">[Lorem ipsum dolor]</span>
-                        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Expedita provident culpa eveniet
-                            optio libero, odio laborum tempore voluptatum, dolores non in ipsa cupiditate deleniti
-                            reprehenderit accusantium sint animi pariatur ab.
-                        </p>
+                    <div class="homepageGrid-item__wrapper">
+                        <span class="homepageGrid_left__item-taxonomy">[Lorem ipsum dolor]
+                        </span>
+                        <h2 class="homepageGrid_left__item-title">
+                            <a href="#">
+                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae quas rerum
+                                eligendi. Praesentium velit
+                            </a>
+                        </h2>
                     </div>
                     <figure>
                         <img class="homepageGrid_left__img" src="public/img/6.jpeg" alt="img">
                     </figure>
                 </article>
                 <article class="homepageGrid-item">
-                    <div>
-                        <span class="homepageGrid_left__item-title">[Lorem ipsum dolor]</span>
-                        <p>
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur maxime blanditiis autem
-                            similique suscipit.
-                        </p>
+                    <div class="homepageGrid-item__wrapper">
+                        <span class="homepageGrid_left__item-taxonomy">[Lorem ipsum dolor]
+                        </span>
+                        <h2 class="homepageGrid_left__item-title">
+                            <a href="#">
+                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est dolores molestias nisi
+                                nesciunt quia! Quibusdam
+                            </a>
+                        </h2>
                     </div>
                     <figure>
                         <img class="homepageGrid_left__img" src="public/img/7.jpeg" alt="img">
                     </figure>
                 </article>
                 <article class="homepageGrid-item">
-                    <div>
-                        <span class="homepageGrid_left__item-title">[Lorem ipsum dolor]</span>
-                        <p>
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae asperiores iusto repellat
-                            incidunt laborum sapiente, neque quos itaque eveniet vel? Ipsa voluptatum illo blanditiis
-                            odio nihil fugit reiciendis laboriosam iste!
-                        </p>
+                    <div class="homepageGrid-item__wrapper">
+                        <span class="homepageGrid_left__item-taxonomy">[Lorem ipsum dolor]
+                        </span>
+                        <h2 class="homepageGrid_left__item-title">
+                            <a href="#">
+                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod, dolore veritatis! Iure
+                                repudiandae cupiditate, ullam illo pariatur
+                            </a>
+                        </h2>
                     </div>
                     <figure>
                         <img class="homepageGrid_left__img" src="public/img/8.jpeg" alt="img">
                     </figure>
                 </article>
                 <article class="homepageGrid-item">
-                    <div>
-                        <span class="homepageGrid_left__item-title">[Lorem ipsum dolor]</span>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure culpa tempora blanditiis nulla
-                            corporis.</p>
+                    <div class="homepageGrid-item__wrapper">
+                        <span class="homepageGrid_left__item-taxonomy">[Lorem ipsum dolor]
+                        </span>
+                        <h2 class="homepageGrid_left__item-title">
+                            <a href="#">
+                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis nemo voluptates,
+                                suscipit optio odit corporis
+                            </a>
+                        </h2>
                     </div>
                     <figure>
                         <img class="homepageGrid_left__img" src="public/img/9.jpeg" alt="img">
@@ -239,22 +271,21 @@
                 Projects.</h2>
 
             <div class="projectspageGrid">
-                <img class="projectspage__item-1" src="public/img/7.jpeg" alt="img">
+                <a class="projectspage__item-1" href="#"><img src="public/img/7.jpeg" alt="img"></a>
                 <div class="projectspage__item-2">Zofie Chylack</div>
-                <img class="projectspage__item-3" src="public/img/3.jpeg" alt="img">
+                <a class="projectspage__item-3" href="#"><img src="public/img/3.jpeg" alt="img"></a>
                 <div class="projectspage__item-4">Zofie Chylack</div>
                 <!--  -->
-                <img class="projectspage__item-5" src="public/img/10.jpeg" alt="img">
+                <a class="projectspage__item-5" href="#"><img src="public/img/10.jpeg" alt="img"></a>
                 <div class="projectspage__item-5_1">Zofie Chylack</div>
-                <img class="projectspage__item-6" src="public/img/14.jpeg" alt="img">
+                <a class="projectspage__item-6" href="#"><img src="public/img/14.jpeg" alt="img"></a>
                 <div class="projectspage__item-7">Zofie Chylack</div>
                 <!--  -->
-                <img class="projectspage__item-8" src="public/img/7.jpeg" alt="img">
+                <a class="projectspage__item-8" href="#"><img src="public/img/7.jpeg" alt="img"></a>
                 <div class="projectspage__item-8_1">Zofie Chylack</div>
-                <img class="projectspage__item-9" src="public/img/1.jpeg" alt="img">
+                <a class="projectspage__item-9" href="#"><img src="public/img/1.jpeg" alt="img"></a>
                 <div class="projectspage__item-9_1">Zofie Chylack</div>
                 <!--  -->
-
                 <div class="projectspageGrid_bottom_1">
                     <p>
                         Lorem, ipsum dolor sit amet consectetur adipisicing elit. Saepe iure at vitae esse ipsam veniam,
@@ -275,6 +306,102 @@
                         Lorem ipsum
                     </h3>
                 </div>
+            </div>
+        </section>
+
+
+        <section class="blogpage max-w-layout">
+            <h2 class="blogpage_title">The Big Story</h2>
+            <div class="blogpageGrid">
+
+                <div class="blogpageGrid__column">
+                    <article class="blogpageGrid__secondary-item">
+                        <img src="public/img/1.jpeg" alt="Leadership for the people" />
+                        <div class="blogpageGrid__secondary-item__info">
+                            <h2>
+                                <a href="#">
+                                    Leadership for the People By the people
+                                </a>
+                            </h2>
+                            <span class="blogpageGrid__secondary-item__meta">By Tnews · 12 Mar, 2023</span>
+                        </div>
+                    </article>
+
+                    <article class="blogpageGrid__secondary-item">
+                        <img src="public/img/2.jpeg" alt="Game on! Stay ahead" />
+                        <div class="blogpageGrid__secondary-item__info">
+                            <h2>
+                                <a href="#">Game on! Stay ahead</a>
+                            </h2>
+                            <span class="blogpageGrid__secondary-item__meta">By Tnews · 12 Mar, 2023</span>
+                        </div>
+                    </article>
+                </div>
+
+                <div class="blogpageGrid__main">
+                    <article class="blogpageGrid__main-item">
+                        <img src="public/img/3.jpeg" alt="Following the Moon" />
+                        <div class="blogpageGrid__main-item__info">
+                            <h2>
+                                <a href="#">
+                                    Following the Moon, they are in Close space, choose the best
+                                </a>
+                            </h2>
+                            <span class="blogpageGrid__main-item__meta">By Tnews · 12 Mar, 2023</span>
+                        </div>
+                    </article>
+                </div>
+
+                <aside class="blogpageGrid__sidebar">
+                    <article class="blogpageGrid__aside-item">
+                        <img src="public/img/4.jpeg" alt="Stay informed" />
+                        <div class="blogpageGrid__aside-item__info">
+                            <h2>
+                                <a href="#">
+                                    Stay informed, Navigate the world
+                                </a>
+                            </h2>
+                            <span class="blogpageGrid__aside-item__meta">30 Mar, 2023</span>
+                        </div>
+                    </article>
+
+                    <article class="blogpageGrid__aside-item">
+                        <img src="public/img/5.jpeg" alt="Your beach resort" />
+                        <div class="blogpageGrid__aside-item__info">
+                            <h2>
+                                <a href="#">
+                                    Your beach resort Sanctuary.
+                                </a>
+                            </h2>
+                            <span class="blogpageGrid__aside-item__meta">17 Mar, 2023</span>
+                        </div>
+                    </article>
+
+                    <article class="blogpageGrid__aside-item">
+                        <img src="public/img/8.jpeg" alt="Your beach resort" />
+                        <div class="blogpageGrid__aside-item__info">
+                            <h2>
+                                <a href="#">
+                                    Your beach resort Sanctuary.
+                                </a>
+                            </h2>
+                            <span class="blogpageGrid__aside-item__meta">17 Mar, 2023</span>
+                        </div>
+                    </article>
+
+                    <article class="blogpageGrid__aside-item">
+                        <img src="public/img/6.jpeg" alt="Style your life" />
+                        <div class="blogpageGrid__aside-item__info">
+                            <h2>
+                                <a href="#">
+                                    Style your life news For modern living
+                                </a>
+                            </h2>
+                            <span class="blogpageGrid__aside-item__meta">19 Mar, 2023</span>
+                        </div>
+                    </article>
+                </aside>
+
             </div>
         </section>
 

@@ -24,12 +24,17 @@
   min-height: 0;
 }
 
-.projectspageGrid > img {
+.projectspageGrid > a {
+  display: block;
   width: 100%;
+}
 
+.projectspageGrid > a > img {
+  width: 100%;
   height: auto;
   object-fit: cover;
   aspect-ratio: 1 / 1;
+  display: block;
 }
 
 .projectspageGrid > div {
