@@ -17,7 +17,6 @@
   grid-template-columns: repeat(8, 1fr);
   border-bottom: var(--border-width) solid var(--border-color);
   padding-block: var(--space-xs);
-  z-index: -1;
   margin-inline: calc(var(--i) * -1);
   padding-inline: var(--i);
 }
@@ -99,7 +98,6 @@
     background: var(--color-secondary-foreground);
     left: calc(var(--border-width) / -2);
     bottom: 0;
-    z-index: 1;
   }
 
   &::before {

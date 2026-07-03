@@ -1,0 +1,11 @@
+figure {
+  overflow: hidden;
+}
+
+img {
+  transition: var(--transition-smooth);
+}
+
+img:hover {
+  opacity: 0.8;
+}
