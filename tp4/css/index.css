@@ -16,6 +16,7 @@
 @import "./sections/heroSection.css";
 @import "./sections/articles.css";
 @import "./sections/footer.css";
+@import "./sections/blog.css";
 
 :root {
   --font-mono: "Geist Mono", monospace;
