@@ -31,6 +31,8 @@
   --radius-base: 0.375rem;
   --ratio: 1.2;
 
+  --space-3xs: calc(var(--space-base) / pow(var(--ratio), 6));
+  --space-2xs: calc(var(--space-base) / pow(var(--ratio), 3));
   --space-xs: calc(var(--space-base) / pow(var(--ratio), 2));
   --space-sm: calc(var(--space-base) / pow(var(--ratio), 1));
   --space-md: calc(var(--space-base) * pow(var(--ratio), 1));
@@ -66,6 +68,8 @@
   /* Metier */
   --globalNavigation-height: 120px;
   --border-width: 1px;
+
+  --accent-hover: rgb(110, 255, 96);
 }
 
 .homepageHero_typography {

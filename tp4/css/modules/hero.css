@@ -12,7 +12,6 @@
 
 .heroGrid {
   --i: calc(100% - var(--space-xl));
-  /* margin-block: auto; */
   display: grid;
   min-height: var(--globalNavigation-height);
   grid-template-columns: repeat(8, minmax(0, 1fr));
@@ -24,7 +23,7 @@
 
 .heroGrid_left {
   font-size: var(--text-xs);
-  grid-column: 1 / span 1;
+  grid-column: 1 / span 2;
   display: flex;
   align-items: flex-end;
 }
@@ -156,7 +155,7 @@
   }
 
   &:hover {
-    background-color: var(--border-color);
+    background-color: var(--accent-hover);
   }
 }
 
@@ -168,10 +167,21 @@
   grid-area: 2 / 1;
   display: flex;
   align-items: center;
-  gap: var(--space-xs);
+  gap: var(--space-3xs);
   font-size: var(--text-xs);
   font-family: var(--font-mono);
   color: var(--color-secondary-foreground);
+
+  & > a {
+    text-decoration: none;
+    color: blue;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+
+  & > a:hover {
+    background-color: var(--accent-hover);
+  }
 }
 
 .heroGrid_current_title {
