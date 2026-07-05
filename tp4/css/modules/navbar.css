@@ -37,6 +37,7 @@
   align-items: center;
   gap: 0.2rem;
   width: fit-content;
+  background-color: var(--border-color);
 }
 
 .globalNavigation_wrp__logo {
@@ -45,7 +46,7 @@
 }
 
 .globalNavigation_wrp__link:hover {
-  background-color: var(--border-color);
+  background-color: var(--accent-hover);
 }
 
 .globalNavigation_middle {

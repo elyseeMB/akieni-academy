@@ -61,7 +61,7 @@
   border-top: 1px solid var(--color-secondary-foreground);
   margin-inline: calc(var(--space-xs) * -1);
   padding-inline: var(--space-xs);
-  grid-area: 2 / 7 / 4 / 8;
+  grid-area: 2 / 7 / 2 / 8;
   font-weight: 900;
 }
 /*  */
@@ -112,6 +112,14 @@
   padding-inline: var(--space-xs);
   grid-area: 5 / 7 / 5 / 8;
   font-weight: 900;
+}
+
+.projectspage__item-7,
+.projectspage__item-9_1,
+.projectspage__item-8_1,
+.projectspage__item-5_1,
+.projectspage__item-2,
+.projectspage__item-4 {
 }
 
 /*  */

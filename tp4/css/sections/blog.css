@@ -113,9 +113,8 @@
 .blogpageGrid__main-item img {
   position: relative;
   width: 100%;
-  object-fit: cover;
-  aspect-ratio: 3 / 4;
   height: 100%;
+  object-fit: cover;
 }
 
 .blogpageGrid__main-item__info {

@@ -1,6 +1,5 @@
 .layout_main {
   padding-top: var(--globalNavigation-height);
-  /* max-width: 1400px; */
   width: 100%;
   margin: 0 auto;
   overflow: hidden;
