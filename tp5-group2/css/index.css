@@ -1,0 +1,36 @@
+:root {
+  --font-mono: "Geist Mono", monospace;
+  --font-sans: "inter", sans-serif;
+  --font-serif: "Playfair Display SC", serif;
+
+  --text-base: 16px;
+  --space-base: 1.125rem;
+
+  /* Background & Color */
+  --background: #fff;
+  --color-foreground: #060606;
+  --color-secondary-foreground: #888;
+  --border-color: #e6e6e6;
+}
+
+h1 {
+  font-family: var(--font-serif);
+  line-height: 1;
+}
+
+p {
+  font-family: var(--font-sans);
+}
+
+body {
+  display: grid;
+  place-items: center;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+}
+
+.hero {
+  padding-inline: 20rem;
+  padding-block: 5rem;
+}

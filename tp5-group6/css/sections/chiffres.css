@@ -1,0 +1,47 @@
+/* NOS CHIFFRES */
+.chiffre_section {
+  background: var(--color-foreground);
+  color: var(--color);
+}
+.chiffre_section h2 {
+  text-align: center;
+}
+
+.chiffre_section .chiffre_content {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.chiffre_section .chiffre_content .big_title_chiffre {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--color);
+  /*   line-height: 2.5rem; */
+}
+.chiffre_section .chiffre_content article {
+  width: 30%;
+}
+.chiffre_section .chiffre_content .small_title {
+  text-transform: uppercase;
+  color: var(--border-color-secondary);
+  font-family: var(--font-mono);
+}
+
+@media screen and (max-width: 768px) {
+  .chiffre_section .chiffre_content {
+    flex-wrap: wrap;
+  }
+  .chiffre_section .chiffre_content article {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+
+  .chiffre_section .chiffre_content .big_title_chiffre {
+    margin-top: 0rem;
+    margin-bottom: 0.2rem;
+    font-size: 1.5rem;
+    line-height: 1rem;
+  }
+}

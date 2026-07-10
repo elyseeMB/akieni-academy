@@ -1,0 +1,92 @@
+/* Definissez ici les pattern répétitive pour facilité l'intégration de vos sections */
+
+.layout-base {
+  padding-inline: var(--space-md);
+}
+
+.layout-narrow {
+  max-width: 1400px;
+  width: 100%;
+  margin: 0 auto;
+  padding-inline: var(--container-padding);
+  margin-inline: auto;
+}
+
+.flex {
+  display: flex;
+  gap: var(--space-base);
+}
+
+.flex-start {
+  align-items: start;
+}
+
+.column {
+  flex-direction: column;
+}
+
+section {
+  padding-block: var(--space-section);
+}
+
+/* MINI AJUSTEMENT DES TAILLES */
+h1,
+h2,
+h3,
+h4 {
+  color: var(--primary-color);
+  margin-top: 1.7rem;
+  margin-bottom: 1.7rem;
+}
+
+h1 {
+  font-size: 3.5rem;
+}
+h2 {
+  font-size: 2rem;
+}
+
+@media screen and (min-width: 768px) {
+  .layout-base {
+    padding-inline: var(--space-4xl);
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  h1 {
+    font-size: 2.5rem;
+  }
+  h2 {
+    font-size: 2rem;
+  }
+}
+
+@media screen and (max-width: 375px) {
+  h1 {
+    font-size: 2rem;
+  }
+  h2 {
+    font-size: 1.5rem;
+  }
+}
+
+/* BLOC DE DELIMITATION GLOBAL */
+.base_width {
+  width: 90%;
+  margin: auto;
+}
+
+.base_width_small {
+  width: 75%;
+  margin: auto;
+}
+
+@media screen and (max-width: 375px) {
+  .base_width,
+  .base_width_small {
+    width: 97%;
+    margin: auto;
+  }
+}

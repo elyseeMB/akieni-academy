@@ -20,6 +20,12 @@ function extractStatus(root) {
   );
 }
 
+function extractGithubLink(root) {
+  return (
+    root.querySelector('meta[name="github"]')?.getAttribute("content") ?? ""
+  );
+}
+
 function extractDescription(root) {
   return (
     root.querySelector('meta[name="description"]')?.getAttribute("content") ??
@@ -35,6 +41,7 @@ function buildTP(folder) {
     description: extractDescription(root),
     url: `https://${folder}.akieniacademy.eembouz.com`,
     status: extractStatus(root),
+    github: extractGithubLink(root),
   };
 }
 

@@ -1,0 +1,29 @@
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  font-size: var(--text-xs);
+}
+
+.input-label {
+  font-family: var(--font-mono);
+
+  text-transform: uppercase;
+  color: var(--color-secondary);
+}
+
+.input,
+input,
+textarea {
+  border: 0;
+  border-bottom: var(--border-base) solid var(--color-secondary);
+  padding: var(--space-sm);
+  background-color: transparent;
+  outline: 0;
+}
+
+.input::placeholder,
+input::placeholder,
+textarea::placeholder {
+  font-family: var(--font-mono);
+}
