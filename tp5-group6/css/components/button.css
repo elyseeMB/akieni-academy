@@ -1,0 +1,68 @@
+/* Button Base */
+button {
+  border-radius: 0;
+  padding: 0;
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 500;
+  cursor: pointer;
+  border: none;
+}
+
+button,
+.button {
+  font-family: var(--font-mono);
+  color: var(--button-color-secondary);
+  font-size: var(--text-xs);
+  line-height: var(--leading-1);
+  padding-block: var(--space-base);
+  padding-inline: var(--space-lg);
+}
+
+.button__small {
+  padding-block: var(--space-sm);
+  padding-inline: var(--space-md);
+}
+
+.button__large {
+  width: 100%;
+}
+
+.button__icon {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+/* Button primary */
+.button-primary {
+  background-color: var(--button-background-primary);
+  color: var(--button-color-primary);
+
+  transition: 0.3s all ease-in-out;
+}
+
+/* Button secondary */
+.button-secondary {
+  background-color: var(--button-background-secondary);
+  color: var(--button-color-secondary);
+  border: var(--border-base) solid var(--border-color-primary);
+
+  transition: 0.3s all ease-in-out;
+}
+
+/* LES BOUTONS EFFETS  */
+
+.button-secondary:hover,
+.button-primary:hover {
+  color: var(--color);
+  background-color: var(--button-background-primary);
+  cursor: pointer;
+  transform: translateY(-3px);
+}
+
+.button-secondary:active,
+.button-primary:active {
+  background-color: var(--primary-color);
+}

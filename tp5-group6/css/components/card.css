@@ -1,0 +1,33 @@
+.card {
+  background-color: var(--background-card);
+  border: var(--border-base) solid var(--border-color-secondary);
+  padding: var(--space-lg);
+  transition: 200ms;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 320px;
+}
+
+.card-title {
+  font-size: var(--text-xl);
+  line-height: var(--leading-card);
+  font-weight: 600;
+}
+
+.card-label {
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  line-height: var(--leading-1);
+  color: var(--color-secondary);
+  text-transform: uppercase;
+}
+
+.card-icon {
+  width: 36px;
+  height: 36px;
+}
+
+.card:hover {
+  background-color: var(--background);
+}

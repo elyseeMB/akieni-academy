@@ -1,0 +1,82 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  line-height: 1.5;
+}
+
+img,
+picture,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  overflow-wrap: break-word;
+  padding: 0;
+  margin: 0;
+}
+
+p {
+  text-wrap: pretty;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  text-wrap: balance;
+}
+
+ul,
+li {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+figure {
+  padding: 0;
+  margin: 0;
+}
+
+fieldset {
+  padding: 0;
+  margin: 0;
+  border: none;
+}
+
+legend {
+  visibility: hidden;
+  display: none;
+  padding: 0;
+  margin: 0;
+}
+
+input {
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+}

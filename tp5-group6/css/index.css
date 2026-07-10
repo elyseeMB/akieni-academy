@@ -1,0 +1,103 @@
+/* Base tools */
+@import "./tools/reset.css";
+@import "./tools/typography.css";
+@import "./tools/layout.css";
+
+/* components */
+@import "./components/button.css";
+@import "./components/card.css";
+@import "./components/input.css";
+@import "./components/form.css";
+@import "./components/social-link.css";
+@import "./components/agenda-item.css";
+
+/* sections */
+
+@import "./sections/form.css";
+@import "./sections/projects.css";
+@import "./sections/agenda.css";
+@import "./sections/footer.css";
+@import "sections/navbar.css";
+@import "sections/hero.css";
+@import "sections/chiffres.css";
+@import "sections/newsletter.css";
+
+/* Variable css */
+:root {
+  /* container */
+  --container-padding: var(--space-xl);
+
+  /* font */
+  --font-mono: "JetBrains Mono", monospace;
+  --font-sans: "Hanken Grotesk", sans-serif;
+
+  /* space */
+  --space-base: 1rem;
+  --space-xs: 0.375rem;
+  --space-sm: 0.75rem;
+  --space-md: 1.5rem;
+  --space-lg: 2rem;
+  --space-xlg: 5rem;
+  --space-xl: 2.5rem;
+  --space-2xl: 3rem;
+  --space-3xl: 3.5rem;
+  --space-4xl: 4rem;
+  --space-section: 5rem;
+
+  /* text */
+  --text-base: 16px;
+  --text-xs: 12px;
+  --text-sm: 14px;
+  --text-md: var(--text-base);
+  --text-lg: 18px;
+  --text-xl: 24px;
+  --text-2xl: 32px;
+  --text-3xl: 48px;
+
+  /* line-height */
+  --leading-xs: 12px;
+  --leading-sm: 14px;
+  --leading-1: 16px;
+  --leading-2: 18px;
+  --leading-3: 24px;
+  --leading-4: 32px;
+  --leading-5: 48px;
+
+  /* Background */
+  --background: #ffffff;
+  --background-secondary: rgb(239, 237, 237);
+  --background-secondary-b: #fbf9f8;
+  --background-agenda: rgb(228, 226, 226);
+
+  /* Color */
+  --color: #ffffff;
+  --color-foreground: #000000;
+  --color-secondary: rgb(126, 117, 118);
+  --color-secondary-agenda: rgb(76, 69, 70);
+
+  /* Buttons */
+  --button-background-primary: #000000;
+  --button-background-secondary: transparent;
+  --button-color-primary: var(--color);
+  --button-color-secondary: #000000;
+
+  /* Border */
+  --border-color-primary: rgb(107, 114, 128);
+  --border-color-secondary: rgb(207, 196, 197);
+  --border-base: 0.666667px;
+
+  /* Card */
+  --background-card: #f5f3f3;
+  --leading-card: 32px;
+}
+
+body {
+  width: 100%;
+  height: 100%;
+  background-color: var(--background);
+  font-family: var(--font-sans), sans-serif;
+}
+
+* {
+  scroll-behavior: smooth;
+}

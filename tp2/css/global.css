@@ -45,7 +45,7 @@
   --size-pill-xl: var(--text-4xl);
 }
 
-@media only screen and(min-width: 900px) {
+@media only screen and (min-width: 900px) {
   :root {
     --container-padding: 1.5rem;
   }

@@ -82,6 +82,25 @@ ul {
   text-decoration: line-through;
 }
 
+.github__link {
+  --background-secondary-foreground: gray;
+  --background-foreground: white;
+  --color-foreground: black;
+  position: relative;
+  background-color: var(--background-secondary-foreground);
+  color: var(--color-foreground) !important;
+  width: fit-content;
+  padding-inline: 0.5rem;
+
+  &::before,
+  &::after {
+    display: none;
+  }
+
+  &:hover {
+    background-color: var(--background-foreground);
+  }
+}
 
 @media only screen and (min-width: 900px) {
   .lists__item a::after {

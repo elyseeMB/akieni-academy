@@ -1,0 +1,95 @@
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-xlg);
+}
+
+.form-section {
+  padding-block: var(--space-xlg);
+  background-color: var(--background-secondary-b);
+  border-bottom: var(--border-base) solid var(--border-color-secondary);
+}
+
+@media screen and (min-width: 768px) {
+  .form-section {
+    padding-inline: var(--space-4xl);
+  }
+}
+
+.form h2 {
+  margin-top: 0;
+}
+
+.sustain {
+  padding: 3rem;
+  display: flex;
+  background-color: black;
+  color: var(--color);
+}
+
+.sustain-item {
+  flex-direction: column;
+}
+
+.sustain-item p {
+  color: var(--color);
+}
+
+.sustain-title {
+  margin-block: 0;
+  font-weight: 500;
+}
+
+.sustain-submit-btn {
+  background-color: var(--background);
+  color: var(--color-foreground) !important;
+}
+
+.sustain-submit-btn:hover {
+  color: var(--color) !important;
+}
+
+.sustain-group-btn {
+  flex-wrap: wrap;
+}
+
+.sustain-group-btn button,
+.sustain-submit-btn {
+  flex-grow: 1;
+  flex-shrink: 1;
+  color: var(--color);
+  border-color: var(--border-color-secondary);
+}
+
+.sustain-group-btn button {
+  aspect-ratio: 1 / 1;
+  height: 60px;
+}
+
+/* Modifications*/
+.sustain-logo {
+  width: 12px;
+  height: 12px;
+}
+
+.sustain-badge {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  color: var(--border-color-secondary);
+}
+
+.sustain-badge p {
+  font-size: 10px;
+  font-family: var(--font-mono);
+  color: var(--border-color-secondary);
+  text-transform: uppercase;
+  opacity: 0.8;
+}
+
+@media (min-width: 768px) {
+  .form-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-xlg);
+  }
+}
