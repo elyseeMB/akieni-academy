@@ -24,7 +24,6 @@ ul {
   align-items: start;
   justify-content: space-between;
   gap: 0.2rem;
-  opacity: 0.7;
   padding-inline: 1rem;
   padding-block: 0.5rem;
   margin-inline: -1rem;
@@ -34,6 +33,20 @@ ul {
   display: flex;
   flex-direction: column;
   gap: 0.2rem;
+}
+
+.lists__item h2,
+.lists__item .tp-title-wrap,
+.lists__item p,
+.lists__item .status--offline {
+  opacity: 0.7;
+}
+
+.lists__item:hover h2,
+.lists__item:hover .tp-title-wrap,
+.lists__item:hover p,
+.lists__item:hover .status--offline {
+  opacity: 1;
 }
 
 .status--offline {
@@ -46,7 +59,6 @@ ul {
 
 .lists__item:hover {
   background-color: rgba(128, 128, 128, 0.295);
-  opacity: 1;
 }
 
 .lists__item a::before {
@@ -70,7 +82,10 @@ ul {
   text-decoration: line-through;
 }
 
-.lists__item--offline {
+.lists__item--offline h2,
+.lists__item--offline .tp-title-wrap,
+.lists__item--offline p,
+.lists__item--offline .status--offline {
   opacity: 0.3;
 }
 
