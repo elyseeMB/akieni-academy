@@ -14,34 +14,76 @@
     <ul id="tps" class="lists"></ul>
   </main>
 
+  <template id="tp-item">
+    <li class="lists__item">
+      <div class="lists__item-info">
+        <h2 class="tp-name"></h2>
+        <h3 class="tp-title-wrap"></h3>
+        <p class="tp-description"></p>
+        <a class="github__link tp-github" target="_blank" rel="noopener noreferrer">Github</a>
+      </div>
+      <span class="status--offline tp-status"></span>
+    </li>
+  </template>
+
   <script>
+    const template = document.getElementById("tp-item");
+    const ul = document.getElementById("tps");
+
+    function createLink(href, text, extraClass) {
+      const a = document.createElement("a");
+      a.href = href;
+      a.target = "_blank";
+      a.rel = "noopener noreferrer";
+      a.textContent = text;
+      if (extraClass) a.className = extraClass;
+      return a;
+    }
+
+    function createTitleElement(tp) {
+      if (tp.status === "offline") {
+        const span = document.createElement("span");
+        span.setAttribute("aria-disabled", "true");
+        span.textContent = tp.title;
+        return span;
+      }
+      return createLink(tp.url, tp.title);
+    }
+
+    function createTpItem(tp) {
+      const isOffline = tp.status === "offline";
+      const clone = template.content.cloneNode(true);
+
+      clone.querySelector("li").classList.toggle("lists__item--offline", isOffline);
+      clone.querySelector(".tp-name").textContent = tp.name;
+      clone.querySelector(".tp-description").textContent = tp.description;
+      clone.querySelector(".tp-title-wrap").append(createTitleElement(tp));
+
+      const githubLink = clone.querySelector(".tp-github");
+      if (tp.github) {
+        githubLink.href = tp.github;
+      } else {
+        githubLink.remove();
+      }
+
+      const statusEl = clone.querySelector(".tp-status");
+      if (isOffline) {
+        statusEl.textContent = tp.status;
+      } else {
+        statusEl.remove();
+      }
+
+      return clone;
+    }
+
     fetch("/listing.json")
       .then((r) => r.json())
       .then(({ tps }) => {
-        const ul = document.getElementById("tps");
-        const li = document.createElement("li");
-        ul.innerHTML = tps
-          .map(
-            (tp) => `
-            <li class="lists__item ${tp.status === "offline" ? "lists__item--offline" : ""}">
-              <div class="lists__item-info">
-                <h2>${tp.name}</h2>
-                <h3>
-                  <h3>
-                    ${tp.status === "offline"
-                ? `<span aria-disabled="true">${tp.title}</span>`
-                : `<a target="_blank" rel="noopener noreferrer" href="${tp.url}">${tp.title}</a>`
-              }
-                  </h3>
-                </h3>
-                <p>${tp.description}</p>
-                ${tp.github ? `<a class="github__link" target="_blank" rel="noopener noreferrer" href="${tp.github}">Github</a>` : ""}
-              </div>
-              ${tp.status === "offline" ? `<span class="status--offline">${tp.status}</span>` : ""}
-            </li>`,
-          )
-          .join("");
-      });
+        const frag = document.createDocumentFragment();
+        tps.forEach((tp) => frag.append(createTpItem(tp)));
+        ul.append(frag);
+      })
+      .catch((err) => console.error("Erreur lors du chargement de listing.json:", err));
   </script>
 </body>
 
