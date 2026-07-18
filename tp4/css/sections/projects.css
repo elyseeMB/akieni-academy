@@ -200,7 +200,8 @@
   .projectspage__item-9_1 {
     margin-inline: 0;
     padding-inline: 0;
-    font-size: var(--text-md);
+    font-size: var(--text-sm);
+    line-height: 1.2;
   }
 
   .projectspage__slide--text {

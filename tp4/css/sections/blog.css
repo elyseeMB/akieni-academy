@@ -134,7 +134,7 @@
 
 .blogpageGrid__main-item__info h2 {
   text-transform: uppercase;
-  font-size: var(--text-xl);
+  font-size: var(--text-lg);
   line-height: 1.2;
   padding: 0;
 }
@@ -187,7 +187,6 @@
 }
 
 .blogpageGrid__aside-item__info h2 {
-  font-size: var(--text-sm);
   padding: 0;
 }
 
@@ -195,6 +194,7 @@
   text-decoration: none;
   color: inherit;
   font-weight: inherit;
+  font-size: var(--text-md);
 
   &::before {
     position: absolute;
@@ -249,7 +249,7 @@
   }
 
   .blogpageGrid__main-item__meta {
-    font-size: var(--text-md);
+    font-size: var(--text-sm);
   }
 
   .blogpageGrid__secondary-item {
@@ -261,13 +261,12 @@
   }
 
   .blogpageGrid__sidebar h2 {
-    font-size: var(--text-lg);
+    font-size: var(--text-md);
     line-height: 1.2;
   }
 
   .blogpageGrid__sidebar .blogpageGrid__aside-item__meta {
-    font-size: var(--text-md);
-    line-height: 1.2;
+    font-size: var(--text-sm);
   }
 
   .blogpageGrid__aside-item {
@@ -279,16 +278,16 @@
   }
 
   .blogpageGrid__secondary h2 {
-    font-size: var(--text-lg);
+    font-size: var(--text-md);
     line-height: 1.2;
   }
 
   .blogpageGrid__secondary-item__info a {
-    font-size: var(--text-lg);
+    font-size: var(--text-base);
     line-height: 1.2;
   }
 
   .blogpageGrid__secondary-item__meta {
-    font-size: var(--text-md);
+    font-size: var(--text-sm);
   }
 }

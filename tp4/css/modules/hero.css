@@ -224,7 +224,7 @@
   }
 
   .heroGrid_current_description {
-    font-size: var(--text-md);
+    font-size: var(--text-base);
   }
 
   .heroGrid_current {
@@ -235,6 +235,7 @@
     gap: var(--space-md);
     padding: 0;
     margin: 0;
+    border: 0;
   }
 
   .heroGrid_current figure {
