@@ -269,6 +269,10 @@
     font-size: var(--text-sm);
   }
 
+  .blogpageGrid__aside-item__info {
+    padding-inline: 0;
+  }
+
   .blogpageGrid__aside-item {
     display: flex;
     flex-direction: column;
