@@ -41,6 +41,9 @@
   --space-2xl: calc(var(--space-base) * pow(var(--ratio), 4));
   --space-3xl: calc(var(--space-base) * pow(var(--ratio), 5));
 
+  --container-padding: var(--space-xl);
+  --container-width: calc(100% - var(--container-padding) * 2);
+
   --background: #fff;
   --color-foreground: #060606;
   --color-secondary-foreground: #888;

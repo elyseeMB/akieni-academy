@@ -112,3 +112,9 @@
 .homepageGrid_left__item-taxonomy__item:hover {
   background-color: var(--accent-hover);
 }
+
+@media only screen and (max-width: 950px) {
+  .homepageGrid__title {
+    font-size: var(--text-2xl);
+  }
+}

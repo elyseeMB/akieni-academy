@@ -19,17 +19,20 @@
   font-size: var(--text-xs);
 }
 
-.projectspageGrid > * {
+/* Descendant (espace) au lieu d'enfant direct (>) :
+   nécessaire car .projectspage__slide s'intercale désormais
+   entre .projectspageGrid et les items */
+.projectspageGrid * {
   min-width: 0;
   min-height: 0;
 }
 
-.projectspageGrid > a {
+.projectspageGrid a {
   display: block;
   width: 100%;
 }
 
-.projectspageGrid > a > img {
+.projectspageGrid a > img {
   width: 100%;
   height: auto;
   object-fit: cover;
@@ -37,7 +40,7 @@
   display: block;
 }
 
-.projectspageGrid > div {
+.projectspageGrid div {
   height: 100%;
 }
 
@@ -144,5 +147,63 @@
     font-weight: 400;
     font-size: var(--text-xs);
     font-family: var(--font-mono);
+  }
+}
+
+/* Wrapper transparent en desktop : n'existe pas dans le rendu,
+   les enfants gardent leur grid-area normalement */
+.projectspage__slide {
+  display: contents;
+}
+
+@media (max-width: 950px) {
+  .projectspageGrid {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    gap: var(--space-2xl);
+    padding-block: var(--space-xl);
+
+    width: calc(100% + ((var(--container-padding) + var(--space-md)) * 2));
+    margin-inline: calc((var(--container-padding) * -1) - var(--space-md));
+    padding-inline: calc(var(--container-padding) + var(--space-md));
+    scroll-padding-inline: calc(var(--container-padding) + var(--space-md));
+  }
+
+  .projectspageGrid {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .projectspageGrid::-webkit-scrollbar {
+    display: none;
+  }
+
+  .projectspage__slide {
+    display: flex;
+    flex-direction: column;
+    flex: 0 0 92%;
+    max-width: 92%;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+  }
+
+  .projectspage__slide > a > img {
+    aspect-ratio: 4 / 5;
+  }
+
+  .projectspage__item-2,
+  .projectspage__item-4,
+  .projectspage__item-7,
+  .projectspage__item-5_1,
+  .projectspage__item-8_1,
+  .projectspage__item-9_1 {
+    margin-inline: 0;
+    padding-inline: 0;
+    font-size: var(--text-md);
+  }
+
+  .projectspage__slide--text {
+    display: none;
   }
 }

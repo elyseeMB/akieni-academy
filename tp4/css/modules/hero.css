@@ -211,3 +211,47 @@
   color: inherit;
   display: inline-block;
 }
+
+@media only screen and (max-width: 950px) {
+  .heroGrid {
+    display: none;
+  }
+
+  .heroGrid_current_wrapper {
+    display: flex;
+    padding: 0;
+    margin: 0;
+  }
+
+  .heroGrid_current_description {
+    font-size: var(--text-md);
+  }
+
+  .heroGrid_current {
+    display: flex;
+    height: auto;
+    align-items: flex-start;
+    flex-direction: column;
+    gap: var(--space-md);
+    padding: 0;
+    margin: 0;
+  }
+
+  .heroGrid_current figure {
+    height: 100%;
+    width: calc(100% + var(--container-padding) * 2);
+    margin-inline: calc(var(--container-padding) * -1);
+  }
+
+  .heroGrid_current img {
+    height: auto;
+  }
+
+  .heroGrid_current-action {
+    align-self: flex-start;
+
+    a {
+      font-size: var(--text-base);
+    }
+  }
+}
