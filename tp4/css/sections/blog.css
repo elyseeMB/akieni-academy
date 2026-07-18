@@ -182,6 +182,7 @@
   position: relative;
   display: flex;
   flex-direction: column;
+  padding: var(--space-xs);
   gap: var(--text-xs);
 }
 

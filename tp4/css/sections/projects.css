@@ -98,7 +98,7 @@
 .projectspage__item-4 {
   border-top: 1px solid var(--color-secondary-foreground);
   margin-inline: calc(var(--space-xs) * -1);
-  padding-inline: var(--space-xs);
+  padding: var(--space-xs);
   font-weight: 900;
 }
 
