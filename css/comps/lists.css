@@ -82,11 +82,12 @@ ul {
   text-decoration: line-through;
 }
 
+
 .lists__item--offline h2,
 .lists__item--offline .tp-title-wrap,
 .lists__item--offline p,
 .lists__item--offline .status--offline {
-  opacity: 0.3;
+  opacity: 0._;
 }
 
 .lists__item--offline h2 {
