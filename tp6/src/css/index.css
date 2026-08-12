@@ -1,0 +1,10 @@
+@layer reset, fonts, base, theme, components, utilities;
+
+@import "./tools/reset.css" layer(reset);
+@import "./tools/fonts.css" layer(fonts);
+@import "./tools/base.css" layer(base);
+@import "./tools/theme.css" layer(theme);
+
+:root {
+  --font-sans: "Manrope", sans-serif;
+}
