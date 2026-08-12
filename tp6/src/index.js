@@ -1,4 +1,5 @@
-import "./elements/wc.js";
+import "./wc/wc.js";
+import { defineStep, loadSteps } from "../packages/lazy/load.js";
 
 export const CATEGORY_SLUGS = [
   "womens-fashion",
@@ -9,21 +10,26 @@ export const CATEGORY_SLUGS = [
   "shoes",
 ];
 
-document.querySelector(".action").addEventListener("click", async (e) => {
-  e.preventDefault();
-  const { useProductsApi } = await import("./api/use-products.js");
-  const data = await useProductsApi.getAll();
-  const categories = await useProductsApi.getByCategory("mens-fashion");
-  const productsByCategory =
-    await useProductsApi.getByCategories(CATEGORY_SLUGS);
+const productGrid = document.querySelector("product-grid");
 
-  console.log("++++++++++++++++++++");
-  console.log("++++++++++++++++++++");
-  console.log("++++++++++++++++++++");
-  console.log(categories);
-  window.dispatchEvent(
-    new CustomEvent("product:all", {
-      detail: productsByCategory,
-    }),
-  );
+const observer = new IntersectionObserver(([entry]) => {
+  if (!entry.isIntersecting) return;
+
+  observer.disconnect();
+
+  loadSteps({
+    mode: "sequential",
+    steps: [
+      defineStep(() => import("./api/use-products.js"), "useProductsApi")
+        .method("getByCategories")
+        .args(CATEGORY_SLUGS)
+        .on("product:all"),
+
+      defineStep(() => import("./api/use-categories.js"), "useCategoriesApi")
+        .method("getAll")
+        .on("category:all"),
+    ],
+  });
 });
+
+observer.observe(productGrid);

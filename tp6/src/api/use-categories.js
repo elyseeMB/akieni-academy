@@ -1,17 +1,11 @@
+import { cacheApi } from "../../packages/functions/cache.js";
 import { ApiError } from "../../packages/functions/error.js";
-import { apiFetch } from "../../packages/functions/functions.js";
+import { apiFetch } from "../../packages/functions/http.js";
+import { Category } from "../models/category.js";
+import { toCategoryProps } from "../transformaters/category-transformater.js";
 
 const url =
   "https://withered-breeze-4769.mboussaemmanuelito.workers.dev/api/v1/";
-
-/**
- * @typedef {Object} CategoryDoc
- * @property {string} id
- * @property {string} name
- * @property {string} description
- * @property {number} sort_order
- * @property {string} slug
- */
 
 export class CategoryFetchError extends Error {
   /**
@@ -26,15 +20,16 @@ export class CategoryFetchError extends Error {
 
 /**
  * Fetches all categories from the API
- * @returns {Promise<CategoryDoc[]>}
+ * @param {Record<string, any>} queryParams
+ * @returns {Promise<Category[]>}
  */
-async function getAllCategoriesApi() {
+async function getAllCategoriesApi(queryParams = {}) {
   const endpoint = new URL("categories", url);
 
   try {
-    /** @type {CategoryDoc[]} */
-    const res = await apiFetch(endpoint.href);
-    return res;
+    /** @type {import("../models/category.js").ResponseApiCategory} */
+    const res = await apiFetch(endpoint.href, queryParams);
+    return res.data.map((dto) => Category.create(toCategoryProps(dto)));
   } catch (error) {
     if (error instanceof ApiError) {
       throw new CategoryFetchError("Impossible de récupérer les catégories", {

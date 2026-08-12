@@ -1,6 +1,6 @@
 /**
- * @param {import("../../models/product.js").DTOProduct} dto
- * @returns {import("../../models/product.js").ProductProps}
+ * @param {import("../models/product.js").DTOProduct} dto
+ * @returns {import("../models/product.js").ProductProps}
  */
 export function toProductProps(dto) {
   const productData = dto.product_data ?? {};
