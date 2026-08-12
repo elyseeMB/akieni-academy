@@ -1,0 +1,28 @@
+/* ==========================================================================
+   COMPONENTS · SLIDESHOW
+   Slideshow control tokens and base styling
+   ========================================================================== */
+
+:root {
+  --slideshow-controls-size: 3.5rem;
+  --slideshow-controls-icon: 2rem;
+  --peek-next-slide-size: 3rem;
+}
+
+.slideshow__control {
+  inline-size: var(--slideshow-controls-size);
+  block-size: var(--slideshow-controls-size);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-foreground);
+  background-color: var(--color-background);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-full, 999px);
+  cursor: pointer;
+}
+
+.slideshow__control svg {
+  inline-size: var(--slideshow-controls-icon);
+  block-size: var(--slideshow-controls-icon);
+}

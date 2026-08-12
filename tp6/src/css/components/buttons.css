@@ -1,0 +1,76 @@
+/* ==========================================================================
+   COMPONENTS · BUTTONS
+   Button tokens (WK + theme) and base button styling
+   ========================================================================== */
+
+:root {
+  /* Component-level sizing (base WK values live in tokens/spacing.css) */
+  --button-font-family: var(--font-body--family);
+  --button-font-weight: var(--font-body--weight);
+  --button-text-case: none;
+  --button-padding-inline: 16px;
+  --button-size: var(--minimum-touch-target);
+}
+
+/* --- Base button --------------------------------------------------------- */
+.btn,
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: var(--wk-button-min-height);
+  padding-inline: var(--button-padding-inline);
+  border-width: var(--wk-button-border-width);
+  border-radius: var(--wk-button-border-radius);
+  font-family: var(--button-font-family);
+  font-weight: var(--button-font-weight);
+  text-transform: var(--button-text-case);
+  cursor: pointer;
+  transition:
+    background-color var(--hover-transition-duration)
+    var(--hover-transition-timing),
+    color var(--hover-transition-duration) var(--hover-transition-timing),
+    border-color var(--hover-transition-duration) var(--hover-transition-timing);
+}
+
+/* Primary */
+.btn--primary {
+  color: var(--color-primary-button-text);
+  background-color: var(--color-primary-button-background);
+  border-color: var(--color-primary-button-border);
+}
+.btn--primary:hover {
+  color: var(--color-primary-button-hover-text);
+  background-color: var(--color-primary-button-hover-background);
+  border-color: var(--color-primary-button-hover-border);
+}
+
+/* Secondary */
+.btn--secondary {
+  color: var(--color-secondary-button-text);
+  background-color: var(--color-secondary-button-background);
+  border-color: var(--color-secondary-button-border);
+}
+.btn--secondary:hover {
+  color: var(--color-secondary-button-hover-text);
+  background-color: var(--color-secondary-button-hover-background);
+  border-color: var(--color-secondary-button-hover-border);
+}
+
+/* Contrast (on-image) */
+.btn--contrast {
+  color: var(--color-contrast-button-text);
+  background-color: var(--color-contrast-button-background);
+  border-color: var(--color-contrast-button-border);
+}
+.btn--contrast:hover {
+  color: var(--color-contrast-button-hover-text);
+  background-color: var(--color-contrast-button-hover-background);
+  border-color: var(--color-contrast-button-hover-border);
+}
+
+.btn:disabled,
+.btn[aria-disabled="true"] {
+  opacity: var(--disabled-opacity);
+  cursor: not-allowed;
+}

@@ -1,0 +1,42 @@
+/* ==========================================================================
+   COMPONENTS · DRAWER
+   Drawer sizing tokens and base drawer styling
+   ========================================================================== */
+
+:root {
+  --drawer-inline-padding: 25px;
+  --drawer-menu-inline-padding: 2.5rem;
+  --drawer-header-block-padding: 20px;
+  --drawer-content-block-padding: 10px;
+  --drawer-header-desktop-top: 0rem;
+  --drawer-padding: calc(var(--padding-xs) + 7px);
+  --drawer-height: 100dvh;
+  --drawer-width: 100vw;
+  --drawer-max-width: 500px;
+}
+
+.drawer {
+  position: fixed;
+  inset-block: 0;
+  inline-size: min(var(--drawer-width), var(--drawer-max-width));
+  block-size: var(--drawer-height);
+  padding-inline: var(--drawer-inline-padding);
+  background-color: var(--color-background);
+  box-shadow: var(--shadow-drawer);
+  z-index: var(--layer-menu-drawer);
+}
+
+.drawer[open],
+.drawer.is-open {
+  display: flex;
+  flex-direction: column;
+}
+
+.drawer__header {
+  padding-block: var(--drawer-header-block-padding);
+}
+
+.drawer__content {
+  padding-block: var(--drawer-content-block-padding);
+  overflow-y: auto;
+}

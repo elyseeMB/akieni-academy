@@ -1,0 +1,60 @@
+/* ==========================================================================
+   COMPONENTS · VARIANT PICKER
+   Variant swatch/button tokens and base styling
+   ========================================================================== */
+
+:root {
+  --variant-picker-swatch-width-unitless: 1;
+  --variant-picker-swatch-height-unitless: 1;
+  --variant-picker-swatch-width: 24px;
+  --variant-picker-swatch-height: 24px;
+  --variant-picker-swatch-radius: 50%;
+  --variant-picker-border-width: 1px;
+  --variant-picker-border-style: solid;
+  --variant-picker-border-opacity: 1;
+  --variant-picker-button-radius: 0px;
+  --variant-picker-button-border-width: 1px;
+}
+
+.variant {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-block-size: var(--button-size);
+  padding-inline: var(--button-padding-inline);
+  color: var(--color-variant-text);
+  background-color: var(--color-variant-background);
+  border: 1px solid var(--color-variant-border);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition:
+    background-color var(--hover-transition-duration)
+    var(--hover-transition-timing),
+    color var(--hover-transition-duration) var(--hover-transition-timing);
+}
+
+.variant:hover {
+  color: var(--color-variant-hover-text);
+  background-color: var(--color-variant-hover-background);
+  border-color: var(--color-variant-hover-border);
+}
+
+.variant[aria-checked="true"],
+.variant.is-selected {
+  color: var(--color-selected-variant-text);
+  background-color: var(--color-selected-variant-background);
+  border-color: var(--color-selected-variant-border);
+}
+
+.variant[aria-checked="true"]:hover,
+.variant.is-selected:hover {
+  color: var(--color-selected-variant-hover-text);
+  background-color: var(--color-selected-variant-hover-background);
+  border-color: var(--color-selected-variant-hover-border);
+}
+
+.variant__swatch {
+  inline-size: var(--variant-picker-swatch-width);
+  block-size: var(--variant-picker-swatch-height);
+  border-radius: var(--variant-picker-swatch-radius);
+}

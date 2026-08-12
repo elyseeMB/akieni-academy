@@ -1,0 +1,24 @@
+/* ==========================================================================
+   TOKENS · MOTION & HOVER
+   Transitions, timing functions and hover-interaction amounts
+   ========================================================================== */
+
+:root {
+  /* --- Hover interaction tokens ------------------------------------------ */
+  --hover-lift-amount: 4px;
+  --hover-scale-amount: 1.03;
+  --hover-subtle-zoom-amount: 1.015;
+  --hover-shadow-color: var(--color-shadow);
+  --hover-transition-duration: 0.25s;
+  --hover-transition-timing: ease-out;
+
+  /* --- Default transition (legacy token set) ----------------------------- */
+  --default-transition-duration: 0.15s;
+  --default-transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-out: cubic-bezier(0, 0, 0.2, 1);
+  --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* --- Keyframe animations (legacy token set) ---------------------------- */
+  --animate-spin: spin 1s linear infinite;
+  --animate-pulse: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}

@@ -1,0 +1,26 @@
+/* ==========================================================================
+   COMPONENTS · MODAL
+   Modal height token and base modal styling
+   ========================================================================== */
+
+:root {
+  --modal-max-height: 65dvh;
+}
+
+.modal {
+  position: fixed;
+  inset: 0;
+  margin: auto;
+  max-block-size: var(--modal-max-height);
+  background-color: var(--color-background);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-popover);
+  z-index: var(--layer-overlay);
+}
+
+.modal__backdrop {
+  position: fixed;
+  inset: 0;
+  background-color: rgb(var(--backdrop-color-rgb) / var(--backdrop-opacity));
+  z-index: var(--layer-window-overlay);
+}

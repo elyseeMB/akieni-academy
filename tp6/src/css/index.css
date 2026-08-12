@@ -1,10 +1,41 @@
-@layer reset, fonts, base, theme, components, utilities;
+/* ==========================================================================
+   ENTRY POINT
+   CSS cascade layers, ordered from lowest to highest priority
+   ========================================================================== */
 
+@layer reset, fonts, base, tokens, layout, components, utilities;
+
+/* --- Foundation ---------------------------------------------------------- */
 @import "./tools/reset.css" layer(reset);
 @import "./tools/fonts.css" layer(fonts);
 @import "./tools/base.css" layer(base);
-@import "./tools/theme.css" layer(theme);
 
-:root {
-  --font-sans: "Manrope", sans-serif;
-}
+/* --- Design tokens ------------------------------------------------------- */
+@import "./tokens/colors.css" layer(tokens);
+@import "./tokens/opacity.css" layer(tokens);
+@import "./tokens/typography.css" layer(tokens);
+@import "./tokens/spacing.css" layer(tokens);
+@import "./tokens/shadows.css" layer(tokens);
+@import "./tokens/motion.css" layer(tokens);
+@import "./tokens/shapes.css" layer(tokens);
+@import "./tokens/responsive.css" layer(tokens);
+
+/* --- Layout -------------------------------------------------------------- */
+@import "./layout/header.css" layer(layout);
+@import "./layout/container.css" layer(layout);
+@import "./layout/sections.css" layer(layout);
+
+/* --- Components ---------------------------------------------------------- */
+@import "./components/buttons.css" layer(components);
+@import "./components/inputs.css" layer(components);
+@import "./components/badges.css" layer(components);
+@import "./components/cards.css" layer(components);
+@import "./components/drawer.css" layer(components);
+@import "./components/modal.css" layer(components);
+@import "./components/slideshow.css" layer(components);
+@import "./components/variant-picker.css" layer(components);
+
+/* --- Utilities ----------------------------------------------------------- */
+@import "./utilities/opacity.css" layer(utilities);
+@import "./utilities/states.css" layer(utilities);
+@import "./utilities/skeleton.css" layer(utilities);

@@ -1,0 +1,61 @@
+/* ==========================================================================
+   COMPONENTS · INPUTS
+   Input tokens and base field styling
+   ========================================================================== */
+
+:root {
+  /* Input box model (base WK values live in tokens/spacing.css) */
+  --input-padding: var(--input-padding-y) var(--input-padding-x);
+  --input-textarea-min-height: 55px;
+}
+
+/* --- Base field ---------------------------------------------------------- */
+.input,
+.field {
+  min-height: var(--wk-input-min-height);
+  padding: var(--input-padding);
+  color: var(--color-input-text);
+  background-color: var(--color-input-background);
+  border: var(--wk-input-border-width) solid var(--color-input-border);
+  border-radius: var(--wk-input-border-radius);
+  box-shadow: var(--input-box-shadow);
+  transition:
+    box-shadow var(--hover-transition-duration) var(--hover-transition-timing),
+    background-color var(--hover-transition-duration)
+    var(--hover-transition-timing);
+}
+
+.input:hover,
+.field:hover {
+  background-color: var(--color-input-hover-background);
+}
+
+.input:focus,
+.field:focus,
+.input:focus-visible,
+.field:focus-visible {
+  outline: none;
+  box-shadow: var(--input-box-shadow-focus);
+}
+
+.input:disabled,
+.field:disabled,
+.input[aria-disabled="true"],
+.field[aria-disabled="true"] {
+  background-color: var(--input-disabled-background-color);
+  border-color: var(--input-disabled-border-color);
+  color: var(--input-disabled-text-color);
+  cursor: not-allowed;
+}
+
+textarea.input {
+  min-height: var(--input-textarea-min-height);
+}
+
+.input--email {
+  min-width: var(--input-email-min-width);
+}
+
+.input--search {
+  max-width: var(--input-search-max-width);
+}

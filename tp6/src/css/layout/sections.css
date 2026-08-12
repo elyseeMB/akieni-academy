@@ -1,0 +1,10 @@
+/* ==========================================================================
+   LAYOUT · SECTIONS
+   Section min-height presets (uses the responsive --height-* tokens)
+   ========================================================================== */
+
+:root {
+  --section-height-small: 24rem;
+  --section-height-medium: 40rem;
+  --section-height-large: 56rem;
+}

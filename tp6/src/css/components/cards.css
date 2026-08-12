@@ -1,0 +1,29 @@
+/* ==========================================================================
+   COMPONENTS · CARDS
+   Card hover/state tokens and base card styling
+   ========================================================================== */
+
+:root {
+  --card-bg-hover: rgb(var(--color-foreground-rgb) / var(--opacity-5));
+  --card-border-hover: rgb(var(--color-foreground-rgb) / var(--opacity-30));
+  --card-border-focus: rgb(var(--color-foreground-rgb) / var(--opacity-10));
+}
+
+.card {
+  background-color: var(--color-background);
+  border: 1px solid var(--card-border-focus);
+  border-radius: var(--radius-md);
+  transition:
+    background-color var(--hover-transition-duration)
+    var(--hover-transition-timing),
+    border-color var(--hover-transition-duration) var(--hover-transition-timing),
+    transform var(--hover-transition-duration) var(--hover-transition-timing),
+    box-shadow var(--hover-transition-duration) var(--hover-transition-timing);
+}
+
+.card:hover {
+  background-color: var(--card-bg-hover);
+  border-color: var(--card-border-hover);
+  transform: translateY(calc(var(--hover-lift-amount) * -1));
+  box-shadow: 0 4px 12px rgb(var(--color-shadow-rgb) / var(--opacity-15));
+}
