@@ -1,6 +1,6 @@
-import { MegaMenuHoverEvent } from "../theme/event.js";
-import { debounce, onDocumentLoaded } from "../utilities/utils.js";
-import { Component } from "./component.js";
+import { MegaMenuHoverEvent } from "../../theme/event.js";
+import { debounce, onDocumentLoaded } from "../../utilities/utils.js";
+import { Component } from "../component.js";
 
 const ACTIVATE_DELAY = 0;
 const DEACTIVATE_DELAY = 350;
@@ -57,7 +57,9 @@ class HeaderMenu extends Component {
     if (!(event.target instanceof Element)) return;
 
     let item = findMenuItem(event.target);
-    if (!item || item == this.#state.activeItem) return;
+    if (!item || item == this.#state.activeItem) {
+      return;
+    }
 
     const isDefaultSlot = event.target.slot === "";
     this.dataset.overflowExpanded = (!isDefaultSlot).toString();
@@ -135,7 +137,7 @@ if (!customElements.get("header-menu")) {
 function findMenuItem(element) {
   if (!(element instanceof Element)) return null;
 
-  if (element?.matches('[slot="more"')) {
+  if (element?.matches('[slot="more"]')) {
     return findMenuItem(
       element.parentElement?.querySelector('[slot="overflow"]'),
     );

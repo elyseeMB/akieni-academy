@@ -1,5 +1,5 @@
-import { ResizeNotifier } from "../utilities/utils.js";
-import { DeclarativeShadowElement } from "../wc/component.js";
+import { ResizeNotifier } from "../../utilities/utils.js";
+import { DeclarativeShadowElement } from "../component.js";
 
 export class OverflowMinimumEvent extends Event {
   constructor(minimumReached) {

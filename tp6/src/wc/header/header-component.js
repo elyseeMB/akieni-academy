@@ -2,8 +2,8 @@ import {
   calculateHeaderGroupHeight,
   changeMetaThemeColor,
   onDocumentLoaded,
-} from "../utilities/utils.js";
-import { Component } from "./component.js";
+} from "../../utilities/utils.js";
+import { Component } from "../component.js";
 
 class HeaderComponent extends Component {
   requiredRefs = ["headerDrawerContainer", "headerMenu", "headerRowTop"];

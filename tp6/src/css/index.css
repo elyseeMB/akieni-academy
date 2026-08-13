@@ -30,7 +30,11 @@
 @import "./components/modal.css" layer(components);
 @import "./components/slideshow.css" layer(components);
 @import "./components/variant-picker.css" layer(components);
-@import "./components/header.css" layer(components);
+
+/* HEADER */
+@import "./components/header/header.css" layer(components);
+@import "./components/header/menu.css" layer(components);
+@import "./components/header/ressources.css" layer(components);
 @import "./components/overlist.css" layer(components);
 
 /* --- Utilities ----------------------------------------------------------- */

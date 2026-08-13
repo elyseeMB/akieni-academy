@@ -1,9 +1,9 @@
-import { removeTrapFocus, trapFocus } from "../theme/focus.js";
+import { removeTrapFocus, trapFocus } from "../../theme/focus.js";
 import {
   onAnimationEnd,
   removeWillChangeOnAnimationEnd,
-} from "../utilities/utils.js";
-import { Component } from "../wc/component.js";
+} from "../../utilities/utils.js";
+import { Component } from "../component.js";
 
 class headerDrawerContainer extends Component {
   requiredRefs = ["details"];

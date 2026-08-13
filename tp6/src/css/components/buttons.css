@@ -1,112 +1,55 @@
-/* ==========================================================================
-   COMPONENTS · BUTTONS (light DOM)
-   Markup: <app-button variant="primary|secondary|contrast" size="sm|md"
-            loading disabled full type="button">
-   ========================================================================== */
-
-app-button {
-  display: inline-block;
+.button {
+  --button-color: var(--color-primary-button-text);
+  --button-background-color: var(--color-primary-button-background);
+  --button-border-color: var(--color-primary-button-border);
 }
-app-button[full] {
-  display: block;
-}
-
-.btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  min-height: var(--wk-button-min-height);
-  padding-inline: var(--button-padding-inline);
-  border: var(--wk-button-border-width) solid transparent;
-  border-radius: var(--wk-button-border-radius);
-  font-family: var(--button-font-family);
-  font-weight: var(--button-font-weight);
-  text-transform: var(--button-text-case);
-  line-height: 1;
-  cursor: pointer;
-  transition:
-    background-color var(--hover-transition-duration)
-    var(--hover-transition-timing),
-    color var(--hover-transition-duration) var(--hover-transition-timing),
-    border-color var(--hover-transition-duration) var(--hover-transition-timing);
-}
-
-app-button[full] .btn {
-  width: 100%;
-}
-
-.btn--sm {
-  min-height: var(--button-size-sm);
-}
-.btn--md {
-  min-height: var(--button-size-md);
-}
-
-/* Primary */
-.btn--primary {
-  color: var(--color-primary-button-text);
-  background-color: var(--color-primary-button-background);
-  border-color: var(--color-primary-button-border);
-}
-.btn--primary:hover {
-  color: var(--color-primary-button-hover-text);
-  background-color: var(--color-primary-button-hover-background);
-  border-color: var(--color-primary-button-hover-border);
-}
-
-/* Secondary */
-.btn--secondary {
-  color: var(--color-secondary-button-text);
-  background-color: var(--color-secondary-button-background);
-  border-color: var(--color-secondary-button-border);
-}
-.btn--secondary:hover {
-  color: var(--color-secondary-button-hover-text);
-  background-color: var(--color-secondary-button-hover-background);
-  border-color: var(--color-secondary-button-hover-border);
-}
-
-/* Contrast (on-image) */
-.btn--contrast {
-  color: var(--color-contrast-button-text);
-  background-color: var(--color-contrast-button-background);
-  border-color: var(--color-contrast-button-border);
-}
-.btn--contrast:hover {
-  color: var(--color-contrast-button-hover-text);
-  background-color: var(--color-contrast-button-hover-background);
-  border-color: var(--color-contrast-button-hover-border);
-}
-
-/* Disabled / loading */
-.btn:disabled,
-.btn[aria-busy="true"] {
-  opacity: var(--disabled-opacity);
-  cursor: not-allowed;
-  pointer-events: none;
-}
-
-.btn__label {
-  display: inline-flex;
-  align-items: center;
-}
-
-.btn__spinner {
-  width: 1em;
-  height: 1em;
-  border: 2px solid currentColor;
-  border-right-color: transparent;
-  border-radius: 50%;
-  display: none;
-  animation: btn-spin 0.6s linear infinite;
-}
-.btn[aria-busy="true"] .btn__spinner {
-  display: inline-block;
-}
-
-@keyframes btn-spin {
-  to {
-    transform: rotate(360deg);
+@media screen and (min-width: 750px) {
+  .button,
+  .button-secondary,
+  .button-contrast {
+    width: var(--button-size-md) fit-content;
+    padding-block: var(--button-padding-block-md);
   }
+}
+.button,
+.button-secondary,
+.button-contrast {
+  --text-align: center;
+  width: var(--button-size-sm) fit-content;
+  margin-block: 0;
+  padding-block: var(--button-padding-block-sm);
+  padding-inline: var(--button-padding-inline);
+  display: grid;
+  align-content: center;
+  text-decoration: none;
+  text-align: var(--text-align);
+  text-transform: var(--button-text-case);
+  color: var(--button-color);
+  -webkit-appearance: none;
+  appearance: none;
+  background-color: var(--button-background-color);
+  border: 1px solid var(--button-border-color);
+  font-family: var(--button-font-family);
+  font-style: var(--font-paragraph--style);
+  font-weight: var(--button-font-weight);
+  line-height: var(--line-height--heading-loose);
+  transition:
+    color var(--animation-speed) var(--animation-easing),
+    box-shadow var(--animation-speed) var(--animation-easing),
+    background-color var(--animation-speed) var(--animation-easing);
+  cursor: pointer;
+}
+
+.button-unstyled {
+  display: block;
+  padding: 0;
+  background-color: inherit;
+  color: inherit;
+  border: 0;
+  border-radius: 0;
+  overflow: hidden;
+  box-shadow: none;
+  font-family: var(--font-paragraph--family);
+  font-style: var(--font-paragraph--style);
+  line-height: var(--line-height--heading-loose);
 }
