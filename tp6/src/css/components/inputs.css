@@ -1,17 +1,25 @@
 /* ==========================================================================
-   COMPONENTS · INPUTS
-   Input tokens and base field styling
+   COMPONENTS · INPUTS (light DOM)
+   Markup: <app-input label type placeholder required char-count max-length
+            error success name value>
+           <app-textarea ...>
    ========================================================================== */
 
-:root {
-  /* Input box model (base WK values live in tokens/spacing.css) */
-  --input-padding: var(--input-padding-y) var(--input-padding-x);
-  --input-textarea-min-height: 55px;
+app-input,
+app-textarea {
+  display: block;
 }
 
-/* --- Base field ---------------------------------------------------------- */
-.input,
+.field__label {
+  display: block;
+  margin-bottom: 0.4rem;
+  font-family: var(--font-body--family);
+  font-weight: var(--font-body--weight);
+  color: var(--color-foreground);
+}
+
 .field {
+  width: 100%;
   min-height: var(--wk-input-min-height);
   padding: var(--input-padding);
   color: var(--color-input-text);
@@ -19,43 +27,53 @@
   border: var(--wk-input-border-width) solid var(--color-input-border);
   border-radius: var(--wk-input-border-radius);
   box-shadow: var(--input-box-shadow);
+  font-family: var(--font-body--family);
   transition:
     box-shadow var(--hover-transition-duration) var(--hover-transition-timing),
     background-color var(--hover-transition-duration)
     var(--hover-transition-timing);
 }
 
-.input:hover,
+textarea.field {
+  min-height: var(--input-textarea-min-height);
+  resize: vertical;
+}
+
 .field:hover {
   background-color: var(--color-input-hover-background);
 }
 
-.input:focus,
-.field:focus,
-.input:focus-visible,
-.field:focus-visible {
+.field:focus {
   outline: none;
   box-shadow: var(--input-box-shadow-focus);
 }
 
-.input:disabled,
-.field:disabled,
-.input[aria-disabled="true"],
-.field[aria-disabled="true"] {
+.field:disabled {
   background-color: var(--input-disabled-background-color);
   border-color: var(--input-disabled-border-color);
   color: var(--input-disabled-text-color);
   cursor: not-allowed;
 }
 
-textarea.input {
-  min-height: var(--input-textarea-min-height);
+.field.is-error {
+  border-color: var(--color-red);
+  box-shadow: 0 0 0 var(--wk-input-border-width) var(--color-red);
 }
 
-.input--email {
-  min-width: var(--input-email-min-width);
+.field.is-success {
+  border-color: var(--color-accent);
 }
 
-.input--search {
-  max-width: var(--input-search-max-width);
+.field__counter {
+  display: block;
+  margin-top: 0.25rem;
+  font-size: 0.75rem;
+  color: var(--color-foreground-muted);
+}
+
+.field__message--error {
+  display: block;
+  margin-top: 0.25rem;
+  font-size: 0.75rem;
+  color: var(--color-red);
 }

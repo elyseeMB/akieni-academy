@@ -5,11 +5,6 @@
 
 @layer reset, fonts, base, tokens, layout, components, utilities;
 
-/* --- Foundation ---------------------------------------------------------- */
-@import "./tools/reset.css" layer(reset);
-@import "./tools/fonts.css" layer(fonts);
-@import "./tools/base.css" layer(base);
-
 /* --- Design tokens ------------------------------------------------------- */
 @import "./tokens/colors.css" layer(tokens);
 @import "./tokens/opacity.css" layer(tokens);
@@ -24,6 +19,7 @@
 @import "./layout/header.css" layer(layout);
 @import "./layout/container.css" layer(layout);
 @import "./layout/sections.css" layer(layout);
+@import "./layout/typography.css" layer(layout);
 
 /* --- Components ---------------------------------------------------------- */
 @import "./components/buttons.css" layer(components);
@@ -34,8 +30,15 @@
 @import "./components/modal.css" layer(components);
 @import "./components/slideshow.css" layer(components);
 @import "./components/variant-picker.css" layer(components);
+@import "./components/header.css" layer(components);
+@import "./components/overlist.css" layer(components);
 
 /* --- Utilities ----------------------------------------------------------- */
 @import "./utilities/opacity.css" layer(utilities);
 @import "./utilities/states.css" layer(utilities);
 @import "./utilities/skeleton.css" layer(utilities);
+
+/* --- Foundation ---------------------------------------------------------- */
+@import "./tools/reset.css" layer(reset);
+@import "./tools/fonts.css" layer(fonts);
+@import "./tools/base.css" layer(base);

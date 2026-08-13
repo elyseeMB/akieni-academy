@@ -1,22 +1,20 @@
 /* ==========================================================================
-   COMPONENTS · VARIANT PICKER
-   Variant swatch/button tokens and base styling
+   COMPONENTS · VARIANT PICKER (light DOM)
+   Markup: <app-variant-picker name="size" [multiple]>
+             <app-variant-option value="S">S</app-variant-option>
    ========================================================================== */
 
-:root {
-  --variant-picker-swatch-width-unitless: 1;
-  --variant-picker-swatch-height-unitless: 1;
-  --variant-picker-swatch-width: 24px;
-  --variant-picker-swatch-height: 24px;
-  --variant-picker-swatch-radius: 50%;
-  --variant-picker-border-width: 1px;
-  --variant-picker-border-style: solid;
-  --variant-picker-border-opacity: 1;
-  --variant-picker-button-radius: 0px;
-  --variant-picker-button-border-width: 1px;
+app-variant-picker {
+  display: inline-block;
 }
 
-.variant {
+.variant-picker {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+app-variant-option {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -33,28 +31,27 @@
     color var(--hover-transition-duration) var(--hover-transition-timing);
 }
 
-.variant:hover {
+app-variant-option:hover {
   color: var(--color-variant-hover-text);
   background-color: var(--color-variant-hover-background);
   border-color: var(--color-variant-hover-border);
 }
 
-.variant[aria-checked="true"],
-.variant.is-selected {
+app-variant-option[selected] {
   color: var(--color-selected-variant-text);
   background-color: var(--color-selected-variant-background);
-  border-color: var(--color-selected-variant-border);
-}
-
-.variant[aria-checked="true"]:hover,
-.variant.is-selected:hover {
-  color: var(--color-selected-variant-hover-text);
-  background-color: var(--color-selected-variant-hover-background);
   border-color: var(--color-selected-variant-hover-border);
 }
 
-.variant__swatch {
-  inline-size: var(--variant-picker-swatch-width);
-  block-size: var(--variant-picker-swatch-height);
-  border-radius: var(--variant-picker-swatch-radius);
+app-variant-option[disabled] {
+  opacity: var(--disabled-opacity);
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* Swatch shape (uses theme shape token when relevant) */
+app-variant-option .variant {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
 }

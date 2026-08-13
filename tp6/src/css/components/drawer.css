@@ -1,42 +1,65 @@
 /* ==========================================================================
-   COMPONENTS · DRAWER
-   Drawer sizing tokens and base drawer styling
+   COMPONENTS · DRAWER (light DOM)
+   Markup: <app-drawer side="left|right" [open]>
+             <div slot="header"></div>
+             <div slot="content"></div>
+             <div slot="footer"></div>
    ========================================================================== */
 
-:root {
-  --drawer-inline-padding: 25px;
-  --drawer-menu-inline-padding: 2.5rem;
-  --drawer-header-block-padding: 20px;
-  --drawer-content-block-padding: 10px;
-  --drawer-header-desktop-top: 0rem;
-  --drawer-padding: calc(var(--padding-xs) + 7px);
-  --drawer-height: 100dvh;
-  --drawer-width: 100vw;
-  --drawer-max-width: 500px;
+app-drawer {
+  position: fixed;
+  inset: 0;
+  z-index: var(--layer-menu-drawer);
+  display: none;
+}
+app-drawer[open] {
+  display: block;
+}
+
+.drawer-backdrop {
+  position: absolute;
+  inset: 0;
+  background-color: rgb(var(--backdrop-color-rgb) / var(--backdrop-opacity));
 }
 
 .drawer {
-  position: fixed;
-  inset-block: 0;
+  position: absolute;
+  top: 0;
+  bottom: 0;
   inline-size: min(var(--drawer-width), var(--drawer-max-width));
   block-size: var(--drawer-height);
   padding-inline: var(--drawer-inline-padding);
   background-color: var(--color-background);
   box-shadow: var(--shadow-drawer);
-  z-index: var(--layer-menu-drawer);
-}
-
-.drawer[open],
-.drawer.is-open {
   display: flex;
   flex-direction: column;
+  transform: translateX(-100%);
+  transition: transform var(--hover-transition-duration)
+    var(--hover-transition-timing);
+}
+
+.drawer--right {
+  right: 0;
+  transform: translateX(100%);
+}
+.drawer--left {
+  left: 0;
+}
+
+app-drawer[open] .drawer {
+  transform: translateX(0);
 }
 
 .drawer__header {
   padding-block: var(--drawer-header-block-padding);
+  border-bottom: 1px solid var(--color-border);
 }
-
 .drawer__content {
   padding-block: var(--drawer-content-block-padding);
   overflow-y: auto;
+  flex: 1;
+}
+.drawer__footer {
+  padding-block: var(--drawer-content-block-padding);
+  border-top: 1px solid var(--color-border);
 }

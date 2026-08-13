@@ -8,18 +8,450 @@
   </head>
 
   <body>
-    <main>
-      <h1>Bonjour les gens</h1>
-      <p>
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Id excepturi
-        sint consequatur fugit, cupiditate dolores facilis tempore, et
-        consectetur odio, reprehenderit ut? Hic temporibus qui debitis commodi!
-        Sunt, natus laudantium.
-      </p>
+    <header class="header-section" role="banner">
+      <header-component
+        id="header-component"
+        class="header"
+        sticky="always"
+        data-sticky-state="inactive"
+      >
+        <h1 class="visually-hidden">Roberto Collina</h1>
+        <div class="header__row header__row--top" ref="headerRowTop">
+          <div class="header__columns">
+            <div class="header__column header__column--left">
+              <div class="header-logo" aria-label="Vai alla Home">
+                <img
+                  src="//www.robertocollina.it/cdn/shop/files/logo.png?height=100&amp;v=1770205056"
+                  alt=""
+                  width="1250"
+                  height="100"
+                  class="header-logo__image"
+                >
+              </div>
 
-      <product-grid></product-grid>
-    </main>
+              <header-menu
+                ref="headerMenu"
+                class="header-menu"
+                data-animation-delay="200"
+                style="--submenu-animation-speed: 200ms;"
+              >
+                <div class="header-menu__inner">
+                  <nav header-menu="">
+                    <div class="menu-list">
+                      <overflow-list
+                        ref="overflowMenu"
+                        class="overflow-menu"
+                        minimum-items="2"
+                      >
+                        <template shadowrootmode="open">
+                          <link
+                            href="./css/components/overlist.css"
+                            rel="stylesheet"
+                            type="text/css"
+                            media="all"
+                          >
+
+                          <ul part="list">
+                            <slot></slot>
+                            <slot name="more" part="more" hidden>
+                              <li part="more">
+                                <button
+                                  class="button"
+                                  type="button"
+                                  tabindex="0"
+                                ></button>
+                              </li>
+                            </slot>
+                            <li part="placeholder" hidden></li>
+                          </ul>
+
+                          <div part="overflow">
+                            <ul part="overflow-list">
+                              <slot name="overflow"></slot>
+                            </ul>
+                          </div>
+                        </template>
+                        <li
+                          role="presentation"
+                          class="menu-list__list-item"
+                          on:focus="/activate"
+                          on:blur="/deactivate"
+                          on:pointerenter="/activate"
+                          on:pointerleave="/deactivate"
+                        >
+                          <a
+                            href="/collections/uomo"
+                            class="menu-list__link"
+                            aria-controls="submenu-1"
+                            aria-haspopup="true"
+                            aria-expanded="false"
+                            ref="menuitem"
+                          >
+                            <span class="menu-list__link-title">Uomo</span>
+                          </a>
+                          <div class="menu-list__submenu" ref="submenu[]">
+                            <div
+                              id="submenu-1"
+                              class="menu-list__submenu-inner"
+                              style="--menu-parent-font-family: var(--font---family); --menu-parent-font-style:
+                              var(--font---style); --menu-parent-font-weight: var(--font---weight); --menu-parent-font-case:
+                              none;
+
+                              --menu-child-font-family: var(--font---family); --menu-child-font-style:
+                              var(--font---style); --menu-child-font-weight: var(--font---weight); --menu-child-font-case:
+                              none;"
+                            >
+                              <div
+                                class="mega-menu section section--full-width-margin section--"
+                              >
+                                <div
+                                  class="mega-menu__grid"
+                                  data-menu-grid-id="MegaMenuList-1"
+                                >
+                                  <ul
+                                    data-menu-list-id="MegaMenuList-2"
+                                    class="mega-menu__list list-unstyled"
+                                    style="--menu-image-border-radius: px;"
+                                  >
+                                    <li
+                                      class="mega-menu__column mega-menu__column--span-1"
+                                    >
+                                      <div>
+                                        <a
+                                          href="/collections/maglieria-donna"
+                                          class="mega-menu__link "
+                                        >
+                                          <span
+                                            class="mega-menu__link-title wrap-text"
+                                            >Maglie</span
+                                          >
+                                        </a>
+                                      </div>
+
+                                      <div>
+                                        <a
+                                          href="/collections/slipover-donna"
+                                          class="mega-menu__link "
+                                        >
+                                          <span
+                                            class="mega-menu__link-title wrap-text"
+                                            >Top e t-shirt</span
+                                          >
+                                        </a>
+                                      </div>
+
+                                      <div>
+                                        <a
+                                          href="/collections/polo-donna"
+                                          class="mega-menu__link "
+                                        >
+                                          <span
+                                            class="mega-menu__link-title wrap-text"
+                                            >Polo</span
+                                          >
+                                        </a>
+                                      </div>
+
+                                      <div>
+                                        <a
+                                          href="/collections/camicie-donna"
+                                          class="mega-menu__link "
+                                        >
+                                          <span
+                                            class="mega-menu__link-title wrap-text"
+                                            >Camicie</span
+                                          >
+                                        </a>
+                                      </div>
+
+                                      <div>
+                                        <a
+                                          href="/collections/cardigan-donna"
+                                          class="mega-menu__link "
+                                        >
+                                          <span
+                                            class="mega-menu__link-title wrap-text"
+                                            >Cardigan e Giacche</span
+                                          >
+                                        </a>
+                                      </div>
+
+                                      <div>
+                                        <a
+                                          href="/collections/abiti-donna"
+                                          class="mega-menu__link "
+                                        >
+                                          <span
+                                            class="mega-menu__link-title wrap-text"
+                                            >Abiti</span
+                                          >
+                                        </a>
+                                      </div>
+
+                                      <div>
+                                        <a
+                                          href="/collections/gonne-donna"
+                                          class="mega-menu__link "
+                                        >
+                                          <span
+                                            class="mega-menu__link-title wrap-text"
+                                            >Gonne</span
+                                          >
+                                        </a>
+                                      </div>
+
+                                      <div>
+                                        <a
+                                          href="/collections/pantaloni-donna"
+                                          class="mega-menu__link "
+                                        >
+                                          <span
+                                            class="mega-menu__link-title wrap-text"
+                                            >Pantaloni</span
+                                          >
+                                        </a>
+                                      </div>
+
+                                      <div>
+                                        <a
+                                          href="/collections/borse-donna"
+                                          class="mega-menu__link "
+                                        >
+                                          <span
+                                            class="mega-menu__link-title wrap-text"
+                                            >Borse</span
+                                          >
+                                        </a>
+                                      </div>
+
+                                      <div>
+                                        <a
+                                          href="/collections/donna"
+                                          class="mega-menu__link "
+                                        >
+                                          <span
+                                            class="mega-menu__link-title wrap-text"
+                                            >Vedi tutto</span
+                                          >
+                                        </a>
+                                      </div>
+                                    </li>
+                                  </ul>
+
+                                  <style>
+                                  [data-menu-grid-id="MegaMenuList-1"] {
+                                    --menu-columns-desktop: 3;
+                                    --menu-columns-tablet: 4;
+                                  }
+                                  </style>
+                                  <span
+                                    class="mega-menu__content"
+                                    style="--menu-content-columns-desktop: 3; --menu-content-columns-tablet: 2; --resource-card-corner-radius: px;"
+                                  >
+                                    <ul
+                                      class="mega-menu__content-list mega-menu__content-list--collections list-unstyled"
+                                    >
+                                      <li class="mega-menu__content-list-item">
+                                        <div
+                                          class="resource-card resource-card--overlay"
+                                          href="/collections/donna"
+                                          data-resource-type="collection"
+                                        >
+                                          <a
+                                            class="resource-card__link"
+                                            href="/collections/donna"
+                                          >
+                                            <span class="visually-hidden">
+                                              Donna
+                                            </span>
+                                          </a>
+                                          <div
+                                            class="resource-card__media"
+                                            style="--resource-card-aspect-ratio: 16 / 9"
+                                          >
+                                            <img
+                                              src="//www.robertocollina.it/cdn/shop/collections/donna.jpg?v=1778072525&amp;width=1200"
+                                              alt="Donna"
+                                              srcset="//www.robertocollina.it/cdn/shop/collections/donna.jpg?v=1778072525&amp;width=240 240w, //www.robertocollina.it/cdn/shop/collections/donna.jpg?v=1778072525&amp;width=352 352w, //www.robertocollina.it/cdn/shop/collections/donna.jpg?v=1778072525&amp;width=832 832w, //www.robertocollina.it/cdn/shop/collections/donna.jpg?v=1778072525&amp;width=1200 1200w"
+                                              width="1200"
+                                              height="1620"
+                                              class="resource-card__image"
+                                              sizes="300px"
+                                              transitiontoproduct="true"
+                                              data-media-id="2066196300163"
+                                            >
+                                          </div>
+
+                                          <div class="resource-card__content">
+                                            <div class="resource-card__title">
+                                              <span>Donna</span>
+                                            </div>
+                                            <div class="resource-card__price">
+                                              <p
+                                                class="resource-card__subtext paragraph"
+                                              ></p>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </li>
+
+                                      <li
+                                        class="mega-menu__content-list-item mega-menu__content-list-item--hidden-tablet"
+                                      >
+                                        <div
+                                          class="resource-card resource-card--overlay"
+                                          href="/collections/maglieria-donna"
+                                          data-resource-type="collection"
+                                        >
+                                          <a
+                                            class="resource-card__link"
+                                            href="/collections/maglieria-donna"
+                                          >
+                                            <span class="visually-hidden">
+                                              Donna - Maglie
+                                            </span>
+                                          </a>
+                                          <div
+                                            class="resource-card__media"
+                                            style="--resource-card-aspect-ratio: 16 / 9;"
+                                          >
+                                            <img
+                                              src="//www.robertocollina.it/cdn/shop/files/261FXA34001-03_8.jpg?v=1772792841&amp;width=1200"
+                                              alt=""
+                                              srcset="//www.robertocollina.it/cdn/shop/files/261FXA34001-03_8.jpg?v=1772792841&amp;width=240 240w, //www.robertocollina.it/cdn/shop/files/261FXA34001-03_8.jpg?v=1772792841&amp;width=352 352w, //www.robertocollina.it/cdn/shop/files/261FXA34001-03_8.jpg?v=1772792841&amp;width=832 832w, //www.robertocollina.it/cdn/shop/files/261FXA34001-03_8.jpg?v=1772792841&amp;width=1200 1200w"
+                                              width="1200"
+                                              height="1600"
+                                              class="resource-card__image"
+                                              sizes="300px"
+                                              transitiontoproduct="true"
+                                              style=""
+                                            >
+                                          </div>
+
+                                          <div class="resource-card__content">
+                                            <div class="resource-card__title">
+                                              <span>Donna - Maglie</span>
+                                            </div>
+                                            <div class="resource-card__price">
+                                              <p
+                                                class="resource-card__subtext paragraph"
+                                              ></p>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </li>
+                                    </ul>
+                                  </span>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </li>
+
+                        <li
+                          role="presentation"
+                          class="menu-list__list-item"
+                          on:focus="/activate"
+                          on:blur="/deactivate"
+                          on:pointerenter="/activate"
+                          on:pointerleave="/deactivate"
+                        >
+                          <a
+                            href="/collections/uomo"
+                            class="menu-list__link"
+                            aria-controls="submenu-1"
+                            aria-haspopup="true"
+                            aria-expanded="false"
+                            ref="menuitem"
+                          >
+                            <span class="menu-list__link-title">Donna</span>
+                          </a>
+                        </li>
+                      </overflow-list>
+                    </div>
+                  </nav>
+                </div>
+              </header-menu>
+            </div>
+
+            <div
+              class="header__column header__column--right"
+              data-testid="header-top-right"
+            ></div>
+          </div>
+        </div>
+      </header-component>
+    </header>
+
+    <main></main>
   </body>
+
+  <script>
+  // Inline header height calculation to prevent layout shift
+  // Note: calculateHeaderGroupHeight() and updateTransparentHeaderOffset() in
+  // utilities.js should be kept in sync with this function
+  (function setHeaderHeighCustomProperties() {
+    /*
+     * Header calculation functions for maintaining CSS variables
+     * Mimic calculateHeaderGroupHeight() in utilities.js
+     */
+    const header = document.querySelector("header-component");
+    const headerGroup = document.querySelector("#header-group");
+    const hasHeaderSection = headerGroup?.querySelector(".header-section");
+
+    if (!header || !headerGroup) return;
+
+    const headerHeight = header.offsetHeight;
+
+    // Calculate the total height of the header group
+    let headerGroupHeight = 0;
+    const children = headerGroup.children;
+
+    for (let i = 0; i < children.length; i++) {
+      const element = children[i];
+      if (element === header || !(element instanceof HTMLElement)) continue;
+      headerGroupHeight += element.offsetHeight;
+    }
+
+    // Check for transparent header special case
+    if (
+      header.hasAttribute("transparent") &&
+      header.parentElement?.nextElementSibling
+    ) {
+      headerGroupHeight += headerHeight;
+    }
+
+    // Set CSS variables
+    document.body.style.setProperty("--header-height", `${headerHeight}px`);
+    document.body.style.setProperty(
+      "--header-group-height",
+      `${headerGroupHeight}px`,
+    );
+
+    /**
+     * Updates CSS custom properties for transparent header offset calculation
+     * Mimic updateTransparentHeaderOffset() in utilities.js
+     */
+    if (!hasHeaderSection || !header?.hasAttribute("transparent")) {
+      document.body.style.setProperty(
+        "--transparent-header-offset-boolean",
+        "0",
+      );
+      return;
+    }
+
+    const hasImmediateSection =
+      hasHeaderSection.nextElementSibling?.classList.contains(
+        "shopify-section",
+      );
+    const shouldApplyOffset = !hasImmediateSection ? "1" : "0";
+
+    document.body.style.setProperty(
+      "--transparent-header-offset-boolean",
+      shouldApplyOffset,
+    );
+  })();
+  </script>
 
   <script type="module" src="index.js" defer></script>
 </html>

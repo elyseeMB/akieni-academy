@@ -124,3 +124,27 @@
   --color-cream: #ede4dd;
   --color-red: #ff0001;
 }
+
+:root {
+  --opacity-5: 0.05;
+  --opacity-8: 0.08;
+  --opacity-10: 0.1;
+  --opacity-15: 0.15;
+  --opacity-20: 0.2;
+  --opacity-25: 0.25;
+  --opacity-30: 0.3;
+  --opacity-40: 0.4;
+  --opacity-50: 0.5;
+  --opacity-60: 0.6;
+  --opacity-70: 0.7;
+  --opacity-80: 0.8;
+  --opacity-85: 0.85;
+  --opacity-90: 0.9;
+  --opacity-subdued-text: var(--opacity-70);
+  --shadow-button: 0 2px 3px rgb(0 0 0 / 20%);
+  --gradient-image-overlay: linear-gradient(
+    to top,
+    rgb(0 0 0 / 0.5),
+    transparent
+  );
+}

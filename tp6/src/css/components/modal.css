@@ -1,26 +1,61 @@
 /* ==========================================================================
-   COMPONENTS · MODAL
-   Modal height token and base modal styling
+   COMPONENTS · MODAL (light DOM)
+   Markup: <app-modal [open]>
+             <div slot="header"></div>
+             <div slot="content"></div>
+             <div slot="footer"></div>
    ========================================================================== */
 
-:root {
-  --modal-max-height: 65dvh;
-}
-
-.modal {
+app-modal {
   position: fixed;
   inset: 0;
-  margin: auto;
-  max-block-size: var(--modal-max-height);
-  background-color: var(--color-background);
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-popover);
   z-index: var(--layer-overlay);
+  display: none;
+}
+app-modal[open] {
+  display: block;
 }
 
 .modal__backdrop {
-  position: fixed;
+  position: absolute;
   inset: 0;
   background-color: rgb(var(--backdrop-color-rgb) / var(--backdrop-opacity));
-  z-index: var(--layer-window-overlay);
+}
+
+.modal {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  max-block-size: var(--modal-max-height);
+  inline-size: min(90vw, 600px);
+  padding: var(--padding-lg);
+  background-color: var(--color-background);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-popover);
+  display: flex;
+  flex-direction: column;
+  opacity: 0;
+  transform: translateY(8px);
+  transition:
+    opacity var(--hover-transition-duration) var(--hover-transition-timing),
+    transform var(--hover-transition-duration) var(--hover-transition-timing);
+}
+
+app-modal[open] .modal {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.modal__header {
+  padding-bottom: var(--padding-md);
+  border-bottom: 1px solid var(--color-border);
+}
+.modal__content {
+  padding-block: var(--padding-md);
+  overflow-y: auto;
+  flex: 1;
+}
+.modal__footer {
+  padding-top: var(--padding-md);
+  border-top: 1px solid var(--color-border);
 }

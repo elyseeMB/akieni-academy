@@ -1,12 +1,38 @@
 /* ==========================================================================
-   COMPONENTS · SLIDESHOW
-   Slideshow control tokens and base styling
+   COMPONENTS · SLIDESHOW (light DOM)
+   Markup: <app-slideshow [infinite] [autoplay="3000"] [initial="0"]>
+             <app-slideshow-slide>...</app-slideshow-slide>
    ========================================================================== */
 
-:root {
-  --slideshow-controls-size: 3.5rem;
-  --slideshow-controls-icon: 2rem;
-  --peek-next-slide-size: 3rem;
+app-slideshow {
+  display: block;
+}
+
+.slideshow {
+  position: relative;
+}
+
+.slideshow__viewport {
+  outline: none;
+}
+
+.slideshow__slide {
+  display: none;
+}
+.slideshow__slide.is-active {
+  display: block;
+}
+
+.slideshow__nav {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  transform: translateY(-50%);
+  display: flex;
+  justify-content: space-between;
+  padding-inline: var(--padding-sm);
+  pointer-events: none;
 }
 
 .slideshow__control {
@@ -20,9 +46,47 @@
   border: 1px solid var(--color-border);
   border-radius: var(--radius-full, 999px);
   cursor: pointer;
+  pointer-events: auto;
+  transition: transform var(--hover-transition-duration)
+    var(--hover-transition-timing);
 }
-
-.slideshow__control svg {
+.slideshow__control::before {
+  content: "";
   inline-size: var(--slideshow-controls-icon);
   block-size: var(--slideshow-controls-icon);
+}
+.slideshow__control--previous::before {
+  border-left: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: rotate(45deg);
+}
+.slideshow__control--next::before {
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: rotate(-45deg);
+}
+.slideshow__control:hover {
+  transform: scale(var(--hover-scale-amount));
+}
+
+.slideshow__dots {
+  position: absolute;
+  bottom: var(--padding-sm);
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+}
+.slideshow__dot {
+  inline-size: 8px;
+  block-size: 8px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background-color: var(--color-foreground-muted);
+  cursor: pointer;
+}
+.slideshow__dot.is-active {
+  background-color: var(--color-foreground);
 }

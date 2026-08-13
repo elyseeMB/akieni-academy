@@ -1,36 +1,46 @@
 /* ==========================================================================
-   COMPONENTS · BUTTONS
-   Button tokens (WK + theme) and base button styling
+   COMPONENTS · BUTTONS (light DOM)
+   Markup: <app-button variant="primary|secondary|contrast" size="sm|md"
+            loading disabled full type="button">
    ========================================================================== */
 
-:root {
-  /* Component-level sizing (base WK values live in tokens/spacing.css) */
-  --button-font-family: var(--font-body--family);
-  --button-font-weight: var(--font-body--weight);
-  --button-text-case: none;
-  --button-padding-inline: 16px;
-  --button-size: var(--minimum-touch-target);
+app-button {
+  display: inline-block;
+}
+app-button[full] {
+  display: block;
 }
 
-/* --- Base button --------------------------------------------------------- */
-.btn,
-.button {
+.btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  gap: 0.5rem;
   min-height: var(--wk-button-min-height);
   padding-inline: var(--button-padding-inline);
-  border-width: var(--wk-button-border-width);
+  border: var(--wk-button-border-width) solid transparent;
   border-radius: var(--wk-button-border-radius);
   font-family: var(--button-font-family);
   font-weight: var(--button-font-weight);
   text-transform: var(--button-text-case);
+  line-height: 1;
   cursor: pointer;
   transition:
     background-color var(--hover-transition-duration)
     var(--hover-transition-timing),
     color var(--hover-transition-duration) var(--hover-transition-timing),
     border-color var(--hover-transition-duration) var(--hover-transition-timing);
+}
+
+app-button[full] .btn {
+  width: 100%;
+}
+
+.btn--sm {
+  min-height: var(--button-size-sm);
+}
+.btn--md {
+  min-height: var(--button-size-md);
 }
 
 /* Primary */
@@ -69,8 +79,34 @@
   border-color: var(--color-contrast-button-hover-border);
 }
 
+/* Disabled / loading */
 .btn:disabled,
-.btn[aria-disabled="true"] {
+.btn[aria-busy="true"] {
   opacity: var(--disabled-opacity);
   cursor: not-allowed;
+  pointer-events: none;
+}
+
+.btn__label {
+  display: inline-flex;
+  align-items: center;
+}
+
+.btn__spinner {
+  width: 1em;
+  height: 1em;
+  border: 2px solid currentColor;
+  border-right-color: transparent;
+  border-radius: 50%;
+  display: none;
+  animation: btn-spin 0.6s linear infinite;
+}
+.btn[aria-busy="true"] .btn__spinner {
+  display: inline-block;
+}
+
+@keyframes btn-spin {
+  to {
+    transform: rotate(360deg);
+  }
 }

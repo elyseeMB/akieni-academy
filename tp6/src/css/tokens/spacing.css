@@ -8,11 +8,41 @@
   --spacing: 0.25rem;
 
   /* --- Padding scale (referenced by drawer / buy-buttons tokens) --------- */
+  --padding-3xs: 0.125rem;
+  --padding-2xs: 0.25rem;
   --padding-xs: 0.5rem;
   --padding-sm: 1rem;
   --padding-md: 1.5rem;
   --padding-lg: 2rem;
   --padding-xl: 3rem;
+
+  --padding-inline-mobile: 1.6rem;
+  --padding-inline-desktop: 3.2rem;
+
+  /* --- Margin scale (referenced by drawer / buy-buttons tokens) --------- */
+  --margin-3xs: 0.125rem;
+  --margin-2xs: 0.3rem;
+  --margin-xs: 0.5rem;
+  --margin-sm: 0.7rem;
+  --margin-md: 0.8rem;
+  --margin-lg: 1rem;
+  --margin-xl: 1.25rem;
+  --margin-2xl: 1.5rem;
+  --margin-3xl: 1.75rem;
+  --margin-4xl: 2rem;
+  --margin-5xl: 3rem;
+  --margin-6xl: 5rem;
+
+  /* --- Base gap scale (legacy token set) ----------------------------- */
+  --gap-3xs: 0.125rem;
+  --gap-2xs: 0.3rem;
+  --gap-xs: 0.5rem;
+  --gap-sm: 0.7rem;
+  --gap-md: 0.9rem;
+  --gap-lg: 1rem;
+  --gap-xl: 1.25rem;
+  --gap-2xl: 2rem;
+  --gap-3xl: 3rem;
 
   /* --- Border radius ----------------------------------------------------- */
   --radius-sm: 0.25rem;
