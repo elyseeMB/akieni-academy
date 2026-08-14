@@ -76,7 +76,6 @@ export class QuickAddComponent extends Component {
 
     if (!productGrid) {
       const html = await this.fetchProductPage(currentUrl);
-      console.log(html);
       if (html) {
         const gridElement = html.querySelector("[data-product-grid-content]");
         gridElement &&

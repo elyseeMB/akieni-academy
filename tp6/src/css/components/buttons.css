@@ -57,7 +57,7 @@
 /*  */
 .quick-add__button {
   width: fit-content;
-  padding: 0.8rem;
+  padding: 0.4rem;
   display: grid;
   align-items: center;
   color: var(--color-foreground);
@@ -66,6 +66,11 @@
   pointer-events: all;
   position: relative;
   overflow: hidden;
+
+  &:hover .add-to-cart-text__content {
+    display: block;
+    opacity: 1;
+  }
 }
 
 @media screen and (min-width: 750px) {
@@ -99,16 +104,16 @@
 }
 
 .quick-add__button-wrapper {
-  height: 1.4rem;
-  padding: var(--padding-xs);
+  height: fit-content;
+  padding: var(--padding-2xs);
   background-color: var(--color-background);
   box-shadow: var(--shadow-popover);
 }
 
 @media screen and (min-width: 750px) {
   .quick-add__button .add-to-cart-text {
-    margin-inline: calc(var(--padding-sm) * -1);
-    padding-inline: var(--padding-xs);
+    /* margin-inline: calc(var(--padding-sm) * -1);
+    padding-inline: var(--padding-xs); */
   }
 }
 
@@ -149,9 +154,7 @@
 
 .quick-add__button .add-to-cart-text__content {
   display: none;
-  padding-top: 0.5rem;
   opacity: 0;
-  transform: translateX(1em);
   transition:
     display var(--animation-speed) ease-in-out,
     opacity var(--animation-speed) ease-in-out,
@@ -172,13 +175,14 @@
 }
 
 .quick-add__button .svg-wrapper {
-  width: 1.25rem;
-  height: 1.25rem;
+  width: 1rem;
+  height: 1rem;
 }
 .svg-wrapper--small {
-  width: var(--icon-size-xs);
-  height: var(--icon-size-xs);
+  width: var(--icon-size-2xs);
+  height: var(--icon-size-2xs);
 }
+
 .svg-wrapper {
   color: currentcolor;
   display: inline-flex;
@@ -187,4 +191,11 @@
   width: var(--icon-size-sm);
   height: var(--icon-size-sm);
   pointer-events: none;
+}
+
+.button:hover,
+button.shopify-payment-button__button--unbranded:hover:not([disabled]) {
+  --button-color: var(--color-primary-button-hover-text);
+  --button-background-color: var(--color-primary-button-hover-background);
+  --button-border-color: var(--color-primary-button-hover-border);
 }
