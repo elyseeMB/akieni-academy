@@ -1,9 +1,33 @@
+const TEMPLATE_URLS = {
+  menuItem: "./templates/header/menu-item.html",
+  submenu: "./templates/header/submenu.html",
+  submenuLink: "./templates/header/submenu-link.html",
+  resourceCard: "./templates/header/resource-card.html",
+  moreItem: "./templates/header/more-item.html",
+};
+
+const templateCache = new Map();
+
+async function fetchAndCache(url) {
+  if (templateCache.has(url)) {
+    return templateCache.get(url);
+  }
+
+  const html = await fetch(url).then((r) => r.text());
+  templateCache.set(url, html);
+
+  return html;
+}
+
 export class HeaderItem {
   /**@type {HTMLElement} */
   #root;
 
-  /**@type {Array<{label: string, href: string, submenu: Array<{label: string, href: string, tags: string[], images: any[]}>}>} */
+  /**@type {Array<{label: string, href: string, submenu: Array}>} */
   #items;
+
+  /**@type {Record<string, HTMLTemplateElement>} */
+  #templates = {};
 
   /**
    * @param {HTMLElement} node
@@ -12,8 +36,54 @@ export class HeaderItem {
   constructor(node, items) {
     this.#root = node;
     this.#items = items;
+  }
 
+  async init() {
+    await this.#loadTemplates();
+  }
+
+  setItems(items) {
+    this.#items = items;
+  }
+
+  render() {
     this.#build();
+  }
+
+  async #loadTemplates() {
+    const entries = Object.entries(TEMPLATE_URLS);
+
+    const htmlChunks = await Promise.all(
+      entries.map(([, url]) => fetchAndCache(url)),
+    );
+
+    entries.forEach(([key], i) => {
+      this.#templates[key] = this.#parseTemplate(htmlChunks[i]);
+    });
+  }
+
+  /**
+   * @param {string} html
+   * @returns {HTMLTemplateElement}
+   */
+  #parseTemplate(html) {
+    const wrapper = document.createElement("div");
+    wrapper.innerHTML = html.trim();
+
+    const template = wrapper.querySelector("template");
+    if (!template) {
+      throw new Error("Template not found");
+    }
+
+    return template;
+  }
+
+  /**
+   * @param {string} key
+   * @returns {DocumentFragment}
+   */
+  #clone(key) {
+    return this.#templates[key].content.cloneNode(true);
   }
 
   #build() {
@@ -23,16 +93,16 @@ export class HeaderItem {
 
     this.#root.replaceChildren();
 
-    const fragments = this.#items.map((item, i) =>
-      this.#buildMenuItem(item, i + 1),
-    );
-
-    fragments.forEach((f) => {
-      this.#root.appendChild(f);
+    this.#items.forEach((item, i) => {
+      this.#root.appendChild(this.#buildMenuItem(item, i + 1));
     });
 
-    const moreItem = this.#buildFrament(this.#buildMoreItem());
-    this.#root.appendChild(moreItem);
+    this.#root.appendChild(this.#clone("moreItem"));
+
+    const overflowList = this.#root.closest("overflow-list");
+    if (overflowList) {
+      overflowList.dispatchEvent(new CustomEvent("reflow", { detail: {} }));
+    }
   }
 
   /**
@@ -43,164 +113,98 @@ export class HeaderItem {
     const label = (
       item.label.charAt(0).toUpperCase() + item.label.slice(1)
     ).split("'")[0];
-    return this.#buildFrament(`<li
-      role="presentation"
-      class="menu-list__list-item"
-      on:focus="/activate"
-      on:blur="/deactivate"
-      on:pointerenter="/activate"
-      on:pointerleave="/deactivate"
-    >
-      <a
-        href="${item.href}"
-        class="menu-list__link"
-        aria-controls="submenu-${index}"
-        aria-haspopup="true"
-        aria-expanded="false"
-        ref="menuitem"
-      />
-        <span class="menu-list__link-title">${label}</span>
-      </a>
-      ${this.#buildSubMenuStruct(item.submenu, index)}
-    </li>`);
+
+    const node = this.#clone("menuItem");
+    const link = node.querySelector(".menu-list__link");
+
+    link.href = item.href;
+    link.setAttribute("aria-controls", `submenu-${index}`);
+    node.querySelector(".menu-list__link-title").textContent = label;
+
+    const li = node.querySelector("li");
+    if (item.submenu?.length) {
+      li.appendChild(this.#buildSubMenu(item.submenu, index));
+    }
+
+    return node;
   }
 
   /**
-   * @param {Array<{label: string, href: string}>} submenu
+   * @param {Array<{label: string, href: string, tags: string[], images: any[]}>} submenu
    * @param {number} index
    */
-  #buildSubMenuStruct(submenu, index) {
-    if (!submenu?.length) {
-      return "";
-    }
-    return `<div class="menu-list__submenu" ref="submenu[]">
-      <div
-        id="submenu-${index}"
-        class="menu-list__submenu-inner"
-        style="
-        --menu-parent-font-family: var(--font---family); --menu-parent-font-style:var(--font---style); --menu-parent-font-weight: var(--font---weight); --menu-parent-font-case:none;
-        --menu-child-font-family: var(--font---family); --menu-child-font-style:var(--font---style); --menu-child-font-weight: var(--font---weight); --menu-child-font-case:none;
-        "
-      >
-        <div class="mega-menu section section--full-width-margin section--">
-          <div class="mega-menu__grid" data-menu-grid-id="MegaMenuList-${index}">
-            ${this.#buildSubMenuBody(submenu, index)}
-          </div>
-        </div>
-      </div>
-    </div>`;
+  #buildSubMenu(submenu, index) {
+    const node = this.#clone("submenu");
+
+    node.querySelector(".menu-list__submenu-inner").id = `submenu-${index}`;
+
+    const grid = node.querySelector(".mega-menu__grid");
+    grid.dataset.menuGridId = `MegaMenuList-${index}`;
+
+    const list = node.querySelector(".mega-menu__list");
+    list.dataset.menuListId = `MegaMenuList-${index}`;
+
+    const linksContainer = node.querySelector('[data-slot="links"]');
+    submenu.forEach((subItem) => {
+      subItem.tags?.forEach((tag) => {
+        linksContainer.appendChild(this.#buildSubMenuLink(tag));
+      });
+    });
+
+    const styleEl = node.querySelector('[data-slot="grid-style"]');
+    styleEl.textContent = `
+      [data-menu-grid-id="MegaMenuList-${index}"] {
+        --menu-columns-desktop: 6;
+        --menu-columns-tablet: 4;
+      }
+      [data-menu-list-id="MegaMenuList-${index}"] {
+        --menu-columns-desktop: 1;
+        --menu-columns-tablet: 2;
+      }
+    `;
+
+    const cardsContainer = node.querySelector('[data-slot="cards"]');
+    submenu.slice(0, 3).forEach((subItem) => {
+      cardsContainer.appendChild(this.#buildResourceCard(subItem));
+    });
+
+    return node;
   }
 
   /**
-   * @param {Array<{label: string, href: string}>} submenu
-   * @param {number} index
+   * @param {string} tag
    */
-  #buildSubMenuBody(submenu, index) {
-    const links = submenu.map((s) => this.#buildSubMenuLink(s)).join("");
+  #buildSubMenuLink(tag) {
+    const node = this.#clone("submenuLink");
 
-    return `<ul
-      data-menu-list-id="MegaMenuList-${index}"
-      class="mega-menu__list list-unstyled"
-      style="--menu-image-border-radius: px;"
-    >
-      <li class="mega-menu__column mega-menu__column--span-1">
-        ${links}
-      </li>
-    </ul>
+    const link = node.querySelector(".mega-menu__link");
+    link.href = `/product/${tag}`;
+    node.querySelector(".mega-menu__link-title").textContent = tag;
 
-    <style>
-    [data-menu-grid-id="MegaMenuList-${index}"] {
-      --menu-columns-desktop: 6;
-      --menu-columns-tablet: 4;
-    }
-
-    [data-menu-list-id="MegaMenuList-${index}"] {
-    --menu-columns-desktop: 1;
-    --menu-columns-tablet: 2;
-    }
-    </style>
-
-    ${this.#buildSubMenuContent(submenu)}`;
-  }
-
-  /**
-   * @param {{label: string, href: string}} subItem
-   */
-  #buildSubMenuLink(subItem) {
-    return subItem.tags
-      .map(
-        (tag) => `
-      <div>
-      <a href="/product/${tag}" class="mega-menu__link">
-        <span class="mega-menu__link-title wrap-text">${tag}</span>
-      </a>
-    </div>`,
-      )
-      .join(" ");
-  }
-
-  /**
-   * Bloc "resource-card" visuel (images) pour les 2 premiers produits du submenu.
-   * @param {Array<{label: string, href: string, images: any[]}>} submenu
-   */
-  #buildSubMenuContent(submenu) {
-    const featured = submenu.slice(0, 3);
-
-    if (!featured.length) {
-      return "";
-    }
-
-    const cards = featured.map((s) => this.#buildResourceCard(s)).join("");
-
-    return `<span
-      class="mega-menu__content"
-      style="--menu-content-columns-desktop: 3; --menu-content-columns-tablet: 2; --resource-card-corner-radius: px;"
-    >
-      <ul class="mega-menu__content-list mega-menu__content-list--collections list-unstyled">
-        ${cards}
-      </ul>
-    </span>`;
+    return node;
   }
 
   /**
    * @param {{label: string, href: string, images: any[]}} item
    */
   #buildResourceCard(item) {
+    const node = this.#clone("resourceCard");
+
     const image = item.images?.[0];
-    const src = image?.image_url;
-    const alt = image?.title;
-    return `<li class="mega-menu__content-list-item">
-      <div class="resource-card resource-card--overlay" href="${item.href}" data-resource-type="product">
-        <a class="resource-card__link" href="${item.href}">
-          <span class="visually-hidden">${item.label}</span>
-        </a>
-        <div class="resource-card__media" style="--resource-card-aspect-ratio: 16 / 9">
-          <img src="${src}" alt="${alt}" class="resource-card__image" sizes="300px">
-        </div>
-        <div class="resource-card__content">
-          <div class="resource-card__title">
-            <span>${item.label}</span>
-          </div>
-          <div class="resource-card__price">
-            <p class="resource-card__subtext paragraph"></p>
-          </div>
-        </div>
-      </div>
-    </li>`;
-  }
 
-  #buildMoreItem() {
-    return `<li class="menu-list__list-item" role="presentation" slot="more" on:focus="/activate" on:blur="/deactivate" on:pointerenter="/activate" on:pointerleave="/deactivate">
-      <button role="menuitem" class="button menu-list__link button-unstyled">
-        <span class="menu-list__link-title">More</span>
-      </button>
-    </li>`;
-  }
+    const container = node.querySelector(".resource-card");
+    container.href = item.href;
 
-  /**
-   * @param {string} str
-   */
-  #buildFrament(str) {
-    return document.createRange().createContextualFragment(str);
+    const link = node.querySelector(".resource-card__link");
+    link.href = item.href;
+    node.querySelector(".visually-hidden").textContent = item.label;
+
+    const img = node.querySelector(".resource-card__image");
+    img.src = image?.image_url ?? "";
+    img.alt = image?.title ?? item.label;
+
+    node.querySelector(".resource-card__title span").textContent = item.label;
+
+    return node;
   }
 }

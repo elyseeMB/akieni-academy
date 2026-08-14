@@ -1,0 +1,32 @@
+<template>
+  <div class="menu-list__submenu" ref="submenu[]">
+    <div
+      class="menu-list__submenu-inner"
+      style="
+        --menu-parent-font-family: var(--font---family); --menu-parent-font-style: var(--font---style); --menu-parent-font-weight: var(--font---weight); --menu-parent-font-case: none;
+        --menu-child-font-family: var(--font---family); --menu-child-font-style: var(--font---style); --menu-child-font-weight: var(--font---weight); --menu-child-font-case: none;
+      "
+    >
+      <div class="mega-menu section section--full-width-margin section--">
+        <div class="mega-menu__grid">
+          <ul class="mega-menu__list list-unstyled">
+            <li
+              class="mega-menu__column mega-menu__column--span-1"
+              data-slot="links"
+            ></li>
+          </ul>
+          <style data-slot="grid-style"></style>
+          <span
+            class="mega-menu__content"
+            style="--menu-content-columns-desktop: 3; --menu-content-columns-tablet: 2; --resource-card-corner-radius: px;"
+          >
+            <ul
+              class="mega-menu__content-list mega-menu__content-list--collections list-unstyled"
+              data-slot="cards"
+            ></ul>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>

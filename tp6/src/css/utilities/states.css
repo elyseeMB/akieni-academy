@@ -6,7 +6,7 @@
 .is-disabled,
 [disabled],
 [aria-disabled="true"] {
-  opacity: var(--disabled-opacity);
+  /* opacity: var(--disabled-opacity); */
   cursor: not-allowed;
   pointer-events: none;
 }

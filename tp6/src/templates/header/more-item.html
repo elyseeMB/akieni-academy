@@ -1,0 +1,19 @@
+<template id="tpl-more-item">
+  <li
+    class="menu-list__list-item"
+    role="presentation"
+    slot="more"
+    on:focus="/activate"
+    on:blur="/deactivate"
+    on:pointerenter="/activate"
+    on:pointerleave="/deactivate"
+  >
+    <button
+      role="menuitem"
+      ref="menuitem"
+      class="button menu-list__link button-unstyled"
+    >
+      <span class="menu-list__link-title">More</span>
+    </button>
+  </li>
+</template>

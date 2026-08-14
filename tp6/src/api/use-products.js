@@ -2,7 +2,7 @@ import { cacheApi } from "../../packages/functions/cache.js";
 import { ApiError } from "../../packages/functions/error.js";
 import { apiFetch, withQueryParams } from "../../packages/functions/http.js";
 import { Product } from "../models/product.js";
-import { toProductProps } from "../transformaters/product-transformater.js";
+import { toProductProps } from "./transformaters/product-transformater.js";
 
 const url =
   "https://withered-breeze-4769.mboussaemmanuelito.workers.dev/api/v1/";

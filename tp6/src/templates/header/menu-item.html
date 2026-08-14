@@ -1,0 +1,19 @@
+<template>
+  <li
+    role="presentation"
+    class="menu-list__list-item"
+    on:focus="/activate"
+    on:blur="/deactivate"
+    on:pointerenter="/activate"
+    on:pointerleave="/deactivate"
+  >
+    <a
+      class="menu-list__link"
+      aria-haspopup="true"
+      aria-expanded="false"
+      ref="menuitem"
+    >
+      <span class="menu-list__link-title"></span>
+    </a>
+  </li>
+</template>

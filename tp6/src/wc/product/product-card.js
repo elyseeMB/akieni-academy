@@ -1,11 +1,12 @@
-import { SlideshowSelectEvent, ThemeEvents } from "../theme/event.js";
+import { SlideshowSelectEvent, ThemeEvents } from "../../theme/event.js";
 import {
   debounce,
   isDesktopBreakpoint,
   mediaQueryLarge,
   yieldToMainThread,
-} from "../utilities/utils.js";
-import { Component } from "../wc/component.js";
+} from "../../utilities/utils.js";
+import { Component } from "../component.js";
+import VariantPicker from "../variant-picker.js";
 
 export class ProductCard extends Component {
   requiredRefs = ["productCardLink"];
@@ -317,7 +318,7 @@ export class ProductCard extends Component {
       'results-list[infinite-scroll="true"]',
     );
 
-    if (!window.Shopify.designMode && infiniteResultsList) {
+    if (infiniteResultsList) {
       const url = new URL(window.location.href);
       const parent = this.closest("li");
 

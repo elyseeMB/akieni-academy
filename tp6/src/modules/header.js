@@ -14,17 +14,15 @@ const NAV_SKELETON_COUNT = CATEGORY_SLUGS.length;
 
 function renderHeaderSkeleton(root) {
   root.replaceChildren();
-
   const fragment = document.createRange().createContextualFragment(
     Array.from(
       { length: NAV_SKELETON_COUNT },
       () => `
          <li class="menu-list__list-item">
-    <span class="menu-list__link">
-      <span class="menu-list__link-title skeleton skeleton--nav"></span>
-    </span>
-  </li>
-      `,
+          <span class="menu-list__link">
+            <span class="menu-list__link-title skeleton"></span>
+          </span>
+        </li>`,
     ).join(""),
   );
 
@@ -41,12 +39,13 @@ function waitForEvent(eventName) {
 
 async function initHeaderMenu() {
   const root = document.querySelector("overflow-list");
+  const headerItem = new HeaderItem(root, []);
 
   renderHeaderSkeleton(root);
 
-  const [products, categories] = await Promise.all([
-    waitForEvent("product:all"),
-    waitForEvent("category:all"),
+  const [_, [products, categories]] = await Promise.all([
+    headerItem.init(),
+    Promise.all([waitForEvent("product:all"), waitForEvent("category:all")]),
   ]);
 
   const items = CATEGORY_SLUGS.map((slug) => {
@@ -64,8 +63,8 @@ async function initHeaderMenu() {
       })),
     };
   });
-
-  new HeaderItem(root, items);
+  headerItem.setItems(items);
+  headerItem.render();
 }
 
 initHeaderMenu();
