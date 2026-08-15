@@ -1,0 +1,324 @@
+/* ==========================================================================
+   COMPONENTS · DRAWER (light DOM)
+   Markup: <app-drawer side="left|right" [open]>
+             <div slot="header"></div>
+             <div slot="content"></div>
+             <div slot="footer"></div>
+   ========================================================================== */
+
+app-drawer {
+  position: fixed;
+  inset: 0;
+  z-index: var(--layer-menu-drawer);
+  display: none;
+}
+app-drawer[open] {
+  display: block;
+}
+
+.drawer-backdrop {
+  position: absolute;
+  inset: 0;
+  background-color: rgb(var(--backdrop-color-rgb) / var(--backdrop-opacity));
+}
+
+.drawer {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  inline-size: min(var(--drawer-width), var(--drawer-max-width));
+  block-size: var(--drawer-height);
+  padding-inline: var(--drawer-inline-padding);
+  background-color: var(--color-background);
+  box-shadow: var(--shadow-drawer);
+  display: flex;
+  flex-direction: column;
+  transform: translateX(-100%);
+  transition: transform var(--hover-transition-duration)
+    var(--hover-transition-timing);
+}
+
+.drawer--right {
+  right: 0;
+  transform: translateX(100%);
+}
+.drawer--left {
+  left: 0;
+}
+
+app-drawer[open] .drawer {
+  transform: translateX(0);
+}
+
+.drawer__header {
+  padding-block: var(--drawer-header-block-padding);
+  border-bottom: 1px solid var(--color-border);
+}
+.drawer__content {
+  padding-block: var(--drawer-content-block-padding);
+  overflow-y: auto;
+  flex: 1;
+}
+.drawer__footer {
+  padding-block: var(--drawer-content-block-padding);
+  border-top: 1px solid var(--color-border);
+}
+
+/* ==========================================================================
+   NATIVE <dialog> DRAWERS (cart + filters) — slide in from the right
+   Reuses the same tokens as the header/menu drawers.
+   ========================================================================== */
+
+dialog.cart-drawer,
+dialog.filters-drawer {
+  position: fixed;
+  top: var(--header-height);
+  right: 0;
+  left: auto;
+  bottom: auto;
+  margin: 0;
+  padding: 0;
+  width: min(420px, 92vw);
+  max-width: 100vw;
+  height: calc(100% - var(--header-height));
+  border: none;
+  color: var(--color-foreground);
+  background-color: var(--color-background);
+  box-shadow: var(--shadow-drawer);
+  display: flex;
+  flex-direction: column;
+  transform: translateX(100%);
+  transition: transform var(--hover-transition-duration, 0.3s)
+    var(--hover-transition-timing, ease);
+  overflow: hidden;
+}
+
+/* Open state: slide to 0 from the right (starting-style animates the entry) */
+dialog.cart-drawer[open],
+dialog.filters-drawer[open] {
+  transform: translateX(0);
+}
+
+@starting-style {
+  dialog.cart-drawer[open],
+  dialog.filters-drawer[open] {
+    transform: translateX(100%);
+  }
+}
+
+/* Native backdrop disabled: le voile est porté par .dialog-dimmer
+   (ajouté par DialogComponent), qui laisse la zone du header non voilée. */
+dialog.cart-drawer::backdrop,
+dialog.filters-drawer::backdrop {
+  background-color: transparent;
+}
+
+/* Voile couvrant le contenu sous le header : le header reste 100% opaque. */
+.dialog-dimmer {
+  position: fixed;
+  top: var(--header-height);
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 9999;
+  background-color: rgb(
+    var(--backdrop-color-rgb, 0 0 0) /
+    var(--backdrop-opacity, 0.5)
+  );
+}
+
+/* Closing animation (DialogComponent adds .dialog-closing before dialog.close()) */
+dialog.cart-drawer.dialog-closing,
+dialog.filters-drawer.dialog-closing {
+  animation: drawer-slide-out var(--hover-transition-duration, 0.3s)
+    var(--hover-transition-timing, ease) forwards;
+}
+
+@keyframes drawer-slide-out {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(100%);
+  }
+}
+
+/* --- Header / footer / close button -------------------------------------- */
+.filters-drawer__header,
+.cart-drawer__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--gap-md, 1rem);
+  padding: var(--drawer-header-block-padding, 1.5rem)
+    var(--drawer-inline-padding, 1.5rem);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.filters-drawer__title,
+.cart-drawer__header h2 {
+  margin: 0;
+  font-size: var(--font-size--lg, 1.25rem);
+  font-family: var(--font-body--family);
+}
+
+.filters-drawer__close,
+.cart-drawer__close {
+  font-size: 1.5rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.filters-drawer__footer,
+.cart-drawer__footer {
+  display: flex;
+  gap: var(--gap-sm, 0.75rem);
+  padding: var(--drawer-content-block-padding, 1.5rem)
+    var(--drawer-inline-padding, 1.5rem);
+  border-top: 1px solid var(--color-border);
+}
+
+.filters-drawer__footer .button,
+.cart-drawer__footer .button {
+  flex: 1;
+}
+
+/* --- Facets (filter options) --------------------------------------------- */
+.facets-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--gap-sm, 0.75rem);
+  padding-block: var(--padding-sm, 0.75rem);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.facets-bar .facet {
+  padding: 0.4rem 0.85rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-pill, 999px);
+  transition:
+    border-color var(--hover-transition-duration, 0.3s)
+    var(--hover-transition-timing, ease),
+    color var(--hover-transition-duration, 0.3s)
+    var(--hover-transition-timing, ease);
+}
+
+.facets-bar .facet:hover {
+  border-color: var(--color-accent, #000);
+}
+
+.facets-bar .facet:has(input:checked) {
+  border-color: var(--color-accent, #000);
+  color: var(--color-accent, #000);
+}
+
+.facets-mobile-wrapper,
+.cart-drawer__items {
+  padding: var(--drawer-content-block-padding, 1.5rem)
+    var(--drawer-inline-padding, 1.5rem);
+  overflow-y: auto;
+  flex: 1;
+}
+
+.facet {
+  display: flex;
+  align-items: center;
+  gap: var(--gap-sm, 0.75rem);
+  padding-block: var(--padding-sm, 0.75rem);
+  cursor: pointer;
+  font-family: var(--font-body--family);
+  transition: color var(--hover-transition-duration, 0.3s)
+    var(--hover-transition-timing, ease);
+}
+
+.facet:hover {
+  color: var(--color-accent, #000);
+}
+
+.facet input[type="checkbox"] {
+  width: 1.25rem;
+  height: 1.25rem;
+  accent-color: var(--color-accent, #000);
+  cursor: pointer;
+}
+
+.facet input[type="radio"] {
+  accent-color: var(--color-accent, #000);
+  cursor: pointer;
+}
+
+.cart-drawer__empty {
+  margin: 0;
+  color: var(--color-foreground-muted, #666);
+}
+
+.cart-item {
+  display: grid;
+  grid-template-columns: 64px 1fr auto;
+  grid-template-areas:
+    "image info qty"
+    "image info remove";
+  gap: var(--gap-sm, 0.75rem);
+  padding-block: var(--padding-sm, 0.75rem);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.cart-item__image {
+  grid-area: image;
+  width: 64px;
+  height: 64px;
+  object-fit: cover;
+  border-radius: var(--radius-sm, 4px);
+}
+
+.cart-item__info {
+  grid-area: info;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.cart-item__title {
+  font-weight: var(--font-body--weight);
+}
+
+.cart-item__qty {
+  grid-area: qty;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.cart-item__qty-button {
+  inline-size: 1.75rem;
+  block-size: 1.75rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm, 4px);
+  cursor: pointer;
+  background: transparent;
+  color: var(--color-foreground);
+}
+
+.cart-item__remove {
+  grid-area: remove;
+  align-self: start;
+  font-size: 0.8rem;
+  color: var(--color-foreground-muted, #666);
+  cursor: pointer;
+}
+
+.cart-drawer__total {
+  font-weight: var(--font-body--weight);
+}
+
+.cart-item__price {
+  font-weight: var(--font-body--weight);
+  color: var(--color-foreground);
+}
+
+.cart-item__qty-value {
+  font-size: 0.75rem;
+  color: var(--color-foreground-muted);
+  text-align: center;
+  white-space: nowrap;
+}

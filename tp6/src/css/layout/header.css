@@ -1,0 +1,13 @@
+/* ==========================================================================
+   LAYOUT · HEADER
+   Header heights, group height and transparent-header offset
+   ========================================================================== */
+
+body {
+  --transparent-header-offset-boolean: 0;
+}
+
+body {
+  --header-group-height: var(--header-group-height);
+  --transparent-header-offset-boolean: 0;
+}

@@ -1,0 +1,123 @@
+/* ==========================================================================
+   TOKENS · TYPOGRAPHY
+   Font families, weights, styles, heading/paragraph spacing, max-widths
+   ========================================================================== */
+
+:root {
+  /* --- Font stacks ------------------------------------------------------- */
+  --font-sans: "Manrope", sans-serif;
+
+  --font-body--family: var(--font-sans);
+  --font-body--style: normal;
+  --font-body--weight: 400;
+
+  /* Alias for tokens that reference the single-dash variant */
+  --font-body-family: var(--font-body--family);
+
+  /* --- Heading & paragraph letter-spacing -------------------------------- */
+  --font-h1--spacing: 0.25em;
+  --font-h2--spacing: 0.25em;
+  --font-h3--spacing: 0.25em;
+  --font-h4--spacing: 0.25em;
+  --font-h5--spacing: 0.25em;
+  --font-h6--spacing: 0.25em;
+  --font-paragraph--spacing: 0.5em;
+
+  /* --- Heading & paragraph colors ---------------------------------------- */
+  --font-h1--color: var(--color-foreground-heading);
+  --font-h2--color: var(--color-foreground-heading);
+  --font-h3--color: var(--color-foreground-heading);
+  --font-h4--color: var(--color-foreground-heading);
+  --font-h5--color: var(--color-foreground-heading);
+  --font-h6--color: var(--color-foreground-heading);
+
+  /* --- Max widths for readability ---------------------------------------- */
+  --max-width--body-normal: 50ch;
+  --max-width--body-narrow: 35ch;
+  --max-width--heading-normal: 50ch;
+}
+
+/* --- Component-level typography (menu, cart, buttons) -------------------- */
+:root {
+  --cart-font-family: var(--font-body--family);
+  --cart-font-style: var(--font-body--style);
+  --cart-font-weight: var(--font-body--weight);
+  --cart-font-size: 1.4rem;
+  --cart-font-line-height: 100%;
+
+  --menu-parent-font-family: var(--font-body-family);
+  --menu-parent-font-style: var(--font-body--style);
+  --menu-parent-font-weight: 500;
+  --menu-parent-font-size: 1.2rem;
+  --menu-font-xs--size: 1.3rem;
+  --menu-parent-font-line-height: 100%;
+  --menu-parent-font-case: uppercase;
+
+  --menu-child-font-family: var(--font-body-family);
+  --menu-child-font-style: var(--font-body--style);
+  --menu-child-font-weight: var(--font-body--weight);
+  --menu-child-font-size: 1.2rem;
+  --menu-child-font-line-height: 200%;
+  --menu-child-font-case: none;
+
+  --button-font-family: var(--font-body--family);
+  --button-font-weight: var(--font-body--weight);
+  --button-text-case: none;
+
+  /* Weight utility scale (legacy token set) */
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  --font-weight-extrabold: 800;
+
+  /* Tracking utility scale (legacy token set) */
+  --tracking-tighter: -0.05em;
+  --tracking-tight: -0.025em;
+  --tracking-wide: 0.025em;
+}
+
+:root {
+  --font-paragraph-value: 14;
+  --font-h1-value: 24;
+  --font-h2-value: 20;
+  --font-h3-value: 18;
+  --font-h4-value: 16;
+  --font-h5-value: 14;
+  --font-h6-value: 12;
+
+  --font-size--paragraph: 1.4rem;
+  --font-size--h1: 2.4rem;
+  --font-size--h2: 2rem;
+  --font-size--h3: 1.8rem;
+  --font-size--h4: 1.6rem;
+  --font-size--h5: 1.4rem;
+  --font-size--h6: 1.2rem;
+
+  --font-size--2xs: 0.8rem;
+  --font-size--xs: 1rem;
+  --font-size--sm: 1.2rem;
+  --font-size--md: 1.3rem;
+  --font-size--lg: 1.4rem;
+  --font-size--xl: 1.6rem;
+  --font-size--2xl: 2rem;
+  --font-size--3xl: 2.5rem;
+  --font-size--4xl: 3rem;
+  --font-size--5xl: 3.5rem;
+
+  /* ++++++++++++++++++++++ */
+  --font-paragraph--weight: var(--font-body--weight);
+  --font-paragraph--letter-spacing: var(--letter-spacing--body-normal);
+  --font-paragraph--size: var(--font-size--paragraph);
+  --font-paragraph--family: var(--font-body--family);
+  --font-paragraph--style: var(--font-body--style);
+
+  /* ++++++++++++++++++++++++++ */
+  --line-height: 1;
+  --line-height--heading-tight: 100%;
+  --line-height--heading-normal: 120%;
+  --line-height--heading-loose: 120%;
+  --line-height--body-tight: 100%;
+  --line-height--body-normal: 120%;
+  --line-height--body-loose: 120%;
+}

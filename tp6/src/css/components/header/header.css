@@ -1,0 +1,104 @@
+.header {
+  --header-padding: var(--padding-2xs);
+  --font-paragraph--line-height: 1;
+  display: block;
+}
+
+.header-section:has(> #header-component[sticky="always"]),
+.header-section:has(
+  > #header-component[sticky="scroll-up"][data-sticky-state="active"]
+) {
+  position: sticky;
+  top: 0;
+  z-index: var(--layer-sticky);
+}
+
+.header[data-sticky-state] {
+  transition: opacity var(--animation-speed) var(--animation-easing);
+  opacity: 1;
+}
+
+.visually-hidden:not(:focus, :active) {
+  position: absolute !important;
+  overflow: hidden;
+  width: 1px;
+  height: 1px;
+  /* margin: -1px; */
+  padding: 0;
+  border: 0;
+  clip: rect(0 0 0 0);
+  word-wrap: normal !important;
+}
+
+.header__row {
+  position: relative;
+  background-color: var(--header-bg-color, var(--color-background));
+  border-bottom: 1px solid var(--color-border);
+}
+
+.header__columns {
+  --header-left: 1fr;
+  --header-center: auto;
+  --header-right: 1fr;
+  --header-template-columns: var(--header-left) var(--header-center)
+    var(--header-right);
+  --header-mobile-bookend: 44px;
+  max-width: 198.4rem;
+  margin-inline: auto;
+  display: grid;
+  grid-template-areas: "left center right";
+  grid-template-columns: var(--header-template-columns);
+  grid-template-columns: var(--header-template-columns);
+}
+
+.header-logo {
+  width: clamp(14.2rem, 20%, 22rem);
+  padding: 1rem 1.6rem;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  color: var(--color-foreground);
+  text-decoration: none;
+}
+
+.header-logo__image {
+  object-fit: contain;
+  width: 100%;
+  height: auto;
+}
+
+@media screen and (min-width: 750px) {
+  .header-logo {
+    padding: 1rem 2rem;
+  }
+}
+
+.header__column {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  grid-area: left;
+}
+
+@media screen and (min-width: 750px) {
+  .header__column--right {
+    gap: 1.2rem;
+  }
+}
+
+.header__column--right {
+  grid-area: right;
+  gap: 2px;
+  justify-content: flex-end;
+}
+
+.header-action {
+  padding-inline: calc(var(--padding-inline-desktop) - 1rem);
+}
+
+.header-actions__cart-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--gap-2xs);
+}
