@@ -19,11 +19,7 @@ function readCategoriesCache() {
 }
 
 function writeCategoriesCache(data) {
-  try {
-    localStorage.setItem(CATEGORIES_CACHE_KEY, JSON.stringify(data));
-  } catch {
-    /* quota / mode privé : on ignore */
-  }
+  localStorage.setItem(CATEGORIES_CACHE_KEY, JSON.stringify(data));
 }
 
 export class CategoryFetchError extends Error {

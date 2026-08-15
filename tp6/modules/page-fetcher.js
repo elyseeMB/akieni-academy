@@ -20,14 +20,10 @@ function readPersisted(url) {
 }
 
 function writePersisted(url, value) {
-  try {
-    localStorage.setItem(
-      LS_PREFIX + url,
-      JSON.stringify({ value, expiresAt: Date.now() + LS_TTL }),
-    );
-  } catch {
-    /* quota / mode privé : on ignore */
-  }
+  localStorage.setItem(
+    LS_PREFIX + url,
+    JSON.stringify({ value, expiresAt: Date.now() + LS_TTL }),
+  );
 }
 
 async function fetchJson(url, { signal } = {}) {
