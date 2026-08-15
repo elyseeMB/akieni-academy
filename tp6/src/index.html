@@ -78,551 +78,136 @@
               </header-menu>
             </div>
 
-            <div
-              class="header__column header__column--right"
-              data-testid="header-top-right"
-            ></div>
+            <div class="header__column header__column--right">
+              <button
+                class="header-actions__cart-icon button-unstyled"
+                type="button"
+                on:click="#cart-drawer/showDialog"
+                aria-label="Ouvrir le panier"
+              >
+                Panier <span id="cart-count" class="cart-count">0</span>
+              </button>
+            </div>
           </div>
         </div>
       </header-component>
     </header>
 
+    <aside class="category-nav" aria-label="Catégories">
+      <category-nav-component id="category-nav"></category-nav-component>
+    </aside>
+
     <main>
-      <div class="collection-wrapper grid">
-        <div
-          id="ResultsList"
-          class="grid main-collection-grid"
-          style="--grid--margin--mobile: 0 0;
-    --grid-column--desktop: var(--full-width);
-    --grid-column--mobile: var(--full-width);"
-        >
-          <div
-            style="grid-column: var(--full-width);
-      --product-grid-gap-mobile: 32px 4px;
-      --product-grid-gap-desktop: 48px 8px;
-      container-type: inline-size;
-      container-name: product-grid;"
-          >
-            <ul
-              class="product-grid product-grid--template--28411802321283__main product-grid--grid"
-              product-grid-view="default"
-              ref="grid"
-              role="list"
-              data-last-page="2"
-              data-product-card-size="small"
-            >
-              <li
-                id="template--28411802321283__main-15618860056963"
-                class="product-grid__item product-grid__item--0"
-                data-page="1"
-                data-product-id="15618860056963"
-                ref="cards[]"
+      <div class="facets">
+        <div class="column-options-wrapper">
+          <div class="column-options">
+            <legend class="column-options__legend">View</legend>
+            <label class="column-options__option">
+              <input
+                type="radio"
+                name="grid"
+                value="default"
+                class="column-options__option-input"
+                checked=""
+                aria-label="Default"
+                data-grid-layout="desktop-default-option"
+                on:change="results-list/updateLayout"
+                data-skip-node-update=""
               >
-                <product-card-link
-                  data-product-id="15618860056963"
-                  data-featured-media-url="//www.robertocollina.com/cdn/shop/files/261FXA34001-03_8.jpg?v=1772792841&amp;width=500"
-                  data-product-transition="true"
-                >
-                  <product-card
-                    class="product-card"
-                    data-product-id="15618860056963"
-                    id="product-card-AZnVrRzFTRmpaWUJOd__product-card"
-                    data-product-transition="true"
-                  >
-                    <a
-                      id="d6a81849525940683ed882552c7a8dee"
-                      href="./templates/products/card.template.html"
-                      class="product-card__link"
-                      ref="productCardLink"
-                      wk-skip=""
-                      wk-id="lli3nUErwzYUT1PLetof5"
-                    >
-                      <span class="visually-hidden">
-                        Openwork Lace-Effect sweater
-                      </span>
-                    </a>
-
-                    <div
-                      class="
-                          product-card__content
-                          layout-panel-flex
-                          layout-panel-flex--column
-                          product-grid__card"
-                      style="
-                          --quick-add-display: flex;
-                          --quick-add-mobile-display: flex;
-                          --quick-add-mobile-opacity: 1;"
-                    >
-                      <div
-                        ref="cardGallery"
-                        class="card-gallery card-gallery-AcjBmd0lmbFE5U3NBc__product-card-gallery"
-                        style="--gallery-aspect-ratio: 2 / 3;"
-                        data-product-id="15618860056963"
-                        on:pointerenter="/previewImage"
-                        on:pointerleave="/resetImage"
-                        data-view-transition-to-main-product=""
-                        data-image-ratio="portrait"
-                      >
-                        <a
-                          class="contents"
-                          ref="cardGalleryLink"
-                          href="/products/maglia-traforata-effetto-pizzo-261fxa34001-03"
-                          aria-label="Openwork Lace-Effect sweater"
-                        >
-                          <slideshow-component
-                            ref="slideshow"
-                            style="--slideshow-timeline: --slide-1, --slide-2, --slide-3, --slide-4, --slide-5, --slide-6;--slide-min-height: auto;--slide-min-height-desktop: auto;"
-                            initial-slide="0"
-                            infinite=""
-                            data-generic-media-size="8"
-                            disabled="true"
-                            actioned=""
-                            in-viewport=""
-                            paused=""
-                          >
-                            <slideshow-container ref="slideshowContainer">
-                              <slideshow-arrows position="top"
-                                ><button
-                                  class="
-    slideshow-control slideshow-control--previous
-    
-    
-    slideshow-control--style-arrow
-    button button-unstyled button-unstyled--transparent
-     flip-x
-  "
-                                  aria-label="Previous slide"
-                                  on:click="/previous"
-                                  ref="previous"
-                                >
-                                  <span class="svg-wrapper icon-arrow"
-                                    ><svg
-                                      xmlns="http://www.w3.org/2000/svg"
-                                      viewBox="0 0 20 20"
-                                      fill="none"
-                                    >
-                                      <path
-                                        stroke="currentColor"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                        stroke-width="var(--icon-stroke-width)"
-                                        vector-effect="non-scaling-stroke"
-                                        d="M4.25 10h11.5m0 0-4-4m4 4-4 4"
-                                      ></path>
-                                    </svg>
-                                  </span>
-                                </button>
-                                <button
-                                  class="
-    slideshow-control slideshow-control--next
-    
-    
-    slideshow-control--style-arrow
-    button button-unstyled button-unstyled--transparent
-    
-  "
-                                  aria-label="Next slide"
-                                  on:click="/next"
-                                  ref="next"
-                                >
-                                  <span class="svg-wrapper icon-arrow"
-                                    ><svg
-                                      xmlns="http://www.w3.org/2000/svg"
-                                      viewBox="0 0 20 20"
-                                      fill="none"
-                                    >
-                                      <path
-                                        stroke="currentColor"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                        stroke-width="var(--icon-stroke-width)"
-                                        vector-effect="non-scaling-stroke"
-                                        d="M4.25 10h11.5m0 0-4-4m4 4-4 4"
-                                      ></path>
-                                    </svg>
-                                  </span>
-                                </button>
-                              </slideshow-arrows>
-
-                              <slideshow-slides tabindex="-1" ref="scroller">
-                                <slideshow-slide
-                                  ref="slides[]"
-                                  aria-hidden="false"
-                                  style="--slideshow-timeline: --slide-1; --product-media-fit: cover; --grid-template-rows: auto 1fr; --grid-template-rows-desktop: auto 1fr;"
-                                  class="product-media-container media-fit product-media-container--image"
-                                  slide-id="69949030728067"
-                                >
-                                  <div
-                                    class="product-media"
-                                    style="--ratio: 0.75"
-                                    data-media-id="69949030728067"
-                                  >
-                                    <img
-                                      src="//www.robertocollina.com/cdn/shop/files/261FXA34001-03_8.jpg?v=1772792841&amp;width=3840"
-                                      alt="Openwork Lace-Effect sweater"
-                                      srcset="//www.robertocollina.com/cdn/shop/files/261FXA34001-03_8.jpg?v=1772792841&amp;width=240 240w, //www.robertocollina.com/cdn/shop/files/261FXA34001-03_8.jpg?v=1772792841&amp;width=352 352w, //www.robertocollina.com/cdn/shop/files/261FXA34001-03_8.jpg?v=1772792841&amp;width=832 832w, //www.robertocollina.com/cdn/shop/files/261FXA34001-03_8.jpg?v=1772792841&amp;width=1200 1200w, //www.robertocollina.com/cdn/shop/files/261FXA34001-03_8.jpg?v=1772792841&amp;width=1600 1600w, //www.robertocollina.com/cdn/shop/files/261FXA34001-03_8.jpg?v=1772792841&amp;width=1920 1920w, //www.robertocollina.com/cdn/shop/files/261FXA34001-03_8.jpg?v=1772792841&amp;width=2560 2560w, //www.robertocollina.com/cdn/shop/files/261FXA34001-03_8.jpg?v=1772792841&amp;width=3840 3840w"
-                                      width="3840"
-                                      height="5120"
-                                      loading="eager"
-                                      sizes="(min-width: 750px) 50vw, 100vw"
-                                      class="product-media__image"
-                                      transitiontoproduct="true"
-                                      data_max_resolution="//www.robertocollina.com/cdn/shop/files/261FXA34001-03_8.jpg?v=1772792841&amp;width=3840"
-                                      fetchpriority="auto"
-                                      style="--focal-point: 50.0% 50.0%;"
-                                    >
-                                  </div>
-                                </slideshow-slide>
-                                <slideshow-slide
-                                  ref="slides[]"
-                                  aria-hidden="true"
-                                  style="--slideshow-timeline: --slide-2; --product-media-fit: cover; --grid-template-rows: auto 1fr; --grid-template-rows-desktop: auto 1fr;"
-                                  class="product-media-container media-fit product-media-container--image"
-                                  slide-id="69902475166083"
-                                >
-                                  <div
-                                    class="product-media"
-                                    style="--ratio: 0.75"
-                                    data-media-id="69902475166083"
-                                  >
-                                    <img
-                                      src="//www.robertocollina.com/cdn/shop/files/4704d1c2e708871994ff49e41ce3a3cf.jpg?v=1772792841&amp;width=3840"
-                                      alt="Openwork Lace-Effect sweater"
-                                      srcset="//www.robertocollina.com/cdn/shop/files/4704d1c2e708871994ff49e41ce3a3cf.jpg?v=1772792841&amp;width=240 240w, //www.robertocollina.com/cdn/shop/files/4704d1c2e708871994ff49e41ce3a3cf.jpg?v=1772792841&amp;width=352 352w, //www.robertocollina.com/cdn/shop/files/4704d1c2e708871994ff49e41ce3a3cf.jpg?v=1772792841&amp;width=832 832w, //www.robertocollina.com/cdn/shop/files/4704d1c2e708871994ff49e41ce3a3cf.jpg?v=1772792841&amp;width=1200 1200w, //www.robertocollina.com/cdn/shop/files/4704d1c2e708871994ff49e41ce3a3cf.jpg?v=1772792841&amp;width=1600 1600w, //www.robertocollina.com/cdn/shop/files/4704d1c2e708871994ff49e41ce3a3cf.jpg?v=1772792841&amp;width=1920 1920w, //www.robertocollina.com/cdn/shop/files/4704d1c2e708871994ff49e41ce3a3cf.jpg?v=1772792841&amp;width=2560 2560w, //www.robertocollina.com/cdn/shop/files/4704d1c2e708871994ff49e41ce3a3cf.jpg?v=1772792841&amp;width=3840 3840w"
-                                      width="3840"
-                                      height="5120"
-                                      sizes="auto, (min-width: 750px) 50vw, 100vw"
-                                      class="product-media__image"
-                                      transitiontoproduct="true"
-                                      data_max_resolution="//www.robertocollina.com/cdn/shop/files/4704d1c2e708871994ff49e41ce3a3cf.jpg?v=1772792841&amp;width=3840"
-                                      fetchpriority="auto"
-                                      style="--focal-point: 50.0% 50.0%;"
-                                    >
-                                  </div>
-                                </slideshow-slide>
-                                <slideshow-slide
-                                  ref="slides[]"
-                                  aria-hidden="true"
-                                  style="--slideshow-timeline: --slide-3; --product-media-fit: cover; --grid-template-rows: auto 1fr; --grid-template-rows-desktop: auto 1fr;"
-                                  class="product-media-container media-fit product-media-container--image"
-                                  slide-id="69902472249731"
-                                >
-                                  <div
-                                    class="product-media"
-                                    style="--ratio: 0.75"
-                                    data-media-id="69902472249731"
-                                  >
-                                    <img
-                                      src="//www.robertocollina.com/cdn/shop/files/ea62607f6742b62276e86ae58dad35ed.jpg?v=1772792841&amp;width=3840"
-                                      alt="Openwork Lace-Effect sweater"
-                                      srcset="//www.robertocollina.com/cdn/shop/files/ea62607f6742b62276e86ae58dad35ed.jpg?v=1772792841&amp;width=240 240w, //www.robertocollina.com/cdn/shop/files/ea62607f6742b62276e86ae58dad35ed.jpg?v=1772792841&amp;width=352 352w, //www.robertocollina.com/cdn/shop/files/ea62607f6742b62276e86ae58dad35ed.jpg?v=1772792841&amp;width=832 832w, //www.robertocollina.com/cdn/shop/files/ea62607f6742b62276e86ae58dad35ed.jpg?v=1772792841&amp;width=1200 1200w, //www.robertocollina.com/cdn/shop/files/ea62607f6742b62276e86ae58dad35ed.jpg?v=1772792841&amp;width=1600 1600w, //www.robertocollina.com/cdn/shop/files/ea62607f6742b62276e86ae58dad35ed.jpg?v=1772792841&amp;width=1920 1920w, //www.robertocollina.com/cdn/shop/files/ea62607f6742b62276e86ae58dad35ed.jpg?v=1772792841&amp;width=2560 2560w, //www.robertocollina.com/cdn/shop/files/ea62607f6742b62276e86ae58dad35ed.jpg?v=1772792841&amp;width=3840 3840w"
-                                      width="3840"
-                                      height="5120"
-                                      sizes="auto, (min-width: 750px) 50vw, 100vw"
-                                      class="product-media__image"
-                                      transitiontoproduct="true"
-                                      data_max_resolution="//www.robertocollina.com/cdn/shop/files/ea62607f6742b62276e86ae58dad35ed.jpg?v=1772792841&amp;width=3840"
-                                      fetchpriority="auto"
-                                      style="--focal-point: 50.0% 50.0%;"
-                                    >
-                                  </div>
-                                </slideshow-slide>
-                                <slideshow-slide
-                                  ref="slides[]"
-                                  aria-hidden="true"
-                                  style="--slideshow-timeline: --slide-4; --product-media-fit: cover; --grid-template-rows: auto 1fr; --grid-template-rows-desktop: auto 1fr;"
-                                  class="product-media-container media-fit product-media-container--image"
-                                  slide-id="69902473560451"
-                                >
-                                  <div
-                                    class="product-media"
-                                    style="--ratio: 0.75"
-                                    data-media-id="69902473560451"
-                                  >
-                                    <img
-                                      src="//www.robertocollina.com/cdn/shop/files/90b1e87fd2ac38fcef5ea471036c5861.jpg?v=1772792841&amp;width=3840"
-                                      alt="Openwork Lace-Effect sweater"
-                                      srcset="//www.robertocollina.com/cdn/shop/files/90b1e87fd2ac38fcef5ea471036c5861.jpg?v=1772792841&amp;width=240 240w, //www.robertocollina.com/cdn/shop/files/90b1e87fd2ac38fcef5ea471036c5861.jpg?v=1772792841&amp;width=352 352w, //www.robertocollina.com/cdn/shop/files/90b1e87fd2ac38fcef5ea471036c5861.jpg?v=1772792841&amp;width=832 832w, //www.robertocollina.com/cdn/shop/files/90b1e87fd2ac38fcef5ea471036c5861.jpg?v=1772792841&amp;width=1200 1200w, //www.robertocollina.com/cdn/shop/files/90b1e87fd2ac38fcef5ea471036c5861.jpg?v=1772792841&amp;width=1600 1600w, //www.robertocollina.com/cdn/shop/files/90b1e87fd2ac38fcef5ea471036c5861.jpg?v=1772792841&amp;width=1920 1920w, //www.robertocollina.com/cdn/shop/files/90b1e87fd2ac38fcef5ea471036c5861.jpg?v=1772792841&amp;width=2560 2560w, //www.robertocollina.com/cdn/shop/files/90b1e87fd2ac38fcef5ea471036c5861.jpg?v=1772792841&amp;width=3840 3840w"
-                                      width="3840"
-                                      height="5120"
-                                      loading="lazy"
-                                      sizes="auto, (min-width: 750px) 50vw, 100vw"
-                                      class="product-media__image"
-                                      transitiontoproduct="true"
-                                      data_max_resolution="//www.robertocollina.com/cdn/shop/files/90b1e87fd2ac38fcef5ea471036c5861.jpg?v=1772792841&amp;width=3840"
-                                      fetchpriority="auto"
-                                      style="--focal-point: 50.0% 50.0%;"
-                                    >
-                                  </div>
-                                </slideshow-slide>
-                                <slideshow-slide
-                                  ref="slides[]"
-                                  aria-hidden="true"
-                                  style="--slideshow-timeline: --slide-5; --product-media-fit: cover; --grid-template-rows: auto 1fr; --grid-template-rows-desktop: auto 1fr;"
-                                  class="product-media-container media-fit product-media-container--image"
-                                  slide-id="69902475559299"
-                                >
-                                  <div
-                                    class="product-media"
-                                    style="--ratio: 0.75"
-                                    data-media-id="69902475559299"
-                                  >
-                                    <img
-                                      src="//www.robertocollina.com/cdn/shop/files/0f6b02c7f276e3af1c6afb29bddb3e8b.jpg?v=1772792841&amp;width=3840"
-                                      alt="Openwork Lace-Effect sweater"
-                                      srcset="//www.robertocollina.com/cdn/shop/files/0f6b02c7f276e3af1c6afb29bddb3e8b.jpg?v=1772792841&amp;width=240 240w, //www.robertocollina.com/cdn/shop/files/0f6b02c7f276e3af1c6afb29bddb3e8b.jpg?v=1772792841&amp;width=352 352w, //www.robertocollina.com/cdn/shop/files/0f6b02c7f276e3af1c6afb29bddb3e8b.jpg?v=1772792841&amp;width=832 832w, //www.robertocollina.com/cdn/shop/files/0f6b02c7f276e3af1c6afb29bddb3e8b.jpg?v=1772792841&amp;width=1200 1200w, //www.robertocollina.com/cdn/shop/files/0f6b02c7f276e3af1c6afb29bddb3e8b.jpg?v=1772792841&amp;width=1600 1600w, //www.robertocollina.com/cdn/shop/files/0f6b02c7f276e3af1c6afb29bddb3e8b.jpg?v=1772792841&amp;width=1920 1920w, //www.robertocollina.com/cdn/shop/files/0f6b02c7f276e3af1c6afb29bddb3e8b.jpg?v=1772792841&amp;width=2560 2560w, //www.robertocollina.com/cdn/shop/files/0f6b02c7f276e3af1c6afb29bddb3e8b.jpg?v=1772792841&amp;width=3840 3840w"
-                                      width="3840"
-                                      height="5120"
-                                      loading="lazy"
-                                      sizes="auto, (min-width: 750px) 50vw, 100vw"
-                                      class="product-media__image"
-                                      transitiontoproduct="true"
-                                      data_max_resolution="//www.robertocollina.com/cdn/shop/files/0f6b02c7f276e3af1c6afb29bddb3e8b.jpg?v=1772792841&amp;width=3840"
-                                      fetchpriority="auto"
-                                      style="--focal-point: 50.0% 50.0%;"
-                                    >
-                                  </div>
-                                </slideshow-slide>
-                              </slideshow-slides>
-                            </slideshow-container>
-                          </slideshow-component>
-                        </a>
-
-                        <div
-                          class="product-badges product-badges--gallery product-badges--top-left"
-                        >
-                          <div
-                            class="product-badges__badge product-badges__badge--sale product-badges__badge--rectangle"
-                            style="color:#000000; background-color: #FFFFFF;"
-                          >
-                            <!-- Remove % symbol from discount -->
-
-                            <!-- Add 0 to convert string to integer -->
-
-                            <!-- Check case -->
-
-                            -40%
-                          </div>
-                        </div>
-
-                        <quick-add-component
-                          class="quick-add"
-                          ref="quickAdd"
-                          data-product-title="Openwork Lace-Effect sweater"
-                          data-quick-add-button="choose"
-                          data-product-options-count="1"
-                          ><product-form-component
-                            data-section-id="template--28411802321283__main"
-                            data-product-id="15618860056963"
-                            on:submit="/handleSubmit"
-                            class="quick-add__product-form-component"
-                          >
-                            <div
-                              class="visually-hidden"
-                              aria-live="assertive"
-                              role="status"
-                              aria-atomic="true"
-                              ref="liveRegion"
-                            ></div>
-                            <form
-                              method="post"
-                              action="/cart/add"
-                              id="QuickAdd-ProductForm-15618860056963-AcjBmd0lmbFE5U3NBc__product-card-gallery"
-                              accept-charset="UTF-8"
-                              class="shopify-product-form"
-                              enctype="multipart/form-data"
-                              novalidate="novalidate"
-                              data-type="add-to-cart-form"
-                            >
-                              <input
-                                type="hidden"
-                                name="form_type"
-                                value="product"
-                              ><input type="hidden" name="utf8" value="✓">
-                              <input
-                                type="hidden"
-                                name="id"
-                                ref="variantId"
-                                value="57304393318787"
-                              >
-                              <input type="hidden" name="quantity" value="1">
-
-                              <button
-                                class="button quick-add__button quick-add__button--choose add-to-cart-button"
-                                type="button"
-                                name="add"
-                                on:click="quick-add-component/handleClick"
-                                aria-label="Quick add"
-                              >
-                                <div class="quick-add__button-wrapper">
-                                  <span
-                                    class="add-to-cart-text quick-add__button-content"
-                                  >
-                                    <span
-                                      aria-hidden="true"
-                                      class="svg-wrapper svg-wrapper--small add-to-cart-icon quick-add__button-icon"
-                                      ><svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        viewBox="0 0 20 20"
-                                        fill="none"
-                                      >
-                                        <path
-                                          stroke="currentColor"
-                                          stroke-linecap="round"
-                                          stroke-linejoin="round"
-                                          stroke-width="var(--icon-stroke-width)"
-                                          d="M16.608 9.421V6.906H3.392v8.016c0 .567.224 1.112.624 1.513.4.402.941.627 1.506.627H8.63M8.818 3h2.333c.618 0 1.212.247 1.649.686a2.35 2.35 0 0 1 .683 1.658v1.562H6.486V5.344c0-.622.246-1.218.683-1.658A2.33 2.33 0 0 1 8.82 3"
-                                        ></path>
-                                        <path
-                                          stroke="currentColor"
-                                          stroke-linecap="round"
-                                          stroke-width="var(--icon-stroke-width)"
-                                          d="M14.608 12.563v5m2.5-2.5h-5"
-                                        ></path>
-                                      </svg>
-                                    </span>
-                                    <span
-                                      class="add-to-cart-text__content is-visually-hidden-mobile quick-add__button-text"
-                                    >
-                                      Choose
-                                    </span>
-                                  </span>
-                                </div>
-                              </button>
-
-                              <input
-                                type="hidden"
-                                name="product-id"
-                                value="15618860056963"
-                              ><input
-                                type="hidden"
-                                name="section-id"
-                                value="template--28411802321283__main"
-                              >
-                            </form></product-form-component
-                          >
-                        </quick-add-component>
-                      </div>
-
-                      <div class="product-grid-view-zoom-out--details">
-                        <h3 class="h4">Openwork Lace-Effect sweater</h3>
-                      </div>
-
-                      <div class="product-card__details ">
-                        <div class="product-card__info">
-                          <div class="product-card__title-group">
-                            <product-title
-                              class="product-card__title h5"
-                              style="display: -webkit-box; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis; -webkit-line-clamp: 1;"
-                              ><span> Openwork Lace-Effect sweater </span>
-                            </product-title>
-                          </div>
-
-                          <product-price
-                            class="text-block text-block--full-width text-left h6"
-                            data-block-id="ATDJIdWFkUENLd0dJS__product-price"
-                            data-product-id="15618860056963"
-                          >
-                            <div ref="priceContainer">
-                              <span role="group">
-                                <span class="visually-hidden"
-                                  >Sale price&nbsp;</span
-                                >
-                                <span class="price">114</span>
-                              </span>
-
-                              <span role="group">
-                                <span class="visually-hidden"
-                                  >Regular price&nbsp;</span
-                                >
-                                <s class="compare-at-price">190</s>
-                                <span>EUR</span>
-                              </span>
-                            </div>
-                          </product-price>
-                        </div>
-
-                        <div class="product-badges"></div>
-                      </div>
-                    </div>
-                  </product-card></product-card-link
-                >
-              </li>
-
-              <!--  -->
-            </ul>
+              <span class="column-picker column-picker--default">1</span>
+            </label>
+            <label class="column-options__option">
+              <input
+                type="radio"
+                name="grid"
+                value="zoom-out"
+                class="column-options__option-input"
+                aria-label="Zoom out"
+                on:change="results-list/updateLayout"
+                data-skip-node-update=""
+              >
+              <span class="column-picker column-picker--zoom-out">2</span>
+            </label>
+            <label class="column-options__option">
+              <input
+                type="radio"
+                name="grid"
+                value="organic"
+                class="column-options__option-input"
+                aria-label="Editorial"
+                on:change="results-list/updateLayout"
+                data-skip-node-update=""
+              >
+              <span class="column-picker column-picker--organic">3</span>
+            </label>
           </div>
         </div>
       </div>
+
+      <results-list
+        class="results-list"
+        api-endpoint="https://withered-breeze-4769.mboussaemmanuelito.workers.dev/api/v1/products"
+      >
+        <div class="collection-wrapper grid">
+          <div
+            id="ResultsList"
+            class="grid main-collection-grid"
+            style="--grid--margin--mobile: 0 0;
+          --grid-column--desktop: var(--full-width);
+          --grid-column--mobile: var(--full-width);"
+          >
+            <div
+              style="grid-column: var(--full-width);
+          --product-grid-gap-mobile: 32px 4px;
+          --product-grid-gap-desktop: 48px 8px;
+          container-type: inline-size;
+          container-name: product-grid;"
+            >
+              <ul
+                class="product-grid product-grid--grid"
+                product-grid-view="default"
+                ref="grid"
+                role="list"
+                style="--product-grid-columns-mobile: repeat(2, 1fr);
+            --product-grid-columns-desktop: repeat(4, minmax(170px, 1fr));
+            --product-grid-gap-mobile: 32px 4px;
+            --product-grid-gap-desktop: 48px 8px;"
+              ></ul>
+            </div>
+          </div>
+        </div>
+      </results-list>
     </main>
+
+    <cart-drawer-component id="cart-drawer">
+      <dialog ref="dialog" class="cart-drawer">
+        <div class="cart-drawer__header">
+          <h2>Panier</h2>
+          <button
+            class="cart-drawer__close button-unstyled"
+            type="button"
+            on:click="#cart-drawer/closeDialog"
+            aria-label="Fermer"
+          >
+            ×
+          </button>
+        </div>
+        <div class="cart-drawer__items" ref="items"></div>
+        <div class="cart-drawer__footer">
+          <div class="cart-drawer__total">
+            Total : <span ref="total">0</span> FCFA
+          </div>
+          <button
+            class="button"
+            type="button"
+            on:click="cart-drawer-component/checkout"
+          >
+            Commander
+          </button>
+        </div>
+      </dialog>
+    </cart-drawer-component>
+
+    <script type="module" src="index.js" defer></script>
   </body>
-
-  <script>
-  // Inline header height calculation to prevent layout shift
-  // Note: calculateHeaderGroupHeight() and updateTransparentHeaderOffset() in
-  // utilities.js should be kept in sync with this function
-  (function setHeaderHeighCustomProperties() {
-    /*
-     * Header calculation functions for maintaining CSS variables
-     * Mimic calculateHeaderGroupHeight() in utilities.js
-     */
-    const header = document.querySelector("header-component");
-    const headerGroup = document.querySelector("#header-group");
-    const hasHeaderSection = headerGroup?.querySelector(".header-section");
-
-    if (!header || !headerGroup) return;
-
-    const headerHeight = header.offsetHeight;
-
-    // Calculate the total height of the header group
-    let headerGroupHeight = 0;
-    const children = headerGroup.children;
-
-    for (let i = 0; i < children.length; i++) {
-      const element = children[i];
-      if (element === header || !(element instanceof HTMLElement)) continue;
-      headerGroupHeight += element.offsetHeight;
-    }
-
-    // Check for transparent header special case
-    if (
-      header.hasAttribute("transparent") &&
-      header.parentElement?.nextElementSibling
-    ) {
-      headerGroupHeight += headerHeight;
-    }
-
-    // Set CSS variables
-    document.body.style.setProperty("--header-height", `${headerHeight}px`);
-    document.body.style.setProperty(
-      "--header-group-height",
-      `${headerGroupHeight}px`,
-    );
-
-    /**
-     * Updates CSS custom properties for transparent header offset calculation
-     * Mimic updateTransparentHeaderOffset() in utilities.js
-     */
-    if (!hasHeaderSection || !header?.hasAttribute("transparent")) {
-      document.body.style.setProperty(
-        "--transparent-header-offset-boolean",
-        "0",
-      );
-      return;
-    }
-
-    const hasImmediateSection =
-      hasHeaderSection.nextElementSibling?.classList.contains(
-        "shopify-section",
-      );
-    const shouldApplyOffset = !hasImmediateSection ? "1" : "0";
-
-    document.body.style.setProperty(
-      "--transparent-header-offset-boolean",
-      shouldApplyOffset,
-    );
-  })();
-  </script>
-
-  <script type="module" src="index.js" defer></script>
 </html>

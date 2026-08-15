@@ -153,7 +153,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: var( --font-size--2xs);
+  font-size: var(--font-size--2xs);
   font-weight: var(--font-body--weight);
   line-height: 100%;
   text-align: center;
@@ -356,7 +356,4 @@ slideshow-arrows {
   gap: calc(var(--padding-inline-mobile) / 2);
 }
 
-/* Form */
-.quick-add__product-form-component {
-  height: 100%;
-}
+

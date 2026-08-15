@@ -36,6 +36,7 @@
 @import "./components/header/menu.css" layer(components);
 @import "./components/header/ressources.css" layer(components);
 @import "./components/overlist.css" layer(components);
+@import "./components/category-nav.css" layer(components);
 
 /* --- Block ----------------------------------------------------------- */
 @import "./blocks/product.css" layer(base);

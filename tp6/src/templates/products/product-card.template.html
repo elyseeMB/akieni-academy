@@ -1,0 +1,70 @@
+<template data-name="product-card">
+  <product-card-link
+    class="product-grid__item"
+    data-product-transition="true"
+    data-attr-data-product-id="id"
+    data-attr-data-featured-media-url="image"
+  >
+    <product-card
+      class="product-card"
+      data-product-transition="true"
+      data-attr-data-product-id="id"
+      data-attr-id="domId"
+      data-attr-data-price="priceValue"
+    >
+      <a
+        id=""
+        href=""
+        class="product-card__link"
+        ref="productCardLink"
+        data-attr-id="anchorId"
+        data-field="href"
+        wk-skip=""
+      >
+        <span class="visually-hidden" data-field="title"></span>
+      </a>
+
+      <div
+        class="product-card__content layout-panel-flex layout-panel-flex--column product-grid__card"
+      >
+        <div
+          ref="cardGallery"
+          class="card-gallery"
+          style="--gallery-aspect-ratio: 2 / 3;"
+          data-view-transition-to-main-product=""
+          data-image-ratio="portrait"
+          data-attr-data-product-id="id"
+        >
+          <a
+            class="contents"
+            ref="cardGalleryLink"
+            href=""
+            aria-label=""
+            data-field="href"
+            data-attr-aria-label="title"
+          >
+            <img
+              class="product-media__image"
+              src=""
+              alt=""
+              data-field="image"
+              width="3840"
+              height="5120"
+              loading="eager"
+              sizes="(min-width: 750px) 50vw, 100vw"
+              style="--focal-point: 50.0% 50.0%;"
+            >
+          </a>
+
+          <div
+            class="product-badges product-badges--gallery product-badges--top-left"
+          ></div>
+
+          <div data-slot="form"></div>
+        </div>
+
+        <div data-slot="details"></div>
+      </div>
+    </product-card>
+  </product-card-link>
+</template>

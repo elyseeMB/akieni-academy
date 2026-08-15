@@ -1,0 +1,66 @@
+/* ==========================================================================
+   COMPONENTS · CATEGORY NAV
+   Horizontal category bar below the header; the category replaces the
+   tag facet filters. Active item is marked with a simple underline.
+   ========================================================================== */
+
+.category-nav {
+  position: sticky;
+  top: var(--header-height);
+  z-index: var(--layer-flat);
+  display: flex;
+  align-items: center;
+  gap: var(--gap-md);
+  padding-inline: var(--drawer-inline-padding);
+  border-bottom: 1px solid var(--color-border);
+  background-color: var(--color-background);
+  overflow: hidden;
+}
+
+category-nav-component {
+  display: block;
+  min-width: 0;
+  flex: 1;
+}
+
+.category-nav__list {
+  display: flex;
+  align-items: center;
+  gap: var(--gap-md, 1rem);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.category-nav__list::-webkit-scrollbar {
+  display: none;
+}
+
+.category-nav__item-wrapper {
+  list-style: none;
+}
+
+.category-nav__item {
+  appearance: none;
+  background: none;
+  border: 0;
+  padding: 0.85rem 0.25rem;
+  font: inherit;
+  color: var(--color-foreground);
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.category-nav__item[aria-current="true"] {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.category-nav__item.skeleton {
+  display: inline-block;
+  width: 90px;
+  height: 14px;
+  padding: 0;
+}

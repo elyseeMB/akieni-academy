@@ -138,14 +138,6 @@
   }
 }
 
-.quick-add__product-form-component .shopify-product-form {
-  height: 100%;
-  display: flex;
-  justify-content: flex-start;
-  align-items: flex-end;
-  container-type: inline-size;
-}
-
 @media screen and (min-width: 750px) {
   .quick-add {
     display: var(--quick-add-display, flex);

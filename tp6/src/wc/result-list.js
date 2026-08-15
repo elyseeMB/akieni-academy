@@ -4,7 +4,7 @@ import {
   startViewTransition,
 } from "../utilities/utils.js";
 
-import PaginatedList from "./pagination-list.js";
+import { PaginatedList } from "./paginated-list.js";
 
 export default class ResultsList extends PaginatedList {
   connectedCallback() {

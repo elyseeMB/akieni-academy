@@ -9,6 +9,7 @@ export class ThemeEvents {
   static zoomMediaSelected = "zoom-media:selected";
   static discountUpdate = "discount:update";
   static filterUpdate = "filter:update";
+  static categorySelect = "category:select";
 }
 
 export class VariantSelectedEvent extends Event {
@@ -106,16 +107,6 @@ export class MediaStartedPlayingEvent extends Event {
   }
 }
 
-export class SlideshowSelectEvent extends Event {
-  static eventName = "slideshow:select";
-
-  constructor(data) {
-    super(SlideshowSelectEvent.eventName, { bubbles: true });
-
-    this.detail = data;
-  }
-}
-
 export class ZoomMediaSelectedEvent extends Event {
   constructor(index) {
     super(ThemeEvents.zoomMediaSelected, { bubbles: true });
@@ -141,5 +132,13 @@ export class FilterUpdateEvent extends Event {
     return [...this.detail.queryParams.entries()].some(([key]) =>
       key.startsWith("filter."),
     );
+  }
+}
+
+export class CategorySelectEvent extends Event {
+  constructor(slug) {
+    super(ThemeEvents.categorySelect, { bubbles: true });
+
+    this.detail = { slug };
   }
 }

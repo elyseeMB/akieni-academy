@@ -4,7 +4,7 @@ import { apiFetch, withQueryParams } from "../../packages/functions/http.js";
 import { Product } from "../models/product.js";
 import { toProductProps } from "./transformaters/product-transformater.js";
 
-const url =
+export const API_BASE =
   "https://withered-breeze-4769.mboussaemmanuelito.workers.dev/api/v1/";
 
 /**
@@ -13,7 +13,7 @@ const url =
  * @returns {Promise<Product[]>}
  */
 async function getAllProductsApi(queryParams = {}) {
-  const rootURL = new URL("products", url);
+  const rootURL = new URL("products", API_BASE);
   const endpoint = withQueryParams(rootURL.href, queryParams);
 
   try {
@@ -37,7 +37,7 @@ async function getAllProductsApi(queryParams = {}) {
  * @returns {Promise<Product[]>}
  */
 async function getProductsByCategoryApi(slug, queryParams = {}) {
-  const rootURL = new URL(`categories/${slug}/scene-packs`, url);
+  const rootURL = new URL(`categories/${slug}/scene-packs`, API_BASE);
   const endpoint = withQueryParams(rootURL.href, queryParams);
 
   try {

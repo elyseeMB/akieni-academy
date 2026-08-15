@@ -2,6 +2,7 @@ import {
   calculateHeaderGroupHeight,
   changeMetaThemeColor,
   onDocumentLoaded,
+  updateAllHeaderCustomProperties,
 } from "../../utilities/utils.js";
 import { Component } from "../component.js";
 
@@ -166,6 +167,8 @@ class HeaderComponent extends Component {
         document.addEventListener("scroll", this.#handleWindowScroll);
       }
     }
+
+    requestAnimationFrame(() => updateAllHeaderCustomProperties());
   }
 
   disconnectedCallback() {
@@ -192,6 +195,8 @@ if (!customElements.get("header-component")) {
 onDocumentLoaded(() => {
   const header = document.querySelector("header-component");
   const headerGroup = document.querySelector("#header-group");
+
+  updateAllHeaderCustomProperties();
 
   if (!headerGroup) return;
 

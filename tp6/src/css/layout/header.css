@@ -4,13 +4,10 @@
    ========================================================================== */
 
 body {
-  --header-height: 49px;
-  --header-group-height: 81px;
   --transparent-header-offset-boolean: 0;
 }
 
 body {
-  --header-height: 48px;
   --header-group-height: var(--header-group-height);
   --transparent-header-offset-boolean: 0;
 }
