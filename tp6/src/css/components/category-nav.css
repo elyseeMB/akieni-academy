@@ -5,8 +5,10 @@
    ========================================================================== */
 
 .category-nav {
+  --calc: calc(var(--header-height) - 1px);
   position: sticky;
-  top: var(--header-height);
+  top: var(--calc);
+  height: calc(100% - var(--calc));
   z-index: var(--layer-flat);
   display: flex;
   align-items: center;

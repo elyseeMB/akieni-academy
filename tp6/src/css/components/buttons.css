@@ -109,13 +109,6 @@
   background-color: var(--color-background);
 }
 
-@media screen and (min-width: 750px) {
-  .quick-add__button .add-to-cart-text {
-    /* margin-inline: calc(var(--padding-sm) * -1);
-    padding-inline: var(--padding-xs); */
-  }
-}
-
 .quick-add__button .add-to-cart-text {
   gap: 0;
   line-height: 0.8;
@@ -144,12 +137,23 @@
 }
 
 .quick-add__button .add-to-cart-text__content {
-  display: none;
-  opacity: 0;
+  display: block;
+  opacity: 1;
   transition:
     display var(--animation-speed) ease-in-out,
     opacity var(--animation-speed) ease-in-out,
     transform var(--animation-speed) ease-in-out;
+}
+
+@media screen and (min-width: 700px) {
+  .quick-add__button .add-to-cart-text__content {
+    display: none;
+    opacity: 0;
+    transition:
+      display var(--animation-speed) ease-in-out,
+      opacity var(--animation-speed) ease-in-out,
+      transform var(--animation-speed) ease-in-out;
+  }
 }
 
 .add-to-cart-text {
@@ -184,8 +188,7 @@
   pointer-events: none;
 }
 
-.button:hover,
-button.shopify-payment-button__button--unbranded:hover:not([disabled]) {
+.button:hover {
   --button-color: var(--color-primary-button-hover-text);
   --button-background-color: var(--color-primary-button-hover-background);
   --button-border-color: var(--color-primary-button-hover-border);

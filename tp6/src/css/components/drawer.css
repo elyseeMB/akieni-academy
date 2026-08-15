@@ -116,7 +116,7 @@ dialog.filters-drawer::backdrop {
 /* Voile couvrant le contenu sous le header : le header reste 100% opaque. */
 .dialog-dimmer {
   position: fixed;
-  top: var(--header-height, 0px);
+  top: var(--header-height);
   left: 0;
   right: 0;
   bottom: 0;

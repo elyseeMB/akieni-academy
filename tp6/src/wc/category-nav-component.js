@@ -2,7 +2,7 @@ import { useCategoriesApi } from "../api/use-categories.js";
 import { CategorySelectEvent } from "../theme/event.js";
 import { Component } from "./component.js";
 
-const SKELETON_COUNT = 4;
+const SKELETON_COUNT = 8;
 
 export class CategoryNavComponent extends Component {
   #initialized = false;

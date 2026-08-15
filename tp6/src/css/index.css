@@ -44,7 +44,3 @@
 @import "./tools/reset.css" layer(reset);
 @import "./tools/fonts.css" layer(fonts);
 @import "./tools/base.css" layer(base);
-
-category-title-component {
-  display: block;
-}

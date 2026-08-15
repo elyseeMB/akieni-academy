@@ -1,13 +1,18 @@
 import { ThemeEvents } from "../theme/event.js";
 import { Component } from "./component.js";
 
-const DEFAULT_TITLE = "Tous les produits";
+const SITE_NAME = "SUMMER BREAK SHOP";
+const DEFAULT_TITLE = "Tous produits";
 
 export class CategoryTitleComponent extends Component {
   connectedCallback() {
     super.connectedCallback();
     this.#renderTitle(DEFAULT_TITLE);
-    document.addEventListener(ThemeEvents.categorySelect, this.#onCategorySelect);
+    document.title = DEFAULT_TITLE + " | " + SITE_NAME;
+    document.addEventListener(
+      ThemeEvents.categorySelect,
+      this.#onCategorySelect,
+    );
   }
 
   disconnectedCallback() {
@@ -19,7 +24,9 @@ export class CategoryTitleComponent extends Component {
   }
 
   #onCategorySelect = (event) => {
-    this.#renderTitle(event.detail?.name || DEFAULT_TITLE);
+    const name = event.detail?.name || "";
+    document.title = name + " | " + SITE_NAME;
+    this.#renderTitle(name || DEFAULT_TITLE);
   };
 
   #renderTitle(text) {

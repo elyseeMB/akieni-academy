@@ -13,7 +13,6 @@
   position: relative;
   overflow: hidden;
   background-color: rgb(var(--color-foreground-rgb) / var(--skeleton-opacity));
-  border-radius: var(--radius-sm);
 }
 
 .skeleton::after {

@@ -10,7 +10,7 @@ import {
 } from "./product-card-renderer.js";
 import { templateStore } from "./template-store.js";
 
-const PRODUCT_SKELETON_COUNT = 8;
+const PRODUCT_SKELETON_COUNT = 4;
 
 const PRODUCT_SKELETON_ITEM = `
   <li class="product-grid__item product-card-skeleton">
@@ -62,9 +62,7 @@ export class PaginatedList extends Component {
     this.#renderSkeletons();
 
     const categories = await useCategoriesApi.getAll();
-    const slugs = categories
-      .map((category) => category.slug)
-      .filter(Boolean);
+    const slugs = categories.map((category) => category.slug).filter(Boolean);
 
     const jsons = await Promise.all(
       slugs.map((slug) =>
