@@ -4,12 +4,21 @@ import { Component } from "../component.js";
 const ACTIVATE_DELAY = 0;
 const DEACTIVATE_DELAY = 350;
 
+/**
+ * Custom element for header navigation menu with hover interactions
+ * @extends {Component}
+ */
 export class HeaderMenu extends Component {
+  /**@type {string[]} */
   requiredRefs = ["overflowMenu"];
-
+  /**@type {AbortController} */
   #abortController = new AbortController();
+  /**@type {Object} */
   #state = { activeItem: null };
 
+  /**
+   * @return {void}
+   */
   connectedCallback() {
     super.connectedCallback();
 
@@ -27,21 +36,33 @@ export class HeaderMenu extends Component {
     this.#abortController.abort();
   }
 
+  /**
+   * @return {number}
+   */
   get animationDelay() {
     const value = this.dataset.animationDelay;
     return value ? parseInt(value, 10) : 0;
   }
 
+  /**
+   * @return {HTMLElement|undefined}
+   */
   get overflowMenu() {
     return this.refs.overflowMenu?.shadowRoot?.querySelector(
       '[part="overflow"]',
     );
   }
 
+  /**
+   * @return {boolean}
+   */
   get overflowHovered() {
     return this.refs.overflowMenu?.matches(":hover") ?? false;
   }
 
+  /**
+   * @type {(event: Event) => void}
+   */
   activate = (event) => {
     this.#debouncedDeactivate.cancel();
     this.#debouncedActivateHandler.cancel();

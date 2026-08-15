@@ -11,6 +11,9 @@ import { PaginatedList } from "./paginated-list.js";
  * @extends {PaginatedList}
  */
 export class ResultsList extends PaginatedList {
+  /**
+   * @return {void}
+   */
   connectedCallback() {
     super.connectedCallback();
 
@@ -18,16 +21,29 @@ export class ResultsList extends PaginatedList {
     this.setAttribute("initialized", "");
   }
 
+  /**
+   * @return {void}
+   */
   disconnectedCallback() {
     mediaQueryLarge.removeEventListener("change", this.#handleMediaQueryChange);
   }
 
+  /**
+   * @param {Event} param
+   * @param {HTMLInputElement} param.target
+   * @return {void}
+   */
   updateLayout({ target }) {
     if (target instanceof HTMLInputElement) {
       this.#animateLayoutChange(target.value);
     }
   }
 
+  /**
+   * @async
+   * @param {string} value
+   * @return {Promise<void>}
+   */
   #animateLayoutChange = async (value) => {
     const { grid } = this.refs;
     if (!grid) return;
@@ -40,11 +56,18 @@ export class ResultsList extends PaginatedList {
     });
   };
 
+  /**
+   * @param {string} value
+   * @return {void}
+   */
   #setLayout(value) {
     const { grid } = this.refs;
     if (grid) grid.setAttribute("product-grid-view", value);
   }
 
+  /**
+   * @type {(event: MediaQueryListEvent) => void}
+   */
   #handleMediaQueryChange = (event) => {
     if (!event.matches) return;
 

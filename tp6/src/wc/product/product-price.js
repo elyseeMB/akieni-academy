@@ -5,6 +5,9 @@ import { ThemeEvents } from "../../theme/event.js";
  * @extends {HTMLElement}
  */
 export class ProductPrice extends HTMLElement {
+  /**
+   * @return {void}
+   */
   connectedCallback() {
     const closestSection = this.closest(".shopify-section, dialog");
 
@@ -16,6 +19,9 @@ export class ProductPrice extends HTMLElement {
     }
   }
 
+  /**
+   * @return {void}
+   */
   disconnectedCallback() {
     const closestSection = this.closest(".shopify-section, dialog");
 
@@ -27,6 +33,9 @@ export class ProductPrice extends HTMLElement {
     }
   }
 
+  /**
+   * @type {(event: CustomEvent) => void}
+   */
   updatePrice = (event) => {
     if (event.detail.data.newProduct) {
       this.dataset.productId = event.detail.data.newProduct.id;

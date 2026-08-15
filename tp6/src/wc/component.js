@@ -1,5 +1,9 @@
 import { requestIdleCallback } from "../utilities/utils.js";
 
+/**
+ * Base class for custom elements with declarative shadow DOM support
+ * @extends {HTMLElement}
+ */
 export class DeclarativeShadowElement extends HTMLElement {
   connectedCallback() {
     if (!this.shadowRoot) {
@@ -18,8 +22,14 @@ export class DeclarativeShadowElement extends HTMLElement {
   }
 }
 
+/**
+ * Base component class with ref tracking and lifecycle management
+ * @extends {DeclarativeShadowElement}
+ */
 export class Component extends DeclarativeShadowElement {
+  /**@type {Record<string, HTMLElement>} */
   refs = {};
+  /**@type {string[]|undefined} */
   requiredRefs;
 
   #mutationObserver = new MutationObserver((mutations) => {

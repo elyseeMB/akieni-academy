@@ -9,8 +9,12 @@ const SKELETON_COUNT = 8;
  * @extends {Component}
  */
 export class CategoryNavComponent extends Component {
+  /**@type {boolean} */
   #initialized = false;
 
+  /**
+   * @return {void}
+   */
   connectedCallback() {
     super.connectedCallback();
     if (this.#initialized) return;
@@ -18,6 +22,10 @@ export class CategoryNavComponent extends Component {
     this.#render();
   }
 
+  /**
+   * @async
+   * @return {Promise<void>}
+   */
   async #render() {
     this.#renderSkeletons();
     try {
@@ -29,6 +37,9 @@ export class CategoryNavComponent extends Component {
     }
   }
 
+  /**
+   * @return {void}
+   */
   #renderSkeletons() {
     const list = this.#list();
     list.replaceChildren();
@@ -44,6 +55,10 @@ export class CategoryNavComponent extends Component {
     list.appendChild(fragment);
   }
 
+  /**
+   * @param {Array} categories
+   * @return {void}
+   */
   #renderList(categories) {
     const list = this.#list();
     list.replaceChildren();
@@ -73,6 +88,9 @@ export class CategoryNavComponent extends Component {
     }
   }
 
+  /**
+   * @return {HTMLUListElement}
+   */
   #list() {
     let list = this.querySelector(".category-nav__list");
     if (!list) {
@@ -83,6 +101,10 @@ export class CategoryNavComponent extends Component {
     return list;
   }
 
+  /**
+   * @param {Event} event
+   * @return {void}
+   */
   select(event) {
     const button = event.target.closest(".category-nav__item");
     if (!button) return;

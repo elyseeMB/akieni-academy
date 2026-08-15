@@ -1,14 +1,14 @@
 import { toProductProps } from "../api/transformaters/product-transformater.js";
 import { useCategoriesApi } from "../api/use-categories.js";
 import { API_BASE } from "../api/use-products.js";
-import { ThemeEvents } from "../theme/event.js";
-import { Component } from "./component.js";
-import { pageFetcher } from "./page-fetcher.js";
+import { pageFetcher } from "../modules/page-fetcher.js";
 import {
   PRODUCT_TEMPLATE_URLS,
   renderProductCard,
-} from "./product-card-renderer.js";
-import { templateStore } from "./template-store.js";
+} from "../modules/product-card-renderer.js";
+import { templateStore } from "../modules/template-store.js";
+import { ThemeEvents } from "../theme/event.js";
+import { Component } from "./component.js";
 
 const PRODUCT_SKELETON_COUNT = 4;
 
@@ -21,10 +21,19 @@ const PRODUCT_SKELETON_ITEM = `
     </div>
   </li>`;
 
+/**
+ * Custom element for displaying paginated product listings
+ * @extends {Component}
+ */
 export class PaginatedList extends Component {
+  /**@type {Array} */
   #allItems = [];
+  /**@type {boolean} */
   #initialized = false;
 
+  /**
+   * @return {string}
+   */
   get apiEndpoint() {
     const url = this.getAttribute("api-endpoint");
     if (!url) {
@@ -33,6 +42,9 @@ export class PaginatedList extends Component {
     return url;
   }
 
+  /**
+   * @return {void}
+   */
   connectedCallback() {
     super.connectedCallback();
     if (this.#initialized) return;
@@ -44,6 +56,9 @@ export class PaginatedList extends Component {
     );
   }
 
+  /**
+   * @return {void}
+   */
   disconnectedCallback() {
     super.disconnectedCallback();
     document.removeEventListener(
@@ -52,12 +67,20 @@ export class PaginatedList extends Component {
     );
   }
 
+  /**
+   * @async
+   * @return {Promise<void>}
+   */
   async #start() {
     this.#renderSkeletons();
     await templateStore.load(PRODUCT_TEMPLATE_URLS);
     await this.#loadAllCategories();
   }
 
+  /**
+   * @async
+   * @return {Promise<void>}
+   */
   async #loadAllCategories() {
     this.#renderSkeletons();
 
@@ -87,6 +110,9 @@ export class PaginatedList extends Component {
     this.#emitCategories();
   }
 
+  /**
+   * @return {void}
+   */
   #renderSkeletons() {
     const grid = this.refs.grid;
     if (!grid) return;
@@ -102,6 +128,9 @@ export class PaginatedList extends Component {
     grid.appendChild(fragment);
   }
 
+  /**
+   * @return {void}
+   */
   #renderGrid() {
     const grid = this.refs.grid;
     if (!grid) return;
@@ -116,6 +145,9 @@ export class PaginatedList extends Component {
     }
   }
 
+  /**
+   * @return {void}
+   */
   #emitCategories() {
     const categories = [
       ...new Set(this.#allItems.flatMap((item) => item.categories)),
@@ -128,6 +160,10 @@ export class PaginatedList extends Component {
     );
   }
 
+  /**
+   * @param {Object} dto
+   * @return {Object}
+   */
   #toItem(dto) {
     const props = toProductProps(dto);
     const images = (props.imageObjects ?? []).map((image) => ({
@@ -149,6 +185,9 @@ export class PaginatedList extends Component {
     };
   }
 
+  /**
+   * @type {(event: CustomEvent) => Promise<void>}
+   */
   #onCategorySelect = async (event) => {
     const slug = event.detail?.slug ?? "";
     if (slug) {
@@ -158,6 +197,11 @@ export class PaginatedList extends Component {
     }
   };
 
+  /**
+   * @async
+   * @param {string} slug
+   * @return {Promise<void>}
+   */
   async #loadCategory(slug) {
     this.#renderSkeletons();
     const json = await pageFetcher.fetch(

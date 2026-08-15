@@ -3,10 +3,16 @@
  * @extends {HTMLElement}
  */
 export class ProductCardLink extends HTMLElement {
+  /**
+   * @return {void}
+   */
   connectedCallback() {
     this.addEventListener("click", this.#handleClick);
   }
 
+  /**
+   * @return {void}
+   */
   disconnectedCallback() {
     this.removeEventListener("click", this.#handleClick);
   }

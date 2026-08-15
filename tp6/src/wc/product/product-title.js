@@ -5,15 +5,24 @@ import { Component } from "../component.js";
  * @extends {Component}
  */
 export class ProductTitle extends Component {
+  /**@type {ResizeObserver|undefined} */
+  resizeObserver;
+
   constructor() {
     super();
   }
 
+  /**
+   * @return {void}
+   */
   connectedCallback() {
     super.connectedCallback();
     this.#initializeTruncation();
   }
 
+  /**
+   * @return {void}
+   */
   disconnectedCallback() {
     super.disconnectedCallback();
 
@@ -24,6 +33,9 @@ export class ProductTitle extends Component {
     window.removeEventListener("resize", this.#handleResize);
   }
 
+  /**
+   * @return {void}
+   */
   #initializeTruncation() {
     if ("ResizeObserver" in window) {
       this.resizeObserver = new ResizeObserver(() => {
@@ -37,6 +49,9 @@ export class ProductTitle extends Component {
     this.#calculateTruncation();
   }
 
+  /**
+   * @return {void}
+   */
   #calculateTruncation() {
     const textElement =
       this.refs.text || this.querySelector(".title-text") || this;
@@ -58,6 +73,9 @@ export class ProductTitle extends Component {
     textElement.style.webkitLineClamp = String(maxLines);
   }
 
+  /**
+   * @return {void}
+   */
   #handleResize() {
     this.#calculateTruncation();
   }

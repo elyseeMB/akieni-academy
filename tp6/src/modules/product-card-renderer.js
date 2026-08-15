@@ -1,4 +1,4 @@
-import { templateStore } from "./template-store.js";
+import { templateStore } from "../modules/template-store.js";
 
 export const PRODUCT_TEMPLATE_URLS = {
   "product-card": "./templates/products/product-card.template.html",

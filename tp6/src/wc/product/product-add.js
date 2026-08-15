@@ -1,7 +1,14 @@
 import { CartAddEvent, ThemeEvents } from "../../theme/event.js";
 import { Component } from "../component.js";
 
+/**
+ * Custom element for quick add to cart functionality
+ * @extends {Component}
+ */
 export class QuickAddComponent extends Component {
+  /**
+   * @type {(event: MouseEvent) => void}
+   */
   handleClick = (event) => {
     event.preventDefault();
 

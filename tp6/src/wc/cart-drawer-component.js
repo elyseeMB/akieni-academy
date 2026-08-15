@@ -13,8 +13,12 @@ const money = (value) => String(Number(value) || 0);
  * @extends {DialogComponent}
  */
 export class CartDrawerComponent extends DialogComponent {
+  /**@type {AbortController} */
   #abortController = new AbortController();
 
+  /**
+   * @return {void}
+   */
   connectedCallback() {
     super.connectedCallback();
     document.addEventListener(ThemeEvents.cartUpdate, this.#onCartUpdate, {
@@ -23,13 +27,22 @@ export class CartDrawerComponent extends DialogComponent {
     this.#render();
   }
 
+  /**
+   * @return {void}
+   */
   disconnectedCallback() {
     super.disconnectedCallback();
     this.#abortController.abort();
   }
 
+  /**
+   * @type {() => number}
+   */
   #onCartUpdate = () => requestAnimationFrame(() => this.#render());
 
+  /**
+   * @return {void}
+   */
   #render() {
     const itemsContainer = this.refs.items;
     const totalEl = this.refs.total;
@@ -54,6 +67,15 @@ export class CartDrawerComponent extends DialogComponent {
     }
   }
 
+  /**
+   * @param {Object} item
+   * @param {string} item.id
+   * @param {string} item.title
+   * @param {string} item.image
+   * @param {number} item.price
+   * @param {number} item.quantity
+   * @return {HTMLDivElement}
+   */
   #renderItem(item) {
     const row = document.createElement("div");
     row.className = "cart-item";
@@ -107,6 +129,10 @@ export class CartDrawerComponent extends DialogComponent {
     return row;
   }
 
+  /**
+   * @param {Event} event
+   * @return {void}
+   */
   updateQty(event) {
     const id = event.target?.dataset?.id;
     const delta = Number(event.target?.dataset?.delta || 0);
@@ -116,11 +142,18 @@ export class CartDrawerComponent extends DialogComponent {
     cart.setQty(id, item.quantity + delta);
   }
 
+  /**
+   * @param {Event} event
+   * @return {void}
+   */
   removeItem(event) {
     const id = event.target?.dataset?.id;
     if (id) cart.removeFromCart(id);
   }
 
+  /**
+   * @return {void}
+   */
   checkout() {
     console.log("Commande", cart.getCart());
   }

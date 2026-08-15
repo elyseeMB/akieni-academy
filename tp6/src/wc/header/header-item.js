@@ -19,6 +19,9 @@ async function fetchAndCache(url) {
   return html;
 }
 
+/**
+ * Header item utility class for managing navigation items
+ */
 export class HeaderItem {
   /**@type {HTMLElement} */
   #root;
@@ -38,18 +41,33 @@ export class HeaderItem {
     this.#items = items;
   }
 
+  /**
+   * @async
+   * @return {Promise<void>}
+   */
   async init() {
     await this.#loadTemplates();
   }
 
+  /**
+   * @param {Array<{label: string, href: string, submenu: Array}>} items
+   * @return {void}
+   */
   setItems(items) {
     this.#items = items;
   }
 
+  /**
+   * @return {void}
+   */
   render() {
     this.#build();
   }
 
+  /**
+   * @async
+   * @return {Promise<void>}
+   */
   async #loadTemplates() {
     const entries = Object.entries(TEMPLATE_URLS);
 
@@ -86,6 +104,9 @@ export class HeaderItem {
     return this.#templates[key].content.cloneNode(true);
   }
 
+  /**
+   * @return {void}
+   */
   #build() {
     if (!this.#root) {
       return;
@@ -108,6 +129,7 @@ export class HeaderItem {
   /**
    * @param {{label: string, href: string, submenu: Array}} item
    * @param {number} index
+   * @return {DocumentFragment}
    */
   #buildMenuItem(item, index) {
     const label = (
@@ -132,6 +154,7 @@ export class HeaderItem {
   /**
    * @param {Array<{label: string, href: string, tags: string[], images: any[]}>} submenu
    * @param {number} index
+   * @return {DocumentFragment}
    */
   #buildSubMenu(submenu, index) {
     const node = this.#clone("submenu");
@@ -173,6 +196,7 @@ export class HeaderItem {
 
   /**
    * @param {string} tag
+   * @return {DocumentFragment}
    */
   #buildSubMenuLink(tag) {
     const node = this.#clone("submenuLink");
@@ -186,6 +210,7 @@ export class HeaderItem {
 
   /**
    * @param {{label: string, href: string, images: any[]}} item
+   * @return {DocumentFragment}
    */
   #buildResourceCard(item) {
     const node = this.#clone("resourceCard");

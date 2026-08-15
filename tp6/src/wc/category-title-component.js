@@ -9,6 +9,9 @@ const DEFAULT_TITLE = "Tous produits";
  * @extends {Component}
  */
 export class CategoryTitleComponent extends Component {
+  /**
+   * @return {void}
+   */
   connectedCallback() {
     super.connectedCallback();
     this.#renderTitle(DEFAULT_TITLE);
@@ -19,6 +22,9 @@ export class CategoryTitleComponent extends Component {
     );
   }
 
+  /**
+   * @return {void}
+   */
   disconnectedCallback() {
     super.disconnectedCallback();
     document.removeEventListener(
@@ -27,12 +33,19 @@ export class CategoryTitleComponent extends Component {
     );
   }
 
+  /**
+   * @type {(event: CustomEvent) => void}
+   */
   #onCategorySelect = (event) => {
     const name = event.detail?.name || "";
     document.title = name + " | " + SITE_NAME;
     this.#renderTitle(name || DEFAULT_TITLE);
   };
 
+  /**
+   * @param {string} text
+   * @return {void}
+   */
   #renderTitle(text) {
     this.replaceChildren();
     const h1 = document.createElement("h1");

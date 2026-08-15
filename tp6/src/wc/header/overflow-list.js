@@ -1,7 +1,17 @@
 import { ResizeNotifier } from "../../utilities/utils.js";
 import { DeclarativeShadowElement } from "../component.js";
 
+/**
+ * Event emitted when overflow minimum threshold is reached
+ * @extends {Event}
+ */
 export class OverflowMinimumEvent extends Event {
+  /**@type {Object} */
+  detail;
+
+  /**
+   * @param {boolean} minimumReached
+   */
   constructor(minimumReached) {
     super("overflowMinimum", { bubbles: true });
 
@@ -9,13 +19,18 @@ export class OverflowMinimumEvent extends Event {
   }
 }
 
+/**
+ * Custom element for managing overflow list with responsive container
+ * @extends {DeclarativeShadowElement}
+ */
 export class OverflowList extends DeclarativeShadowElement {
+  /**@type {string[]} */
   static observedAttributes = ["disabled", "minimum-items"];
-
+  /**@type {Object|null} */
   #refs;
-
+  /**@type {boolean} */
   #scheduled = false;
-
+  /**@type {ResizeObserver|undefined} */
   #resizeObserver;
 
   #mutationObserver;
@@ -35,12 +50,22 @@ export class OverflowList extends DeclarativeShadowElement {
     );
   }
 
+  /**
+   * @param {string} name
+   * @param {string|null} oldValue
+   * @param {string|null} newValue
+   * @return {void}
+   */
   attributeChangedCallback(name, oldValue, newValue) {
     if (name !== "disabled") return;
 
     newValue === "true" ? this.#reset() : this.#reflowItems();
   }
 
+  /**
+   * @async
+   * @return {Promise<void>}
+   */
   async connectedCallback() {
     super.connectedCallback();
 
@@ -53,12 +78,19 @@ export class OverflowList extends DeclarativeShadowElement {
     this.#initialize();
   }
 
+  /**
+   * @return {void}
+   */
   disconnectedCallback() {
     this.#resizeObserver.disconnect();
     this.#mutationObserver.disconnect();
     this.#intersectionObserver.disconnect();
   }
 
+  /**
+   * @async
+   * @return {Promise<void>}
+   */
   async #waitForStyles() {
     const stylesheet = this.shadowRoot?.querySelector('link[rel="stylesheet"]');
 
@@ -71,6 +103,9 @@ export class OverflowList extends DeclarativeShadowElement {
     });
   }
 
+  /**
+   * @return {void}
+   */
   #initialize() {
     let shadowRoot = this.shadowRoot;
 
@@ -126,6 +161,9 @@ export class OverflowList extends DeclarativeShadowElement {
     }
   }
 
+  /**
+   * @return {Function}
+   */
   get schedule() {
     return typeof Theme?.utilities?.scheduler?.schedule === "function"
       ? Theme.utilities.scheduler.schedule
@@ -136,20 +174,32 @@ export class OverflowList extends DeclarativeShadowElement {
         };
   }
 
+  /**
+   * @return {number|null}
+   */
   get minimumItems() {
     const value = this.getAttribute("minimum-items");
 
     return value ? Number.parseInt(value, 10) : null;
   }
 
+  /**
+   * @return {HTMLSlotElement|undefined}
+   */
   get overflowSlot() {
     return this.#refs.overflowSlot;
   }
 
+  /**
+   * @return {HTMLSlotElement|undefined}
+   */
   get defaultSlot() {
     return this.#refs.defaultSlot;
   }
 
+  /**
+   * @type {(entry: IntersectionObserverEntry) => void}
+   */
   #handleIntersection = ([entry]) => {
     if (!entry?.isIntersecting) return;
 
@@ -162,6 +212,9 @@ export class OverflowList extends DeclarativeShadowElement {
     }, 0);
   };
 
+  /**
+   * @type {() => void}
+   */
   #handleChange = () => {
     if (this.#scheduled) return;
 
@@ -175,6 +228,9 @@ export class OverflowList extends DeclarativeShadowElement {
     });
   };
 
+  /**
+   * @return {void}
+   */
   #moveItemsToDefaultSlot() {
     const { defaultSlot, overflowSlot } = this.#refs;
 
@@ -185,6 +241,9 @@ export class OverflowList extends DeclarativeShadowElement {
     }
   }
 
+  /**
+   * @return {void}
+   */
   #reset() {
     const { list } = this.#refs;
 
@@ -196,6 +255,10 @@ export class OverflowList extends DeclarativeShadowElement {
     this.style.setProperty("--overflow-count", "0");
   }
 
+  /**
+   * @param {Array} visibleElements
+   * @return {void}
+   */
   #updateMinimumReached(visibleElements) {
     if (this.minimumItems === null) return;
 
@@ -210,6 +273,9 @@ export class OverflowList extends DeclarativeShadowElement {
     this.dispatchEvent(new OverflowMinimumEvent(minimumReached));
   }
 
+  /**
+   * @return {void}
+   */
   showAll() {
     const { placeholder } = this.#refs;
 
@@ -219,6 +285,9 @@ export class OverflowList extends DeclarativeShadowElement {
     this.setAttribute("disabled", "true");
   }
 
+  /**
+   * @type {(listHeight?: number, lastVisibleElement?: Element|null) => void}
+   */
   #reflowItems = (listHeight = 0, lastVisibleElement = null) => {
     const { defaultSlot, overflowSlot, moreSlot, list, placeholder } =
       this.#refs;
@@ -309,6 +378,9 @@ export class OverflowList extends DeclarativeShadowElement {
     this.#observeChanges();
   };
 
+  /**
+   * @return {void}
+   */
   #observeChanges() {
     this.#resizeObserver.observe(this);
 
@@ -317,6 +389,9 @@ export class OverflowList extends DeclarativeShadowElement {
     });
   }
 
+  /**
+   * @return {void}
+   */
   #unobserveChanges() {
     this.#resizeObserver.disconnect();
     this.#mutationObserver.disconnect();

@@ -12,8 +12,13 @@ const PRODUCT_IMAGE_RATIOS = {
  * @extends {Component}
  */
 export class ProductCard extends Component {
+  /**@type {string[]} */
   requiredRefs = ["productCardLink"];
 
+  /**
+   * @param {MouseEvent} event
+   * @return {void}
+   */
   connectedCallback() {
     super.connectedCallback();
 
@@ -25,11 +30,17 @@ export class ProductCard extends Component {
     this.addEventListener("click", this.navigateToProduct);
   }
 
+  /**
+   * @return {void}
+   */
   disconnectedCallback() {
     super.disconnectedCallback();
     this.removeEventListener("click", this.navigateToProduct);
   }
 
+  /**
+   * @type {(event: MouseEvent) => void}
+   */
   navigateToProduct = (event) => {
     if (
       !(event.target instanceof Element) ||
@@ -70,6 +81,9 @@ export class ProductCard extends Component {
     }
   };
 
+  /**
+   * @type {(event: MouseEvent, url: URL) => void}
+   */
   #navigateToURL = (event, url) => {
     if (
       event instanceof MouseEvent &&
@@ -82,6 +96,9 @@ export class ProductCard extends Component {
     window.location.href = url.href;
   };
 
+  /**
+   * @return {void}
+   */
   #syncGalleryAspectRatio() {
     const gallery = this.refs.cardGallery;
     const ratio = PRODUCT_IMAGE_RATIOS[gallery?.dataset.imageRatio ?? ""];

@@ -6,17 +6,28 @@ import {
 } from "../../utilities/utils.js";
 import { Component } from "../component.js";
 
+/**
+ * Custom element for the main site header with sticky scroll behavior
+ * @extends {Component}
+ */
 export class HeaderComponent extends Component {
+  /**@type {string[]} */
   requiredRefs = ["headerMenu", "headerRowTop"];
-
+  /**@type {number|null} */
   #menuDrawerHiddenWidth = null;
+  /**@type {IntersectionObserver|null} */
   #intersectionObserver = null;
+  /**@type {boolean} */
   #offscreen = false;
+  /**@type {number} */
   #lastScrollTop = 0;
+  /**@type {number|null} */
   #timeout = null;
+  /**@type {number|null} */
   #scrollRafId = null;
+  /**@type {number} */
   #animationDelay = 150;
-
+  /**@type {ResizeObserver} */
   #resizeObserver = new ResizeObserver(([entry]) => {
     if (!entry || !entry.borderBoxSize[0]) return;
 
@@ -34,6 +45,9 @@ export class HeaderComponent extends Component {
     }
   });
 
+  /**
+   * @type {(alwaysSticky?: boolean) => void}
+   */
   #observeStickyPosition = (alwaysSticky = true) => {
     if (this.#intersectionObserver) return;
 
@@ -58,10 +72,17 @@ export class HeaderComponent extends Component {
     this.#intersectionObserver.observe(this);
   };
 
+  /**
+   * @type {(event: Event) => void}
+   */
   #handleOverflowMinimum = (event) => {
     this.#updateMenuVisibility(event.detail.minimumReached);
   };
 
+  /**
+   * @param {boolean} hideMenu
+   * @return {void}
+   */
   #updateMenuVisibility(hideMenu) {
     if (hideMenu) {
       this.#menuDrawerHiddenWidth = window.innerWidth;
@@ -72,6 +93,9 @@ export class HeaderComponent extends Component {
     }
   }
 
+  /**
+   * @type {() => void}
+   */
   #handleWindowScroll = () => {
     if (this.#scrollRafId === null) {
       this.#scrollRafId = requestAnimationFrame(() => {
@@ -81,6 +105,9 @@ export class HeaderComponent extends Component {
     }
   };
 
+  /**
+   * @return {void}
+   */
   #customUpdateScrollState = () => {
     const headerHeight = this.offsetHeight;
     const headerGroupHeight = calculateHeaderGroupHeight(this);
@@ -150,6 +177,9 @@ export class HeaderComponent extends Component {
     this.#lastScrollTop = scrollTop;
   };
 
+  /**
+   * @return {void}
+   */
   connectedCallback() {
     super.connectedCallback();
 
@@ -169,6 +199,9 @@ export class HeaderComponent extends Component {
     requestAnimationFrame(() => updateAllHeaderCustomProperties());
   }
 
+  /**
+   * @return {void}
+   */
   disconnectedCallback() {
     super.disconnectedCallback();
 
