@@ -1,7 +1,7 @@
 import { cacheApi } from "../packages/functions/cache.js";
 import { ApiError } from "../packages/functions/error.js";
 import { apiFetch } from "../packages/functions/http.js";
-import { Category } from "../models/category.js";
+import { Category } from "../models/Category.js";
 import { toCategoryProps } from "./transformaters/category-transformater.js";
 
 const url =
@@ -51,7 +51,7 @@ async function getAllCategoriesApi(queryParams = {}) {
       return cached.map((dto) => Category.create(toCategoryProps(dto)));
     }
 
-    /** @type {import("../models/category.js").ResponseApiCategory} */
+    /** @type {import("../models/Category.js").ResponseApiCategory} */
     const res = await apiFetch(endpoint.href, queryParams);
     writeCategoriesCache(res.data);
     return res.data.map((dto) => Category.create(toCategoryProps(dto)));
@@ -68,4 +68,3 @@ async function getAllCategoriesApi(queryParams = {}) {
 export const useCategoriesApi = cacheApi({
   getAll: getAllCategoriesApi,
 });
-
