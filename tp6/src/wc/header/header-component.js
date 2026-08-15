@@ -7,7 +7,7 @@ import {
 import { Component } from "../component.js";
 
 class HeaderComponent extends Component {
-  requiredRefs = ["headerDrawerContainer", "headerMenu", "headerRowTop"];
+  requiredRefs = ["headerMenu", "headerRowTop"];
 
   #menuDrawerHiddenWidth = null;
   #intersectionObserver = null;
@@ -64,13 +64,11 @@ class HeaderComponent extends Component {
 
   #updateMenuVisibility(hideMenu) {
     if (hideMenu) {
-      this.refs.headerDrawerContainer.classList.remove("desktop:hidden");
       this.#menuDrawerHiddenWidth = window.innerWidth;
-      this.refs.headerMenu.classList.add("hidden");
+      this.refs.headerMenu.hidden = true;
     } else {
-      this.refs.headerDrawerContainer.classList.add("desktop:hidden");
       this.#menuDrawerHiddenWidth = null;
-      this.refs.headerMenu.classList.remove("hidden");
+      this.refs.headerMenu.hidden = false;
     }
   }
 

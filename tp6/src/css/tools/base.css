@@ -81,3 +81,11 @@ img {
   height: var(--icon-size-sm);
   pointer-events: none;
 }
+
+textarea,
+input {
+  border-radius: 0 !important;
+  background-color: transparent;
+  border-width: 1px;
+  border-color: transparent;
+}

@@ -1,4 +1,4 @@
-import { CartAddEvent, CartUpdateEvent, ThemeEvents } from "../theme/event.js";
+import { CartUpdateEvent, ThemeEvents } from "../theme/event.js";
 
 const CART_KEY = "akieni-cart";
 

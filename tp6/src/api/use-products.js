@@ -8,29 +8,6 @@ export const API_BASE =
   "https://withered-breeze-4769.mboussaemmanuelito.workers.dev/api/v1/";
 
 /**
- * Fetches the list of products from the API
- * @param {Record<string, any>} queryParams
- * @returns {Promise<Product[]>}
- */
-async function getAllProductsApi(queryParams = {}) {
-  const rootURL = new URL("products", API_BASE);
-  const endpoint = withQueryParams(rootURL.href, queryParams);
-
-  try {
-    /** @type {import("../models/product.js").ResponseApiProduct} */
-    const res = await apiFetch(endpoint);
-    return res.data.map((dto) => Product.create(toProductProps(dto)));
-  } catch (error) {
-    if (error instanceof ApiError) {
-      throw new ProductFetchError("Impossible de récupérer les produits", {
-        cause: error,
-      });
-    }
-    throw error;
-  }
-}
-
-/**
  * Fetches products belonging to a specific category
  * @param {string} slug
  * @param {Record<string, any>} [queryParams]
@@ -83,7 +60,5 @@ export class ProductFetchError extends Error {
 }
 
 export const useProductsApi = cacheApi({
-  getAll: getAllProductsApi,
-  getByCategory: getProductsByCategoryApi,
   getByCategories: getProductsByCategoriesApi,
 });

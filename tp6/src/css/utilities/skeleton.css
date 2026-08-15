@@ -36,6 +36,15 @@
   }
 }
 
+/* Category nav skeleton: matches the real nav item box so the sticky bar
+   does not change height when the loaded categories replace the skeletons.
+   Lives in the utilities layer on purpose: `.skeleton` is defined here too,
+   and components rules cannot override an earlier-declared layer. */
+.category-nav__item.skeleton {
+  display: inline-block;
+  width: 100px;
+}
+
 /* ==========================================================================
    PRODUCT CARD SKELETON
    Placeholder shown in the grid while products are being fetched.

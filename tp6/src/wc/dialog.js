@@ -15,7 +15,8 @@ export class DialogComponent extends Component {
   disconnectedCallback() {
     super.disconnectedCallback(),
       (this.minWidth || this.maxWidth) &&
-        window.removeEventListener("resize", this.#handleResize);
+        window.removeEventListener("resize", this.#handleResize),
+      this.#removeDimmer();
   }
   #handleResize = debounce(() => {
     const { minWidth, maxWidth } = this;
@@ -25,6 +26,7 @@ export class DialogComponent extends Component {
   }, 50);
 
   #previousScrollY = 0;
+  #dimmer = null;
   showDialog() {
     const { dialog } = this.refs;
     if (dialog.open) {
@@ -37,10 +39,24 @@ export class DialogComponent extends Component {
           (document.body.style.position = "fixed"),
           (document.body.style.top = `-${scrollY}px`),
           dialog.showModal(),
+          this.#addDimmer(),
           this.dispatchEvent(new DialogOpenEvent()),
           this.addEventListener("click", this.#handleClick),
           this.addEventListener("keydown", this.#handleKeyDown);
       });
+  }
+
+  #addDimmer() {
+    if (this.#dimmer) return;
+    const dimmer = document.createElement("div");
+    dimmer.className = "dialog-dimmer";
+    document.body.appendChild(dimmer);
+    this.#dimmer = dimmer;
+  }
+
+  #removeDimmer() {
+    this.#dimmer?.remove();
+    this.#dimmer = null;
   }
 
   closeDialog = async () => {
@@ -57,6 +73,7 @@ export class DialogComponent extends Component {
       (document.body.style.position = ""),
       (document.body.style.top = ""),
       window.scrollTo({ top: this.#previousScrollY, behavior: "instant" }),
+      this.#removeDimmer(),
       dialog.close(),
       dialog.classList.remove("dialog-closing"),
       this.dispatchEvent(new DialogCloseEvent()));

@@ -18,14 +18,19 @@
 }
 
 category-nav-component {
-  display: block;
+  display: flex;
+  align-items: center;
   min-width: 0;
   flex: 1;
+  border-right: 1px solid var(--color-border);
+  min-height: calc(1.5em + 0.85rem * 2);
 }
 
 .category-nav__list {
   display: flex;
   align-items: center;
+  flex: 1;
+  min-width: 0;
   gap: var(--gap-md, 1rem);
   margin: 0;
   padding: 0;
@@ -46,7 +51,7 @@ category-nav-component {
   appearance: none;
   background: none;
   border: 0;
-  padding: 0.85rem 0.25rem;
+  padding: 0.85rem;
   font: inherit;
   color: var(--color-foreground);
   white-space: nowrap;
@@ -56,11 +61,4 @@ category-nav-component {
 .category-nav__item[aria-current="true"] {
   text-decoration: underline;
   text-underline-offset: 4px;
-}
-
-.category-nav__item.skeleton {
-  display: inline-block;
-  width: 90px;
-  height: 14px;
-  padding: 0;
 }

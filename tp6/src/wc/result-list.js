@@ -19,8 +19,6 @@ export default class ResultsList extends PaginatedList {
   }
 
   updateLayout({ target }) {
-    console.log({ target });
-
     if (target instanceof HTMLInputElement) {
       this.#animateLayoutChange(target.value);
     }
@@ -44,9 +42,11 @@ export default class ResultsList extends PaginatedList {
   }
 
   #handleMediaQueryChange = (event) => {
-    const targetElement = event.matches
-      ? this.querySelector('[data-grid-layout="desktop-default-option"]')
-      : this.querySelector('[data-grid-layout="mobile-option"]');
+    if (!event.matches) return;
+
+    const targetElement = this.querySelector(
+      '[data-grid-layout="desktop-default-option"]',
+    );
 
     if (targetElement instanceof HTMLInputElement) {
       targetElement.checked = true;

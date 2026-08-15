@@ -54,3 +54,42 @@
   --focus-outline-width: 0.09375rem;
   --focus-outline-offset: 0.2em;
 }
+
+/* --- View Transitions ----------------------------------------------------- */
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideInTopViewTransition {
+  from {
+    opacity: 0;
+    transform: translateY(-0.625rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+::view-transition-old(root) {
+  animation: var(--view-transition-old-main-content);
+}
+
+::view-transition-new(root) {
+  animation: var(--view-transition-new-main-content);
+}

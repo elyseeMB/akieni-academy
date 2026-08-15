@@ -71,9 +71,8 @@ app-drawer[open] .drawer {
 
 dialog.cart-drawer,
 dialog.filters-drawer {
-  --calc-height: calc(var(--header-height));
   position: fixed;
-  top: var(--calc-height, 0px);
+  top: var(--header-height);
   right: 0;
   left: auto;
   bottom: auto;
@@ -81,7 +80,7 @@ dialog.filters-drawer {
   padding: 0;
   width: min(420px, 92vw);
   max-width: 100vw;
-  height: calc(100% - var(--calc-height, 0px));
+  height: calc(100% - var(--header-height));
   border: none;
   color: var(--color-foreground);
   background-color: var(--color-background);
@@ -107,8 +106,21 @@ dialog.filters-drawer[open] {
   }
 }
 
+/* Native backdrop disabled: le voile est porté par .dialog-dimmer
+   (ajouté par DialogComponent), qui laisse la zone du header non voilée. */
 dialog.cart-drawer::backdrop,
 dialog.filters-drawer::backdrop {
+  background-color: transparent;
+}
+
+/* Voile couvrant le contenu sous le header : le header reste 100% opaque. */
+.dialog-dimmer {
+  position: fixed;
+  top: var(--header-height, 0px);
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 9999;
   background-color: rgb(
     var(--backdrop-color-rgb, 0 0 0) /
     var(--backdrop-opacity, 0.5)

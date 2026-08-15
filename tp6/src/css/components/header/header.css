@@ -9,7 +9,7 @@
   > #header-component[sticky="scroll-up"][data-sticky-state="active"]
 ) {
   position: sticky;
-  top: -1px;
+  top: 0;
   z-index: var(--layer-sticky);
 }
 
@@ -90,4 +90,15 @@
   grid-area: right;
   gap: 2px;
   justify-content: flex-end;
+}
+
+.header-action {
+  padding-inline: calc(var(--padding-inline-desktop) - 1rem);
+}
+
+.header-actions__cart-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--gap-2xs);
 }

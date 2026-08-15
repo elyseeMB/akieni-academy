@@ -89,7 +89,8 @@ export class CategoryNavComponent extends Component {
     button.setAttribute("aria-current", "true");
 
     const slug = button.dataset.slug ?? "";
-    document.dispatchEvent(new CategorySelectEvent(slug));
+    const name = button.textContent?.trim() ?? "";
+    document.dispatchEvent(new CategorySelectEvent(slug, name));
   }
 }
 

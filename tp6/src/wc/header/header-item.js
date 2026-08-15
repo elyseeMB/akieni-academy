@@ -146,7 +146,7 @@ export class HeaderItem {
 
     const linksContainer = node.querySelector('[data-slot="links"]');
     submenu.forEach((subItem) => {
-      subItem.tags?.forEach((tag) => {
+      subItem.tags?.slice(0, 2).forEach((tag) => {
         linksContainer.appendChild(this.#buildSubMenuLink(tag));
       });
     });
@@ -164,7 +164,7 @@ export class HeaderItem {
     `;
 
     const cardsContainer = node.querySelector('[data-slot="cards"]');
-    submenu.slice(0, 3).forEach((subItem) => {
+    submenu.slice(0, 2).forEach((subItem) => {
       cardsContainer.appendChild(this.#buildResourceCard(subItem));
     });
 

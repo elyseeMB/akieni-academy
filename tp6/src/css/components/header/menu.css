@@ -63,7 +63,7 @@
   --submenu-content-opacity: 0;
   --submenu-content-animation: opacity
     calc(var(--submenu-animation-speed) * 0.75) var(--animation-easing);
-  /* box-shadow: var(--shadow-drawer); */
+  box-shadow: var(--shadow-drawer);
   visibility: hidden;
   background-color: var(--color-background);
   position: absolute;

@@ -1,6 +1,12 @@
 import { yieldToMainThread } from "../../utilities/utils.js";
 import { Component } from "../component.js";
 
+const PRODUCT_IMAGE_RATIOS = {
+  portrait: "2 / 3",
+  square: "1 / 1",
+  landscape: "4 / 3",
+};
+
 export class ProductCard extends Component {
   requiredRefs = ["productCardLink"];
 
@@ -11,6 +17,7 @@ export class ProductCard extends Component {
       throw new Error("Product card link not found");
     }
 
+    this.#syncGalleryAspectRatio();
     this.addEventListener("click", this.navigateToProduct);
   }
 
@@ -70,6 +77,14 @@ export class ProductCard extends Component {
     }
     window.location.href = url.href;
   };
+
+  #syncGalleryAspectRatio() {
+    const gallery = this.refs.cardGallery;
+    const ratio = PRODUCT_IMAGE_RATIOS[gallery?.dataset.imageRatio ?? ""];
+    if (gallery && ratio) {
+      gallery.style.setProperty("--gallery-aspect-ratio", ratio);
+    }
+  }
 }
 
 if (!customElements.get("product-card")) {

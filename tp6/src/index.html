@@ -79,75 +79,122 @@
             </div>
 
             <div class="header__column header__column--right">
-              <button
-                class="header-actions__cart-icon button-unstyled"
-                type="button"
-                on:click="#cart-drawer/showDialog"
-                aria-label="Ouvrir le panier"
-              >
-                Panier <span id="cart-count" class="cart-count">0</span>
-              </button>
+              <div class="header-action">
+                <cart-drawer-component id="cart-drawer">
+                  <button
+                    class="header-actions__cart-icon button-unstyled"
+                    type="button"
+                    on:click="#cart-drawer/showDialog"
+                    aria-label="Ouvrir le panier"
+                  >
+                    <svg
+                      width="20"
+                      height="20"
+                      viewBox="0 0 20 20"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M16.0586 5.5L17.4336 16.5H2.56641L3.94141 5.5H16.0586Z"
+                        stroke="black"
+                      ></path>
+                      <path
+                        d="M10 2.5C11.7632 2.5 13.2212 3.8039 13.4639 5.5H6.53613C6.77879 3.8039 8.2368 2.5 10 2.5Z"
+                        stroke="black"
+                      ></path>
+                    </svg>
+                    Panier <span id="cart-count" class="cart-count"></span>
+                  </button>
+                  <dialog ref="dialog" class="cart-drawer">
+                    <div class="cart-drawer__header">
+                      <h2>Panier</h2>
+                      <button
+                        class="cart-drawer__close button-unstyled"
+                        type="button"
+                        on:click="#cart-drawer/closeDialog"
+                        aria-label="Fermer"
+                      >
+                        ×
+                      </button>
+                    </div>
+                    <div class="cart-drawer__items" ref="items"></div>
+                    <div class="cart-drawer__footer">
+                      <button
+                        class="button cart__checkout-button button"
+                        type="button"
+                        on:click="cart-drawer-component/checkout"
+                      >
+                        <span> Commander </span>
+                        <span class="cart-drawer__total">
+                          Total : <span ref="total">0</span>
+                        </span>
+                      </button>
+                    </div>
+                  </dialog>
+                </cart-drawer-component>
+              </div>
             </div>
           </div>
         </div>
       </header-component>
     </header>
 
-    <aside class="category-nav" aria-label="Catégories">
-      <category-nav-component id="category-nav"></category-nav-component>
-    </aside>
-
     <main>
-      <div class="facets">
-        <div class="column-options-wrapper">
-          <div class="column-options">
-            <legend class="column-options__legend">View</legend>
-            <label class="column-options__option">
-              <input
-                type="radio"
-                name="grid"
-                value="default"
-                class="column-options__option-input"
-                checked=""
-                aria-label="Default"
-                data-grid-layout="desktop-default-option"
-                on:change="results-list/updateLayout"
-                data-skip-node-update=""
-              >
-              <span class="column-picker column-picker--default">1</span>
-            </label>
-            <label class="column-options__option">
-              <input
-                type="radio"
-                name="grid"
-                value="zoom-out"
-                class="column-options__option-input"
-                aria-label="Zoom out"
-                on:change="results-list/updateLayout"
-                data-skip-node-update=""
-              >
-              <span class="column-picker column-picker--zoom-out">2</span>
-            </label>
-            <label class="column-options__option">
-              <input
-                type="radio"
-                name="grid"
-                value="organic"
-                class="column-options__option-input"
-                aria-label="Editorial"
-                on:change="results-list/updateLayout"
-                data-skip-node-update=""
-              >
-              <span class="column-picker column-picker--organic">3</span>
-            </label>
+      <aside class="category-nav" aria-label="Catégories">
+        <category-nav-component id="category-nav"></category-nav-component>
+        <div class="facets">
+          <div class="column-options-wrapper">
+            <div class="column-options">
+              <legend class="column-options__legend">View</legend>
+              <label class="column-options__option">
+                <input
+                  type="radio"
+                  name="grid"
+                  value="default"
+                  class="column-options__option-input"
+                  checked=""
+                  aria-label="Default"
+                  data-grid-layout="desktop-default-option"
+                  on:change="#results-list/updateLayout"
+                  data-skip-node-update=""
+                >
+                <span class="column-picker column-picker--default">1</span>
+              </label>
+              <label class="column-options__option">
+                <input
+                  type="radio"
+                  name="grid"
+                  value="zoom-out"
+                  class="column-options__option-input"
+                  aria-label="Zoom out"
+                  on:change="#results-list/updateLayout"
+                  data-skip-node-update=""
+                >
+                <span class="column-picker column-picker--zoom-out">2</span>
+              </label>
+              <label class="column-options__option">
+                <input
+                  type="radio"
+                  name="grid"
+                  value="organic"
+                  class="column-options__option-input"
+                  aria-label="Editorial"
+                  on:change="#results-list/updateLayout"
+                  data-skip-node-update=""
+                >
+                <span class="column-picker column-picker--organic">3</span>
+              </label>
+            </div>
           </div>
         </div>
-      </div>
+      </aside>
 
       <results-list
-        class="results-list"
+        id="results-list"
+        class="results-list product-grid-container"
         api-endpoint="https://withered-breeze-4769.mboussaemmanuelito.workers.dev/api/v1/products"
       >
+        <category-title-component></category-title-component>
         <div class="collection-wrapper grid">
           <div
             id="ResultsList"
@@ -168,45 +215,12 @@
                 product-grid-view="default"
                 ref="grid"
                 role="list"
-                style="--product-grid-columns-mobile: repeat(2, 1fr);
-            --product-grid-columns-desktop: repeat(4, minmax(170px, 1fr));
-            --product-grid-gap-mobile: 32px 4px;
-            --product-grid-gap-desktop: 48px 8px;"
               ></ul>
             </div>
           </div>
         </div>
       </results-list>
     </main>
-
-    <cart-drawer-component id="cart-drawer">
-      <dialog ref="dialog" class="cart-drawer">
-        <div class="cart-drawer__header">
-          <h2>Panier</h2>
-          <button
-            class="cart-drawer__close button-unstyled"
-            type="button"
-            on:click="#cart-drawer/closeDialog"
-            aria-label="Fermer"
-          >
-            ×
-          </button>
-        </div>
-        <div class="cart-drawer__items" ref="items"></div>
-        <div class="cart-drawer__footer">
-          <div class="cart-drawer__total">
-            Total : <span ref="total">0</span> FCFA
-          </div>
-          <button
-            class="button"
-            type="button"
-            on:click="cart-drawer-component/checkout"
-          >
-            Commander
-          </button>
-        </div>
-      </dialog>
-    </cart-drawer-component>
 
     <script type="module" src="index.js" defer></script>
   </body>

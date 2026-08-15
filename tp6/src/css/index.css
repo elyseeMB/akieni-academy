@@ -23,13 +23,8 @@
 
 /* --- Components ---------------------------------------------------------- */
 @import "./components/buttons.css" layer(components);
-@import "./components/inputs.css" layer(components);
-@import "./components/badges.css" layer(components);
-@import "./components/cards.css" layer(components);
 @import "./components/drawer.css" layer(components);
-@import "./components/modal.css" layer(components);
-@import "./components/slideshow.css" layer(components);
-@import "./components/variant-picker.css" layer(components);
+@import "./components/options.css" layer(components);
 
 /* HEADER */
 @import "./components/header/header.css" layer(components);
@@ -42,7 +37,6 @@
 @import "./blocks/product.css" layer(base);
 
 /* --- Utilities ----------------------------------------------------------- */
-@import "./utilities/opacity.css" layer(utilities);
 @import "./utilities/states.css" layer(utilities);
 @import "./utilities/skeleton.css" layer(utilities);
 
@@ -50,3 +44,7 @@
 @import "./tools/reset.css" layer(reset);
 @import "./tools/fonts.css" layer(fonts);
 @import "./tools/base.css" layer(base);
+
+category-title-component {
+  display: block;
+}

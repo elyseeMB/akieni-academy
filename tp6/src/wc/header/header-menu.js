@@ -1,4 +1,3 @@
-import { MegaMenuHoverEvent } from "../../theme/event.js";
 import { debounce, onDocumentLoaded } from "../../utilities/utils.js";
 import { Component } from "../component.js";
 
@@ -51,7 +50,6 @@ class HeaderMenu extends Component {
 
   #activateHandler = (event) => {
     this.#debouncedDeactivate.cancel();
-    this.dispatchEvent(new MegaMenuHoverEvent());
     this.removeAttribute("data-animating");
 
     if (!(event.target instanceof Element)) return;

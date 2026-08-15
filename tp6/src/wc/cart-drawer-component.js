@@ -2,8 +2,7 @@ import { cart } from "../store/cart.js";
 import { ThemeEvents } from "../theme/event.js";
 import { DialogComponent } from "./dialog.js";
 
-const money = (value) =>
-  `${new Intl.NumberFormat("fr-FR").format(Number(value) || 0)} FCFA`;
+const money = (value) => String(Number(value) || 0);
 
 export class CartDrawerComponent extends DialogComponent {
   #abortController = new AbortController();

@@ -1,6 +1,6 @@
-import { withQueryParams } from "../../packages/functions/http.js";
 import { toProductProps } from "../api/transformaters/product-transformater.js";
 import { API_BASE } from "../api/use-products.js";
+import { useCategoriesApi } from "../api/use-categories.js";
 import { ThemeEvents } from "../theme/event.js";
 import { Component } from "./component.js";
 import { pageFetcher } from "./page-fetcher.js";
@@ -10,7 +10,6 @@ import {
 } from "./product-card-renderer.js";
 import { templateStore } from "./template-store.js";
 
-const MAX_PRODUCT_PAGES = 4;
 const PRODUCT_SKELETON_COUNT = 8;
 
 const PRODUCT_SKELETON_ITEM = `
@@ -24,7 +23,6 @@ const PRODUCT_SKELETON_ITEM = `
 
 export class PaginatedList extends Component {
   #allItems = [];
-  #activeCategories = new Set();
   #initialized = false;
 
   get apiEndpoint() {
@@ -40,7 +38,6 @@ export class PaginatedList extends Component {
     if (this.#initialized) return;
     this.#initialized = true;
     this.#start();
-    document.addEventListener(ThemeEvents.FilterUpdate, this.#onFilterUpdate);
     document.addEventListener(
       ThemeEvents.categorySelect,
       this.#onCategorySelect,
@@ -50,10 +47,6 @@ export class PaginatedList extends Component {
   disconnectedCallback() {
     super.disconnectedCallback();
     document.removeEventListener(
-      ThemeEvents.FilterUpdate,
-      this.#onFilterUpdate,
-    );
-    document.removeEventListener(
       ThemeEvents.categorySelect,
       this.#onCategorySelect,
     );
@@ -62,30 +55,36 @@ export class PaginatedList extends Component {
   async #start() {
     this.#renderSkeletons();
     await templateStore.load(PRODUCT_TEMPLATE_URLS);
-    await this.#loadAll();
+    await this.#loadAllCategories();
   }
 
-  async #loadAll() {
-    const first = await pageFetcher.fetch(
-      withQueryParams(this.apiEndpoint, { page: 1 }),
-    );
+  async #loadAllCategories() {
+    this.#renderSkeletons();
 
-    const total = first.meta?.total ?? 0;
-    const limit = first.meta?.limit ?? 3;
-    const totalPages = limit ? Math.ceil(total / limit) : 1;
-    const pageCount = Math.max(1, Math.min(totalPages, MAX_PRODUCT_PAGES));
+    const categories = await useCategoriesApi.getAll();
+    const slugs = categories
+      .map((category) => category.slug)
+      .filter(Boolean);
 
-    const pages = Array.from({ length: pageCount }, (_, i) => i + 1);
     const jsons = await Promise.all(
-      pages.map((page) =>
-        pageFetcher.fetch(withQueryParams(this.apiEndpoint, { page })),
+      slugs.map((slug) =>
+        pageFetcher.fetch(
+          `${API_BASE}categories/${encodeURIComponent(slug)}/scene-packs`,
+        ),
       ),
     );
 
-    this.#allItems = jsons.flatMap((json) =>
-      (json.data ?? []).map((dto) => this.#toItem(dto)),
-    );
+    const seen = new Set();
+    const dtos = [];
+    for (const json of jsons) {
+      for (const dto of json.data ?? []) {
+        if (seen.has(dto.id)) continue;
+        seen.add(dto.id);
+        dtos.push(dto);
+      }
+    }
 
+    this.#allItems = dtos.map((dto) => this.#toItem(dto));
     this.#renderGrid();
     this.#emitCategories();
   }
@@ -110,20 +109,13 @@ export class PaginatedList extends Component {
     if (!grid) return;
     grid.replaceChildren();
 
-    for (const item of this.#filteredItems()) {
+    for (const item of this.#allItems) {
       try {
         grid.appendChild(renderProductCard(item));
       } catch (error) {
         console.error("[paginated-list] Échec de rendu d'un item", item, error);
       }
     }
-  }
-
-  #filteredItems() {
-    if (this.#activeCategories.size === 0) return this.#allItems;
-    return this.#allItems.filter((item) =>
-      item.categories.some((category) => this.#activeCategories.has(category)),
-    );
   }
 
   #emitCategories() {
@@ -148,7 +140,7 @@ export class PaginatedList extends Component {
     return {
       id: props.id,
       title: props.title,
-      price: this.#formatPrice(props.price),
+      price: props.price,
       priceValue: Number(props.price) || 0,
       image: images[0]?.url ?? "",
       images,
@@ -159,30 +151,12 @@ export class PaginatedList extends Component {
     };
   }
 
-  #formatPrice(value) {
-    const amount = Number(value) || 0;
-    return new Intl.NumberFormat("fr-FR").format(amount);
-  }
-
-  #onFilterUpdate = (event) => {
-    const params = event.detail?.queryParams;
-    const categories = new Set();
-    if (params && typeof params.entries === "function") {
-      for (const [key, value] of params.entries()) {
-        if (key === "filter.category") categories.add(value);
-      }
-    }
-    this.#activeCategories = categories;
-    this.#renderGrid();
-  };
-
   #onCategorySelect = async (event) => {
     const slug = event.detail?.slug ?? "";
-    this.#activeCategories = new Set();
     if (slug) {
       await this.#loadCategory(slug);
     } else {
-      await this.#loadAll();
+      await this.#loadAllCategories();
     }
   };
 
