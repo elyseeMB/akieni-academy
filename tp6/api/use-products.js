@@ -1,7 +1,7 @@
 import { cacheApi } from "../packages/functions/cache.js";
 import { ApiError } from "../packages/functions/error.js";
 import { apiFetch, withQueryParams } from "../packages/functions/http.js";
-import { Product } from "../models/product.js";
+import { Product } from "../models/Product.js";
 import { toProductProps } from "./transformaters/product-transformater.js";
 
 export const API_BASE =
@@ -18,7 +18,7 @@ async function getProductsByCategoryApi(slug, queryParams = {}) {
   const endpoint = withQueryParams(rootURL.href, queryParams);
 
   try {
-    /** @type {import("../models/product.js").ResponseApiProduct} */
+    /** @type {import("../models/Product.js").ResponseApiProduct} */
     const res = await apiFetch(endpoint);
     return res.data.map((dto) => Product.create(toProductProps(dto)));
   } catch (error) {
@@ -62,4 +62,3 @@ export class ProductFetchError extends Error {
 export const useProductsApi = cacheApi({
   getByCategories: getProductsByCategoriesApi,
 });
-

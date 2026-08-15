@@ -1,6 +1,6 @@
 /**
- * @param {import("../models/category.js").CategoryDoc} dto
- * @returns {import("../models/category.js").CategoryProps}
+ * @param {import("../models/Category.js").CategoryDoc} dto
+ * @returns {import("../models/Category.js").CategoryProps}
  */
 export function toCategoryProps(dto) {
   return {
