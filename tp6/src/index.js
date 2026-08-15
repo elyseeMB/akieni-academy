@@ -22,7 +22,7 @@ import "./store/cart.js";
 // Modules
 import "./modules/header.js";
 
-// Custom element
+// CUSTOM ELEMENT
 customElements.define("header-component", HeaderComponent);
 customElements.define("header-menu", HeaderMenu);
 customElements.define("overflow-list", OverflowList);
