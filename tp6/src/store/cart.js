@@ -39,6 +39,7 @@ export const cart = {
   addToCart(item) {
     const items = read();
     const existing = items.find((i) => i.id === item.id);
+
     if (existing) {
       existing.quantity += 1;
     } else {
@@ -50,12 +51,17 @@ export const cart = {
   setQty(id, quantity) {
     const items = read();
     const target = items.find((i) => i.id === id);
-    if (!target) return;
+
+    if (!target) {
+      return;
+    }
+
     const next = Number(quantity) || 0;
     if (next <= 0) {
       this.removeFromCart(id);
       return;
     }
+
     target.quantity = next;
     write(items);
     notify();

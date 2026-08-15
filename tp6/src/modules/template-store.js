@@ -1,13 +1,20 @@
 const cache = new Map();
 
 function getPath(item, path) {
-  if (item == null) return undefined;
-  if (!path) return item;
+  if (item == null) {
+    return undefined;
+  }
+
+  if (!path) {
+    return item;
+  }
+
   if (path.includes(".")) {
     return path
       .split(".")
       .reduce((acc, key) => (acc == null ? acc : acc[key]), item);
   }
+
   return item[path];
 }
 

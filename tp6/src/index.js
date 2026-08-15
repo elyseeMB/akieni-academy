@@ -5,13 +5,13 @@ import { DialogComponent } from "./wc/dialog.js";
 import { HeaderComponent } from "./wc/header/header-component.js";
 import { HeaderMenu } from "./wc/header/header-menu.js";
 import { OverflowList } from "./wc/header/overflow-list.js";
+import { PaginatedList } from "./wc/paginated-list.js";
 import { QuickAddComponent } from "./wc/product/product-add.js";
 import { ProductCard } from "./wc/product/product-card.js";
 import { ProductCardLink } from "./wc/product/product-card-link.js";
 import { ProductPrice } from "./wc/product/product-price.js";
 import { ProductTitle } from "./wc/product/product-title.js";
 import { ResultsList } from "./wc/result-list.js";
-import { PaginatedList } from "./wc/paginated-list.js";
 
 import "./wc/header/header-item.js";
 
