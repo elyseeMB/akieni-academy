@@ -322,6 +322,3 @@ export class OverflowList extends DeclarativeShadowElement {
     this.#mutationObserver.disconnect();
   }
 }
-
-customElements.get("overflow-list") ??
-  customElements.define("overflow-list", OverflowList);

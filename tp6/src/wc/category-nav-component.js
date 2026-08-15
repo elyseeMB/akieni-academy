@@ -4,6 +4,10 @@ import { Component } from "./component.js";
 
 const SKELETON_COUNT = 8;
 
+/**
+ * Custom element for category navigation menu
+ * @extends {Component}
+ */
 export class CategoryNavComponent extends Component {
   #initialized = false;
 
@@ -92,8 +96,4 @@ export class CategoryNavComponent extends Component {
     const name = button.textContent?.trim() ?? "";
     document.dispatchEvent(new CategorySelectEvent(slug, name));
   }
-}
-
-if (!customElements.get("category-nav-component")) {
-  customElements.define("category-nav-component", CategoryNavComponent);
 }

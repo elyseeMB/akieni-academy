@@ -6,7 +6,11 @@ import {
 
 import { PaginatedList } from "./paginated-list.js";
 
-export default class ResultsList extends PaginatedList {
+/**
+ * Custom element for displaying paginated product results with layout options
+ * @extends {PaginatedList}
+ */
+export class ResultsList extends PaginatedList {
   connectedCallback() {
     super.connectedCallback();
 
@@ -53,8 +57,4 @@ export default class ResultsList extends PaginatedList {
       this.#setLayout("default");
     }
   };
-}
-
-if (!customElements.get("results-list")) {
-  customElements.define("results-list", ResultsList);
 }

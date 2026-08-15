@@ -1,6 +1,6 @@
 import { toProductProps } from "../api/transformaters/product-transformater.js";
-import { API_BASE } from "../api/use-products.js";
 import { useCategoriesApi } from "../api/use-categories.js";
+import { API_BASE } from "../api/use-products.js";
 import { ThemeEvents } from "../theme/event.js";
 import { Component } from "./component.js";
 import { pageFetcher } from "./page-fetcher.js";
@@ -166,8 +166,4 @@ export class PaginatedList extends Component {
     this.#allItems = (json.data ?? []).map((dto) => this.#toItem(dto));
     this.#renderGrid();
   }
-}
-
-if (!customElements.get("paginated-list")) {
-  customElements.define("paginated-list", PaginatedList);
 }

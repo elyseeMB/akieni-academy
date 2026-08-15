@@ -7,6 +7,10 @@ const PRODUCT_IMAGE_RATIOS = {
   landscape: "4 / 3",
 };
 
+/**
+ * Custom element for rendering a product card
+ * @extends {Component}
+ */
 export class ProductCard extends Component {
   requiredRefs = ["productCardLink"];
 
@@ -85,8 +89,4 @@ export class ProductCard extends Component {
       gallery.style.setProperty("--gallery-aspect-ratio", ratio);
     }
   }
-}
-
-if (!customElements.get("product-card")) {
-  customElements.define("product-card", ProductCard);
 }

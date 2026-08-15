@@ -1,6 +1,10 @@
 import { Component } from "../component.js";
 
-class ProductTitle extends Component {
+/**
+ * Custom element for product titles with truncation support
+ * @extends {Component}
+ */
+export class ProductTitle extends Component {
   constructor() {
     super();
   }
@@ -58,8 +62,5 @@ class ProductTitle extends Component {
     this.#calculateTruncation();
   }
 }
-
-customElements.get("product-title") ||
-  customElements.define("product-title", ProductTitle);
 
 export default ProductTitle;

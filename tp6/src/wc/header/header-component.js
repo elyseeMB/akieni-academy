@@ -6,7 +6,7 @@ import {
 } from "../../utilities/utils.js";
 import { Component } from "../component.js";
 
-class HeaderComponent extends Component {
+export class HeaderComponent extends Component {
   requiredRefs = ["headerMenu", "headerRowTop"];
 
   #menuDrawerHiddenWidth = null;
@@ -184,10 +184,6 @@ class HeaderComponent extends Component {
 
     document.body.style.setProperty("--header-height", "0px");
   }
-}
-
-if (!customElements.get("header-component")) {
-  customElements.define("header-component", HeaderComponent);
 }
 
 onDocumentLoaded(() => {

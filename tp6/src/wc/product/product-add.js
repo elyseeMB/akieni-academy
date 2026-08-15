@@ -26,7 +26,3 @@ export class QuickAddComponent extends Component {
     );
   };
 }
-
-if (!customElements.get("quick-add-component")) {
-  customElements.define("quick-add-component", QuickAddComponent);
-}

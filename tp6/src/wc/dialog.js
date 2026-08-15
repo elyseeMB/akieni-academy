@@ -101,9 +101,6 @@ export class DialogComponent extends Component {
   }
 }
 
-customElements.get("dialog-component") ||
-  customElements.define("dialog-component", DialogComponent);
-
 export class DialogOpenEvent extends CustomEvent {
   constructor() {
     super(DialogOpenEvent.eventName);

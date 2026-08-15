@@ -2,8 +2,16 @@ import { cart } from "../store/cart.js";
 import { ThemeEvents } from "../theme/event.js";
 import { DialogComponent } from "./dialog.js";
 
+/**
+ * @param {string|number} value
+ * @return {string}
+ */
 const money = (value) => String(Number(value) || 0);
 
+/**
+ * Custom element for shopping cart drawer dialog
+ * @extends {DialogComponent}
+ */
 export class CartDrawerComponent extends DialogComponent {
   #abortController = new AbortController();
 
@@ -116,8 +124,4 @@ export class CartDrawerComponent extends DialogComponent {
   checkout() {
     console.log("Commande", cart.getCart());
   }
-}
-
-if (!customElements.get("cart-drawer-component")) {
-  customElements.define("cart-drawer-component", CartDrawerComponent);
 }

@@ -1,4 +1,8 @@
-class ProductCardLink extends HTMLElement {
+/**
+ * Custom element for product card links with transition support
+ * @extends {HTMLElement}
+ */
+export class ProductCardLink extends HTMLElement {
   connectedCallback() {
     this.addEventListener("click", this.#handleClick);
   }
@@ -7,10 +11,16 @@ class ProductCardLink extends HTMLElement {
     this.removeEventListener("click", this.#handleClick);
   }
 
+  /**
+   * @return {boolean}
+   */
   get productTransitionEnabled() {
     return this.getAttribute("data-product-transition") === "true";
   }
 
+  /**
+   * @return {string | null}
+   */
   get featuredMediaUrl() {
     return this.getAttribute("data-featured-media-url");
   }
@@ -63,6 +73,3 @@ class ProductCardLink extends HTMLElement {
     }
   }
 }
-
-customElements.get("product-card-link") ||
-  customElements.define("product-card-link", ProductCardLink);

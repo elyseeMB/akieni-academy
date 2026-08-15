@@ -9,18 +9,13 @@
 
   <body>
     <header class="header-section" role="banner">
-      <header-component
-        id="header-component"
-        class="header"
-        sticky="always"
-        data-sticky-state="inactive"
-      >
-        <h1 class="visually-hidden">Roberto Collina</h1>
+      <header-component id="header-component" class="header" sticky="always">
+        <h1 class="visually-hidden">Tous produits | SUMMER BREAK SHOP</h1>
         <div class="header__row header__row--top" ref="headerRowTop">
           <div class="header__columns">
             <div class="header__column header__column--left">
               <div class="header-logo" aria-label="Vai alla Home">
-               SUMMER BREAK SHOP
+                SUMMER BREAK SHOP
               </div>
 
               <header-menu
@@ -137,47 +132,46 @@
       <aside class="category-nav" aria-label="Catégories">
         <category-nav-component id="category-nav"></category-nav-component>
         <div class="column-options-wrapper">
-            <div class="column-options">
-              <legend class="column-options__legend">View</legend>
-              <label class="column-options__option">
-                <input
-                  type="radio"
-                  name="grid"
-                  value="default"
-                  class="column-options__option-input"
-                  checked=""
-                  aria-label="Default"
-                  data-grid-layout="desktop-default-option"
-                  on:change="#results-list/updateLayout"
-                  data-skip-node-update=""
-                >
-                <span class="column-picker column-picker--default">1</span>
-              </label>
-              <label class="column-options__option">
-                <input
-                  type="radio"
-                  name="grid"
-                  value="zoom-out"
-                  class="column-options__option-input"
-                  aria-label="Zoom out"
-                  on:change="#results-list/updateLayout"
-                  data-skip-node-update=""
-                >
-                <span class="column-picker column-picker--zoom-out">2</span>
-              </label>
-              <label class="column-options__option">
-                <input
-                  type="radio"
-                  name="grid"
-                  value="organic"
-                  class="column-options__option-input"
-                  aria-label="Editorial"
-                  on:change="#results-list/updateLayout"
-                  data-skip-node-update=""
-                >
-                <span class="column-picker column-picker--organic">3</span>
-              </label>
-            </div>
+          <div class="column-options">
+            <legend class="column-options__legend">View</legend>
+            <label class="column-options__option">
+              <input
+                type="radio"
+                name="grid"
+                value="default"
+                class="column-options__option-input"
+                checked=""
+                aria-label="Default"
+                data-grid-layout="desktop-default-option"
+                on:change="#results-list/updateLayout"
+                data-skip-node-update=""
+              >
+              <span class="column-picker column-picker--default">1</span>
+            </label>
+            <label class="column-options__option">
+              <input
+                type="radio"
+                name="grid"
+                value="zoom-out"
+                class="column-options__option-input"
+                aria-label="Zoom out"
+                on:change="#results-list/updateLayout"
+                data-skip-node-update=""
+              >
+              <span class="column-picker column-picker--zoom-out">2</span>
+            </label>
+            <label class="column-options__option">
+              <input
+                type="radio"
+                name="grid"
+                value="organic"
+                class="column-options__option-input"
+                aria-label="Editorial"
+                on:change="#results-list/updateLayout"
+                data-skip-node-update=""
+              >
+              <span class="column-picker column-picker--organic">3</span>
+            </label>
           </div>
         </div>
       </aside>

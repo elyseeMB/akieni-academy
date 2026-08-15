@@ -4,6 +4,10 @@ import { Component } from "./component.js";
 const SITE_NAME = "SUMMER BREAK SHOP";
 const DEFAULT_TITLE = "Tous produits";
 
+/**
+ * Custom element for displaying category title
+ * @extends {Component}
+ */
 export class CategoryTitleComponent extends Component {
   connectedCallback() {
     super.connectedCallback();
@@ -36,8 +40,4 @@ export class CategoryTitleComponent extends Component {
     h1.textContent = text;
     this.appendChild(h1);
   }
-}
-
-if (!customElements.get("category-title-component")) {
-  customElements.define("category-title-component", CategoryTitleComponent);
 }

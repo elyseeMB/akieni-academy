@@ -4,7 +4,7 @@ import { Component } from "../component.js";
 const ACTIVATE_DELAY = 0;
 const DEACTIVATE_DELAY = 350;
 
-class HeaderMenu extends Component {
+export class HeaderMenu extends Component {
   requiredRefs = ["overflowMenu"];
 
   #abortController = new AbortController();
@@ -126,10 +126,6 @@ class HeaderMenu extends Component {
       image.removeAttribute("loading"),
     );
   };
-}
-
-if (!customElements.get("header-menu")) {
-  customElements.define("header-menu", HeaderMenu);
 }
 
 function findMenuItem(element) {
