@@ -184,12 +184,6 @@ dialog.filters-drawer.dialog-closing {
 }
 
 /* --- Facets (filter options) --------------------------------------------- */
-.facets {
-  display: flex;
-  flex-direction: column;
-}
-
-/* Visible filter bar below the header (chips) */
 .facets-bar {
   display: flex;
   flex-wrap: wrap;
@@ -315,4 +309,16 @@ dialog.filters-drawer.dialog-closing {
 
 .cart-drawer__total {
   font-weight: var(--font-body--weight);
+}
+
+.cart-item__price {
+  font-weight: var(--font-body--weight);
+  color: var(--color-foreground);
+}
+
+.cart-item__qty-value {
+  font-size: 0.75rem;
+  color: var(--color-foreground-muted);
+  text-align: center;
+  white-space: nowrap;
 }

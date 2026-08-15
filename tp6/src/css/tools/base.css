@@ -18,6 +18,10 @@ body {
   text-transform: var(--font-paragraph--case);
 }
 
+[hidden] {
+  display: none !important;
+}
+
 .section {
   position: relative;
   width: 100%;

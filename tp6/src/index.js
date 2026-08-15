@@ -11,7 +11,7 @@ import "./wc/product/product-price.js";
 import "./wc/category-nav-component.js";
 import "./wc/category-title-component.js";
 
-// Paginated collection grid (SceneSKU JSON API)
+// Paginated collection grid
 import "./wc/paginated-list.js";
 import "./wc/result-list.js";
 import "./wc/dialog.js";
