@@ -54,4 +54,3 @@ export class CategoryTitleComponent extends Component {
     this.appendChild(h1);
   }
 }
-

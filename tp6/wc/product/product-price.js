@@ -78,5 +78,3 @@ export class ProductPrice extends HTMLElement {
     }
   };
 }
-
-

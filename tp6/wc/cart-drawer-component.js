@@ -158,4 +158,3 @@ export class CartDrawerComponent extends DialogComponent {
     console.log("Commande", cart.getCart());
   }
 }
-

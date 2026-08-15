@@ -54,10 +54,10 @@ async function initHeaderMenu() {
 
     return {
       label: category?.name ?? slug,
-      href: `/collections/${slug}`,
+      href: `#/collections/${slug}`,
       submenu: categoryProducts.map((p) => ({
         label: p.props.title,
-        href: `/products/${p.props.id}`,
+        href: `#/products/${p.props.id}`,
         tags: p.props.tags,
         images: p.props.imageObjects,
       })),
@@ -81,4 +81,3 @@ loadSteps({
       .on("category:all"),
   ],
 });
-
