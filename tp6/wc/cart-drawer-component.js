@@ -1,5 +1,5 @@
-import { cart } from "../store/cart.js";
-import { ThemeEvents } from "../theme/event.js";
+import { cart } from "../../store/cart.js";
+import { ThemeEvents } from "../../theme/event.js";
 import { DialogComponent } from "./dialog.js";
 
 /**
@@ -158,3 +158,4 @@ export class CartDrawerComponent extends DialogComponent {
     console.log("Commande", cart.getCart());
   }
 }
+

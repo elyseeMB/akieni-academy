@@ -1,13 +1,13 @@
-import { toProductProps } from "../api/transformaters/product-transformater.js";
-import { useCategoriesApi } from "../api/use-categories.js";
-import { API_BASE } from "../api/use-products.js";
-import { pageFetcher } from "../modules/page-fetcher.js";
+import { toProductProps } from "../../api/transformaters/product-transformater.js";
+import { useCategoriesApi } from "../../api/use-categories.js";
+import { API_BASE } from "../../api/use-products.js";
+import { pageFetcher } from "../../modules/page-fetcher.js";
 import {
   PRODUCT_TEMPLATE_URLS,
   renderProductCard,
-} from "../modules/product-card-renderer.js";
-import { templateStore } from "../modules/template-store.js";
-import { ThemeEvents } from "../theme/event.js";
+} from "../../modules/product-card-renderer.js";
+import { templateStore } from "../../modules/template-store.js";
+import { ThemeEvents } from "../../theme/event.js";
 import { Component } from "./component.js";
 
 const PRODUCT_SKELETON_COUNT = 4;
@@ -211,3 +211,4 @@ export class PaginatedList extends Component {
     this.#renderGrid();
   }
 }
+

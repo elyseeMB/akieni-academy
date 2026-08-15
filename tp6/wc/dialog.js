@@ -2,8 +2,8 @@ import {
   debounce,
   isClickedOutside,
   onAnimationEnd,
-} from "../utilities/utils.js";
-import { Component } from "../wc/component.js";
+} from "../../utilities/utils.js";
+import { Component } from "../../wc/component.js";
 
 /**
  * Custom element for modal dialog with animated overlay
@@ -181,3 +181,4 @@ document.addEventListener(
   },
   { capture: !0 },
 );
+

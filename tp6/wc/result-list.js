@@ -2,7 +2,7 @@ import {
   mediaQueryLarge,
   requestIdleCallback,
   startViewTransition,
-} from "../utilities/utils.js";
+} from "../../utilities/utils.js";
 
 import { PaginatedList } from "./paginated-list.js";
 
@@ -81,3 +81,4 @@ export class ResultsList extends PaginatedList {
     }
   };
 }
+

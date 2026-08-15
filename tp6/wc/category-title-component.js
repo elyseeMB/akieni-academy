@@ -1,4 +1,4 @@
-import { ThemeEvents } from "../theme/event.js";
+import { ThemeEvents } from "../../theme/event.js";
 import { Component } from "./component.js";
 
 const SITE_NAME = "SUMMER BREAK SHOP";
@@ -54,3 +54,4 @@ export class CategoryTitleComponent extends Component {
     this.appendChild(h1);
   }
 }
+
