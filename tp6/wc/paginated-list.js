@@ -178,7 +178,7 @@ export class PaginatedList extends Component {
       priceValue: Number(props.price) || 0,
       image: images[0]?.url ?? "",
       images,
-      href: `/products/${props.id}`,
+      href: `#/products/${props.id}`,
       domId: `product-card-${props.id}`,
       anchorId: `card-link-${props.id}`,
       categories: props.categories,
@@ -211,4 +211,3 @@ export class PaginatedList extends Component {
     this.#renderGrid();
   }
 }
-

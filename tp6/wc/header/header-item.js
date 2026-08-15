@@ -139,7 +139,7 @@ export class HeaderItem {
     const node = this.#clone("menuItem");
     const link = node.querySelector(".menu-list__link");
 
-    link.href = item.href;
+    link.href = item.href ? "#/" + String(item.href).replace(/^\/+/, "") : "#";
     link.setAttribute("aria-controls", `submenu-${index}`);
     node.querySelector(".menu-list__link-title").textContent = label;
 
@@ -202,7 +202,7 @@ export class HeaderItem {
     const node = this.#clone("submenuLink");
 
     const link = node.querySelector(".mega-menu__link");
-    link.href = `/product/${tag}`;
+    link.href = tag ? "#/" + String(tag).replace(/^\/+/, "") : "#";
     node.querySelector(".mega-menu__link-title").textContent = tag;
 
     return node;
@@ -218,10 +218,12 @@ export class HeaderItem {
     const image = item.images?.[0];
 
     const container = node.querySelector(".resource-card");
-    container.href = item.href;
+    container.href = item.href
+      ? "#/" + String(item.href).replace(/^\/+/, "")
+      : "#";
 
     const link = node.querySelector(".resource-card__link");
-    link.href = item.href;
+    link.href = item.href ? "#/" + String(item.href).replace(/^\/+/, "") : "#";
     node.querySelector(".visually-hidden").textContent = item.label;
 
     const img = node.querySelector(".resource-card__image");

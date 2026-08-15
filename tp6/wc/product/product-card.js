@@ -90,10 +90,9 @@ export class ProductCard extends Component {
       (event.metaKey || event.ctrlKey || event.shiftKey || event.button === 1)
     ) {
       event.preventDefault();
-      window.open(url.href, "_blank");
       return;
     }
-    window.location.href = url.href;
+    event.preventDefault();
   };
 
   /**
@@ -107,5 +106,3 @@ export class ProductCard extends Component {
     }
   }
 }
-
-

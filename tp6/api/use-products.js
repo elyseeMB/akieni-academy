@@ -1,7 +1,7 @@
+import { Product } from "../models/Product.js";
 import { cacheApi } from "../packages/functions/cache.js";
 import { ApiError } from "../packages/functions/error.js";
 import { apiFetch, withQueryParams } from "../packages/functions/http.js";
-import { Product } from "../models/Product.js";
 import { toProductProps } from "./transformaters/product-transformater.js";
 
 export const API_BASE =

@@ -274,5 +274,3 @@ onDocumentLoaded(() => {
     }
   }).observe(headerGroup, { childList: true });
 });
-
-

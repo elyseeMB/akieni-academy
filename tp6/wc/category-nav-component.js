@@ -119,4 +119,3 @@ export class CategoryNavComponent extends Component {
     document.dispatchEvent(new CategorySelectEvent(slug, name));
   }
 }
-

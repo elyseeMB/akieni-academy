@@ -181,4 +181,3 @@ document.addEventListener(
   },
   { capture: !0 },
 );
-
