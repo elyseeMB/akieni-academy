@@ -1,4 +1,4 @@
-import { defineStep, loadSteps } from "../../packages/lazy/load.js";
+import { defineStep, loadSteps } from "../packages/lazy/load.js";
 import { HeaderItem } from "../wc/header/header-item.js";
 
 export const CATEGORY_SLUGS = [
@@ -81,3 +81,4 @@ loadSteps({
       .on("category:all"),
   ],
 });
+

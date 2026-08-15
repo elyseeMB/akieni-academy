@@ -1,6 +1,6 @@
-import { cacheApi } from "../../packages/functions/cache.js";
-import { ApiError } from "../../packages/functions/error.js";
-import { apiFetch, withQueryParams } from "../../packages/functions/http.js";
+import { cacheApi } from "../packages/functions/cache.js";
+import { ApiError } from "../packages/functions/error.js";
+import { apiFetch, withQueryParams } from "../packages/functions/http.js";
 import { Product } from "../models/product.js";
 import { toProductProps } from "./transformaters/product-transformater.js";
 
@@ -62,3 +62,4 @@ export class ProductFetchError extends Error {
 export const useProductsApi = cacheApi({
   getByCategories: getProductsByCategoriesApi,
 });
+

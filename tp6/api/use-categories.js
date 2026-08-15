@@ -1,6 +1,6 @@
-import { cacheApi } from "../../packages/functions/cache.js";
-import { ApiError } from "../../packages/functions/error.js";
-import { apiFetch } from "../../packages/functions/http.js";
+import { cacheApi } from "../packages/functions/cache.js";
+import { ApiError } from "../packages/functions/error.js";
+import { apiFetch } from "../packages/functions/http.js";
 import { Category } from "../models/category.js";
 import { toCategoryProps } from "./transformaters/category-transformater.js";
 
@@ -68,3 +68,4 @@ async function getAllCategoriesApi(queryParams = {}) {
 export const useCategoriesApi = cacheApi({
   getAll: getAllCategoriesApi,
 });
+

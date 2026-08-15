@@ -1,4 +1,4 @@
-import { requestIdleCallback } from "../utilities/utils.js";
+import { requestIdleCallback } from "../../utilities/utils.js";
 
 /**
  * Base class for custom elements with declarative shadow DOM support
@@ -258,3 +258,4 @@ class MissingRefError extends Error {
     );
   }
 }
+
