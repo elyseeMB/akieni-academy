@@ -1,0 +1,7 @@
+/* ==========================================================================
+   DEPRECATED
+   Les tokens autrefois définis ici ont été réorganisés dans :
+     - src/css/tokens/   (couleurs, typo, spacing, shadows, motion, shapes…)
+     - src/css/layout/   (header, container, sections)
+   Ce fichier n'est plus importé par index.css.
+   ========================================================================== */

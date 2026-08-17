@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,10 +8,58 @@
   </head>
 
   <body>
+    <header class="header-section">
+      <header-component id="header-component">
+        <div class="header__row header__row--main">
+          <div class="header__columns header-column--main">
+            <header-action>
+              <input ref="searchInput" value="search" type="text">
+              <button
+                type="button"
+                on:click="header-action/handleClick"
+                aria-label="seach"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="lucide lucide-search-icon lucide-search"
+                >
+                  <path d="m21 21-4.34-4.34" />
+                  <circle cx="11" cy="11" r="8" />
+                </svg>
+              </button>
+            </header-action>
+          </div>
+        </div>
+      </header-component>
+    </header>
+
     <main>
-      <h1>Bonjour les gens !</h1>
-      <animated-hero class="hero-wrapper"> </animated-hero>
+      <temperature-component value="31"></temperature-component>
+
+      <animated-hero class="hero-wrapper">
+        <!-- <div
+          id="floating-label"
+          style="position: fixed; top: 0; left: 0; pointer-events: none;"
+        >
+          Mon texte qui suit
+        </div>
+
+        <div
+          id="floating-label-2"
+          style="position: fixed; top: 0; left: 0; pointer-events: none;"
+        >
+          Mon texte qui suit 2
+        </div> -->
+      </animated-hero>
     </main>
-    <script type="module" src="index.js"></script>
+    <script type="module" src="index.js" defer></script>
   </body>
 </html>

@@ -2,7 +2,6 @@ import { distanceSquared, normalVec } from "../lib/2d.js";
 import { randomInt } from "../lib/number.js";
 
 export class AnimatedHero extends HTMLElement {
-  // @ts-expect-error It is initialized
   /**
    *
    * @param {HTMLCanvasElement} canvas
@@ -23,22 +22,23 @@ export class AnimatedHero extends HTMLElement {
     this.append(this.canvas);
 
     const rect = this.getBoundingClientRect();
+    console.log(this);
     this.canvas.width = rect.width;
     this.canvas.height = rect.height;
     // Shape
+    const colors = ["#60a5fa", "#3b82f6", "#818cf8", "#6366f1"];
     this.shapes = [];
-    for (let i = 0; i < 2; i++) {
-      this.shapes.push(new Shape(this.canvas));
+    for (let i = 0; i < 4; i++) {
+      const color = colors[i];
+      this.shapes.push(new Shape(this.canvas, color));
     }
 
-    // Square
-    this.squares = [];
-    const sharedPosition = {
-      x: randomInt(0, this.canvas.width),
-      y: randomInt(0, this.canvas.height),
-    };
+    // Ring
+    this.ringGroup = new RingGroupPosition(this.canvas);
+
+    this.rings = [];
     for (let i = 0; i < 7; i++) {
-      this.squares.push(new squares(this.canvas, i, sharedPosition));
+      this.rings.push(new Ring(this.canvas, i, this.ringGroup));
     }
 
     this.canvas.animate(
@@ -76,9 +76,25 @@ export class AnimatedHero extends HTMLElement {
       shape.draw();
     }
 
-    for (const square of this.squares) {
-      square.draw();
+    this.ringGroup.update();
+    for (const ring of this.rings) {
+      ring.draw();
     }
+
+    this.dispatchEvent(
+      new CustomEvent("shapes-updated", {
+        detail: {
+          shapes: this.shapes.map((s) => {
+            const rect = this.canvas.getBoundingClientRect();
+            return {
+              x: rect.left + s.position.x,
+              y: rect.top + s.position.y,
+            };
+          }),
+        },
+        bubbles: true,
+      }),
+    );
 
     if (this.isVisible) {
       window.requestAnimationFrame(() => this.draw());
@@ -98,6 +114,9 @@ export class AnimatedHero extends HTMLElement {
     for (const shape of this.shapes) {
       shape.updateSize();
     }
+    for (const ring of this.rings) {
+      ring.updateSize();
+    }
   };
 }
 
@@ -116,12 +135,18 @@ class Shape {
   lastDrawnAt = 0;
   speed = 0.1;
 
+  /**@type {number} */
+  scale;
+
   /**
    *
    * @param {HTMLCanvasElement} canvas
+   * @param {Array<string>} colors
    */
-  constructor(canvas) {
+  constructor(canvas, colors) {
     this.canvas = canvas;
+
+    this.scale = randomInt(50, 150) / 100;
     this.updateSize();
     this.position = {
       x: randomInt(0, canvas.width),
@@ -129,11 +154,15 @@ class Shape {
     };
 
     this.generateTarget();
+    this.color = colors;
   }
 
   updateSize() {
-    this.width = Math.max((360 / 1920) * this.canvas.width, 200);
-    this.height = (170 / 1080) * this.canvas.height;
+    const baseWidth = Math.max((360 / 1920) * this.canvas.width, 200);
+    const baseHeight = (170 / 1080) * this.canvas.height;
+
+    this.width = baseWidth * this.scale;
+    this.height = baseHeight * this.scale;
   }
 
   updatePosition() {
@@ -183,23 +212,34 @@ class Shape {
   }
 }
 
-class squares {
+class Ring {
   /**@type {HTMLCanvasElement} */
   canvas;
 
-  /**@type {import("../lib/2d.js").Position} */
-  position;
+  /**@type {string} */
+  #color = "#82FFEA";
+
+  /**@type {number} */
+  #ringWidth = 50;
+
+  /**@type {RingGroupPosition} */
+  group;
+
   /**
-   *
-   * @param {import("../lib/2d.js").Position} position
-   * @param {index} number
    * @param {HTMLCanvasElement} canvas
+   * @param {number} index
+   * @param {RingGroupPosition} group
    */
-  constructor(canvas, index, position) {
+  constructor(canvas, index, group) {
     this.canvas = canvas;
     this.index = index;
     this.startTime = Date.now();
-    this.position = position;
+    this.group = group;
+    this.updateSize();
+  }
+
+  updateSize() {
+    this.#ringWidth = Math.max((70 / 1920) * this.canvas.width, 20);
   }
 
   draw() {
@@ -212,15 +252,14 @@ class squares {
 
     const elapsed = (Date.now() - this.startTime) / 1000;
 
-    const ringWidth = 50;
-    const innerRadius = this.index * ringWidth;
-    const outerRadius = innerRadius + ringWidth;
+    const innerRadius = this.index * this.#ringWidth;
+    const outerRadius = innerRadius + this.#ringWidth;
 
     const maxAlpha = 1;
     const staticAlpha = maxAlpha * (this.index / 7);
 
     const speed = 2;
-    const minPulse = 0; // <- corrigé
+    const minPulse = 0;
     const maxPulse = 1;
 
     const delay = this.index * 0.15;
@@ -231,22 +270,21 @@ class squares {
 
     const alpha = staticAlpha * pulse;
 
-    ctx.fillStyle = "#82FFEA";
+    ctx.fillStyle = this.#color;
     ctx.globalAlpha = alpha;
 
     ctx.beginPath();
     ctx.arc(
-      this.position.x,
-      this.position.y,
+      this.group.position.x,
+      this.group.position.y,
       outerRadius,
       0,
       Math.PI * 2,
       true,
     );
-
     ctx.arc(
-      this.position.x,
-      this.position.y,
+      this.group.position.x,
+      this.group.position.y,
       innerRadius,
       0,
       Math.PI * 2,
@@ -255,5 +293,51 @@ class squares {
     ctx.fill("evenodd");
 
     ctx.restore();
+  }
+}
+
+class RingGroupPosition {
+  /**@type {HTMLCanvasElement} */
+  canvas;
+
+  /**@type {import("../lib/2d.js").Position} */
+  position;
+  /**@type {import("../lib/2d.js").Position} */
+  target;
+
+  speed = 0.05; // plus lent que Shape, à ajuster selon l'effet voulu
+  lastDrawnAt = 0;
+
+  constructor(canvas) {
+    this.canvas = canvas;
+    this.position = {
+      x: randomInt(0, canvas.width),
+      y: randomInt(0, canvas.height),
+    };
+    this.generateTarget();
+  }
+
+  update() {
+    if (this.lastDrawnAt === 0) {
+      this.lastDrawnAt = Date.now();
+      return;
+    }
+    const n = normalVec(this.position, this.target);
+    const time = Date.now() - this.lastDrawnAt;
+    this.position = {
+      x: this.position.x + n.x * time * this.speed,
+      y: this.position.y + n.y * time * this.speed,
+    };
+    if (distanceSquared(this.position, this.target) < 10) {
+      this.generateTarget();
+    }
+    this.lastDrawnAt = Date.now();
+  }
+
+  generateTarget() {
+    this.target = {
+      x: randomInt(0, this.canvas.width),
+      y: randomInt(0, this.canvas.height),
+    };
   }
 }
