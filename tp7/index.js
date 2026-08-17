@@ -1,4 +1,5 @@
 import { AnimatedHero } from "./elements/hero.js";
+import { CalendarWeather } from "./wc/Calendar-weather.js";
 import { HeaderAction } from "./wc/header-action.js";
 import { HeaderComponent } from "./wc/header-component.js";
 import { Spotlight } from "./wc/spotlight-component.js";
@@ -14,6 +15,16 @@ import { TemperatureComponent } from "./wc/temperature-component.js";
 // ).then((r) => r.json().then((r) => console.log(r)));
 
 // fetch("https://weather-api.mboussaemmanuelito.workers.dev/countries/name/congo")
+//   .then((response) => {
+//     return response.json();
+//   })
+//   .then((data) => {
+//     console.log(data);
+//   });
+
+// fetch(
+//   "https://weather-api.mboussaemmanuelito.workers.dev/weather/data/2.5/forecast?lat=44.34&lon=10.99",
+// )
 //   .then((response) => {
 //     return response.json();
 //   })
@@ -37,8 +48,16 @@ const hero = document.querySelector("animated-hero");
 //   }
 // });
 
+// const el = document.getElementById("tl");
+// fetch(
+//   "https://weather-api.mboussaemmanuelito.workers.dev/weather/data/2.5/forecast?lat=44.34&lon=10.99",
+// )
+//   .then((r) => r.json())
+//   .then((data) => el.setAttribute("data", JSON.stringify(data)));
+
 customElements.define("animated-hero", AnimatedHero);
 customElements.define("header-component", HeaderComponent);
 customElements.define("header-action", HeaderAction);
 customElements.define("spotlight-component", Spotlight);
 customElements.define("temperature-component", TemperatureComponent);
+customElements.define("calendar-weather", CalendarWeather);

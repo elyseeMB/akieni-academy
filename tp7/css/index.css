@@ -51,3 +51,13 @@ body {
   font-family: "IBM Plex Mono", monospace;
   mix-blend-mode: exclusion;
 }
+
+.viewport {
+  width: 100%;
+  overflow-x: auto;
+}
+
+svg {
+  display: block;
+  max-width: none;
+}

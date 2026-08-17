@@ -22,7 +22,6 @@ export class AnimatedHero extends HTMLElement {
     this.append(this.canvas);
 
     const rect = this.getBoundingClientRect();
-    console.log(this);
     this.canvas.width = rect.width;
     this.canvas.height = rect.height;
     // Shape

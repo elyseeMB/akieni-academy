@@ -4,7 +4,6 @@ export class HeaderAction extends Component {
   requiredRefs = ["searchInput"];
   connectedCallback() {
     super.connectedCallback();
-    console.log(this.refs);
   }
 
   handleClick() {
