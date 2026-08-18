@@ -1,4 +1,5 @@
 import { Component } from "./component.js";
+import { TemperatureCurve } from "./Shape/Curve.js";
 
 const SVG_NS = "http://www.w3.org/2000/svg";
 
@@ -219,6 +220,27 @@ export class CalendarWeather extends Component {
     svg.appendChild(text);
   }
 
+  #createCurrentHourLabel(svg, x, date) {
+    const text = document.createElementNS(SVG_NS, "text");
+
+    text.setAttribute("x", x);
+
+    text.setAttribute("y", 10);
+
+    text.setAttribute("fill", "#ffffff");
+
+    text.setAttribute("font-size", 13);
+
+    text.setAttribute("font-weight", 600);
+
+    text.textContent = new Intl.DateTimeFormat("fr-FR", {
+      hour: "2-digit",
+      minute: "2-digit",
+    }).format(date);
+
+    svg.appendChild(text);
+  }
+
   // ==========================================================
   // HOUR LABEL
   // ==========================================================
@@ -236,7 +258,7 @@ export class CalendarWeather extends Component {
 
     text.setAttribute("font-size", 10);
 
-    text.textContent = `${String(hour).padStart(2, "0")}h`;
+    text.textContent = `${String(hour).padStart(2, "0")}`;
 
     svg.appendChild(text);
   }
@@ -274,6 +296,8 @@ export class CalendarWeather extends Component {
 
     line.setAttribute("stroke-linecap", "round");
 
+    this.#createCurrentHourLabel(svg, x, new Date());
+
     svg.appendChild(line);
   }
 
@@ -283,6 +307,97 @@ export class CalendarWeather extends Component {
 
   #dayWidth() {
     return 24 * this.#hourWidth;
+  }
+
+  // ==========================================================
+  // TEMPERATURE LABELS
+  // ==========================================================
+
+  #createTemperatureLabel(svg, x, y, temp) {
+    const text = document.createElementNS(SVG_NS, "text");
+
+    text.setAttribute("x", x);
+    text.setAttribute("y", y - 10); // 10px au-dessus du point
+
+    text.setAttribute("text-anchor", "middle");
+
+    text.setAttribute("fill", "#facc15");
+    text.setAttribute("font-size", 11);
+    text.setAttribute("font-weight", 600);
+
+    text.textContent = `${Math.round(temp)}°`;
+
+    svg.appendChild(text);
+  }
+
+  // ==========================================================
+  // DATA
+  // ==========================================================
+
+  set data(value) {
+    this._raw = value;
+
+    this.hydrate();
+
+    if (this.isConnected) {
+      this.#buildMeta();
+      this.render();
+    }
+  }
+
+  get data() {
+    return this._raw;
+  }
+
+  hydrate() {
+    if (!this._raw?.list) {
+      this.hours = [];
+      return;
+    }
+
+    this.hours = this._raw.list.map((entry) => ({
+      date: new Date(entry.dt * 1000), // dt est en secondes (unix)
+      temp: entry.main.temp - 273.15, // Kelvin -> Celsius (l'API OWM renvoie du Kelvin par défaut)
+    }));
+  }
+
+  // ==========================================================
+  // TEMPERATURE CURVE
+  // ==========================================================
+
+  #tempToY(temp) {
+    const ratio = (temp - this.min) / (this.max - this.min);
+
+    const clamped = Math.min(Math.max(ratio, 0), 1);
+
+    return this.#height - clamped * this.#height;
+  }
+
+  #createTemperatureLine(svg) {
+    if (!this.hours.length) {
+      return;
+    }
+
+    const start = [...this.#ranges.values()][0][0];
+
+    const points = this.hours.map(({ date, temp }) => {
+      const diff = date.getTime() - start.getTime();
+      const hourIndex = diff / (1000 * 60 * 60);
+
+      return {
+        x: this.#hourToX(hourIndex),
+        y: this.#tempToY(temp),
+        temp,
+      };
+    });
+
+    const curve = new TemperatureCurve({ height: this.#height });
+
+    curve.draw(svg, points);
+
+    points.forEach((p) => {
+      this.#createTemperatureLabel(svg, p.x, p.y, p.temp);
+    });
   }
 
   render() {
@@ -304,19 +419,21 @@ export class CalendarWeather extends Component {
         min-width: 0;
         overflow-x: auto;
         overflow-y: hidden;
-
-          scroll-snap-type: x proximity;
+        scroll-snap-type: x proximity;
+        padding-inline: 2rem;
+        padding-top: 2.5rem;
       }
 
       .day {
-  scroll-snap-align: start;
-}
+        scroll-snap-align: start;
+      }
 
       svg {
         display: block;
         width: 2880px;
         max-width: none;
         flex: none;
+        overflow: visible;
       }
     </style>
 
@@ -326,6 +443,8 @@ export class CalendarWeather extends Component {
     const viewport = this.shadowRoot.querySelector(".viewport");
 
     const svg = this.#createSVG();
+
+    this.#createTemperatureLine(svg);
 
     this.#createTicks(svg);
     this.#createCurrentHour(svg);

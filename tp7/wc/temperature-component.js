@@ -35,6 +35,14 @@ export class TemperatureComponent extends Component {
     this.temperature = 0;
   }
 
+  set data(data) {
+    if (!data || !data.main) return;
+
+    const tempInCelsius = Math.round(data.main.temp - 273.15);
+
+    this.setAttribute("value", tempInCelsius);
+  }
+
   attributeChangedCallback(name, oldValue, newValue) {
     if (name !== "value") {
       return;

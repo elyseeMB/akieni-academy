@@ -32,6 +32,7 @@
 }
 
 main {
+  width: 100%;
   height: 100%;
   display: grid;
   place-items: center;
@@ -42,7 +43,7 @@ body {
   font-family: "IBM Plex Mono", sans-serif;
   width: 100%;
   height: 100vh;
-  overflow: hidden;
+  overflow-x: hidden;
 }
 
 #floating-label-2,
@@ -60,4 +61,39 @@ body {
 svg {
   display: block;
   max-width: none;
+}
+
+.wrapper-main {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--padding-lg);
+}
+
+.wrapper-main .end {
+  justify-self: flex-end;
+}
+
+.start {
+  /* background-color: rgba(211, 211, 211, 0.721); */
+  border-radius: 0.8rem;
+}
+
+calendar-weather {
+  position: relative;
+  padding-inline: 1rem;
+
+  mask-image: linear-gradient(
+    to right,
+    transparent 0,
+    black 80px,
+    black calc(100% - 80px),
+    transparent 100%
+  );
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0,
+    black 80px,
+    black calc(100% - 80px),
+    transparent 100%
+  );
 }
