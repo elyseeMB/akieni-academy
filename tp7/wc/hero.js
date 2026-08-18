@@ -1,4 +1,5 @@
 import { distanceSquared, normalVec } from "../lib/2d.js";
+import { getSkyPalette } from "../lib/color.js";
 import { randomInt } from "../lib/number.js";
 
 export class AnimatedHero extends HTMLElement {
@@ -11,9 +12,7 @@ export class AnimatedHero extends HTMLElement {
   /**@type {Shape[]} */
   shapes;
   /**@type {boolean} */
-  isVisible;
-  /**@type {IntersectionObserver} */
-  observer = null;
+  #running = false;
 
   connectedCallback() {
     this.canvas = document.createElement("canvas");
@@ -21,9 +20,8 @@ export class AnimatedHero extends HTMLElement {
     this.canvas.style.setProperty("background", "#F8FAF4");
     this.append(this.canvas);
 
-    const rect = this.getBoundingClientRect();
-    this.canvas.width = rect.width;
-    this.canvas.height = rect.height;
+    this.canvas.width = window.innerWidth;
+    this.canvas.height = window.innerHeight;
     // Shape
     const colors = ["#60a5fa", "#3b82f6", "#818cf8", "#6366f1"];
     this.shapes = [];
@@ -40,6 +38,9 @@ export class AnimatedHero extends HTMLElement {
       this.rings.push(new Ring(this.canvas, i, this.ringGroup));
     }
 
+    this._onWeather = this.#onWeather.bind(this);
+    window.addEventListener("weather:all", this._onWeather);
+
     this.canvas.animate(
       [
         {
@@ -51,14 +52,40 @@ export class AnimatedHero extends HTMLElement {
       ],
       { duration: 1000 },
     );
+
+    this._onVisibility = this.#onVisibility.bind(this);
     window.addEventListener("resize", this.resize);
-    this.observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        this.isVisible = entry.isIntersecting;
-        this.draw();
-      });
+    window.addEventListener("visibilitychange", this._onVisibility);
+
+    this.#running = true;
+    this.draw();
+  }
+
+  #onVisibility() {
+    if (document.hidden) {
+      this.#running = false;
+    } else if (!this.#running) {
+      this.#running = true;
+      this.draw();
+    }
+  }
+
+  #onWeather(e) {
+    const { sunrise, sunset } = e.detail.current?.sys ?? {};
+
+    if (!sunrise || !sunset) return;
+
+    const palette = getSkyPalette({ sunrise, sunset });
+
+    this.canvas.style.background = palette.background;
+
+    this.shapes.forEach((shape, i) => {
+      shape.color = palette.shapes[i];
     });
-    this.observer.observe(this);
+
+    for (const ring of this.rings) {
+      ring.setColor(palette.ring);
+    }
   }
 
   draw() {
@@ -95,21 +122,21 @@ export class AnimatedHero extends HTMLElement {
       }),
     );
 
-    if (this.isVisible) {
+    if (this.#running) {
       window.requestAnimationFrame(() => this.draw());
     }
   }
 
   disconnectedCallback() {
+    this.#running = false;
     window.removeEventListener("resize", this.resize);
-    this.observer?.unobserve(this);
-    this.observer = null;
+    window.removeEventListener("weather:all", this._onWeather);
+    window.removeEventListener("visibilitychange", this._onVisibility);
   }
 
   resize = () => {
-    const rect = this.getBoundingClientRect();
-    this.canvas.width = rect.width;
-    this.canvas.height = rect.height;
+    this.canvas.width = window.innerWidth;
+    this.canvas.height = window.innerHeight;
     for (const shape of this.shapes) {
       shape.updateSize();
     }
@@ -239,6 +266,10 @@ class Ring {
 
   updateSize() {
     this.#ringWidth = Math.max((70 / 1920) * this.canvas.width, 20);
+  }
+
+  setColor(value) {
+    this.#color = value;
   }
 
   draw() {

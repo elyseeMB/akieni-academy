@@ -10,22 +10,25 @@ export class CalendarWeather extends Component {
   /** @type {number} */
   #height = 120;
 
-  /** largeur d'un tick horaire */
+  /** width tick */
   #hourWidth = 32;
 
-  /** nombre de jours affichés */
+  /** days */
   #days = 5;
 
-  /** @type {Array<{date: Date, temp: number}>} */
+  /** @type {Array<{date: Date, temp: number, icon?: string}>} */
   hours = [];
+
+  /** @type {Array<{date: Date, temp: number}>} */
+  historyHours = [];
 
   min = -20;
   max = 40;
 
-  /** index de l'heure sélectionnée */
+  /** selected index */
   activeIndex = -1;
 
-  /** index/position de l'heure actuelle */
+  /** current index/position */
   nowIndex = null;
 
   _observer = null;
@@ -40,13 +43,44 @@ export class CalendarWeather extends Component {
     });
   }
 
-  connectedCallback() {
+  async connectedCallback() {
+    this._onWeather = this.#onWeather.bind(this);
+    window.addEventListener("weather:all", this._onWeather);
+
     this.#buildMeta();
+    await this.#fetchHistory();
     this.render();
   }
 
   disconnectedCallback() {
     this._observer?.disconnect();
+    window.removeEventListener("weather:all", this._onWeather);
+  }
+
+  // FETCH R2 HISTORY
+  async #fetchHistory() {
+    try {
+      const res = await fetch(
+        "https://weather-api.mboussaemmanuelito.workers.dev/weather/history",
+      );
+      if (!res.ok) {
+        return;
+      }
+
+      const data = await res.json();
+      this.historyHours = data.map((entry) => ({
+        date: new Date(entry.dt),
+        temp: entry.temp,
+        icon: entry.icon || "01d",
+      }));
+    } catch (err) {
+      console.error("Erreur de chargement de l'historique R2:", err);
+      this.historyHours = [];
+    }
+  }
+
+  #onWeather(e) {
+    this.data = e.detail.forecast;
   }
 
   attributeChangedCallback(name) {
@@ -62,10 +96,7 @@ export class CalendarWeather extends Component {
     }
   }
 
-  // ==========================================================
   // META
-  // ==========================================================
-
   #buildMeta() {
     const start = new Date();
 
@@ -94,10 +125,7 @@ export class CalendarWeather extends Component {
     return this.#ranges;
   }
 
-  // ==========================================================
   // SVG
-  // ==========================================================
-
   #createSVG() {
     const width = this.#days * 24 * this.#hourWidth;
 
@@ -115,18 +143,12 @@ export class CalendarWeather extends Component {
     return svg;
   }
 
-  // ==========================================================
   // X POSITION
-  // ==========================================================
-
   #hourToX(index) {
     return index * this.#hourWidth;
   }
 
-  // ==========================================================
   // MAIN TICKS
-  // ==========================================================
-
   #createTicks(svg) {
     let index = 0;
 
@@ -152,10 +174,7 @@ export class CalendarWeather extends Component {
     }
   }
 
-  // ==========================================================
   // TICK
-  // ==========================================================
-
   #createTick(svg, { x, date, current, hour, isDayStart, index }) {
     const line = document.createElementNS(SVG_NS, "line");
 
@@ -177,44 +196,27 @@ export class CalendarWeather extends Component {
 
     svg.appendChild(line);
 
-    // ----------------------------------------------------------
-    // Heure
-    // ----------------------------------------------------------
-
     if (!isDayStart) {
       this.#createHourLabel(svg, x, hour);
     }
-
-    // ----------------------------------------------------------
-    // Date
-    // ----------------------------------------------------------
 
     if (isDayStart) {
       this.#createDateLabel(svg, x, date);
     }
   }
 
-  // ==========================================================
-  // DATE LABEL
-  // ==========================================================
-
+  // LABELS DATE
   #createDateLabel(svg, x, date) {
     const text = document.createElementNS(SVG_NS, "text");
 
     text.setAttribute("x", x);
-
     text.setAttribute("y", 18);
-
     text.setAttribute("fill", "#ffffff");
-
     text.setAttribute("font-size", 13);
-
     text.setAttribute("font-weight", 600);
 
     text.textContent = new Intl.DateTimeFormat("fr-FR", {
-      weekday: "short",
       day: "numeric",
-      month: "short",
     }).format(date);
 
     svg.appendChild(text);
@@ -224,13 +226,9 @@ export class CalendarWeather extends Component {
     const text = document.createElementNS(SVG_NS, "text");
 
     text.setAttribute("x", x);
-
     text.setAttribute("y", 10);
-
     text.setAttribute("fill", "#ffffff");
-
     text.setAttribute("font-size", 13);
-
     text.setAttribute("font-weight", 600);
 
     text.textContent = new Intl.DateTimeFormat("fr-FR", {
@@ -241,21 +239,13 @@ export class CalendarWeather extends Component {
     svg.appendChild(text);
   }
 
-  // ==========================================================
-  // HOUR LABEL
-  // ==========================================================
-
   #createHourLabel(svg, x, hour) {
     const text = document.createElementNS(SVG_NS, "text");
 
     text.setAttribute("x", x);
-
     text.setAttribute("y", 105);
-
     text.setAttribute("text-anchor", "middle");
-
-    text.setAttribute("fill", "#94a3b8");
-
+    text.setAttribute("fill", "var(--color-background)");
     text.setAttribute("font-size", 10);
 
     text.textContent = `${String(hour).padStart(2, "0")}`;
@@ -263,10 +253,7 @@ export class CalendarWeather extends Component {
     svg.appendChild(text);
   }
 
-  // ==========================================================
   // CURRENT HOUR
-  // ==========================================================
-
   #createCurrentHour(svg) {
     const now = new Date();
 
@@ -283,17 +270,11 @@ export class CalendarWeather extends Component {
     const line = document.createElementNS(SVG_NS, "line");
 
     line.setAttribute("x1", x);
-
     line.setAttribute("y1", 20);
-
     line.setAttribute("x2", x);
-
     line.setAttribute("y2", 90);
-
     line.setAttribute("stroke", "#ef4444");
-
     line.setAttribute("stroke-width", 3);
-
     line.setAttribute("stroke-linecap", "round");
 
     this.#createCurrentHourLabel(svg, x, new Date());
@@ -301,27 +282,15 @@ export class CalendarWeather extends Component {
     svg.appendChild(line);
   }
 
-  // ==========================================================
-  // RENDER
-  // ==========================================================
+  // LABELS
 
-  #dayWidth() {
-    return 24 * this.#hourWidth;
-  }
-
-  // ==========================================================
-  // TEMPERATURE LABELS
-  // ==========================================================
-
-  #createTemperatureLabel(svg, x, y, temp) {
+  #createTemperatureLabel(svg, x, y, temp, color = "#facc15") {
     const text = document.createElementNS(SVG_NS, "text");
 
     text.setAttribute("x", x);
-    text.setAttribute("y", y - 10); // 10px au-dessus du point
-
+    text.setAttribute("y", y - 10);
     text.setAttribute("text-anchor", "middle");
-
-    text.setAttribute("fill", "#facc15");
+    text.setAttribute("fill", color);
     text.setAttribute("font-size", 11);
     text.setAttribute("font-weight", 600);
 
@@ -330,10 +299,7 @@ export class CalendarWeather extends Component {
     svg.appendChild(text);
   }
 
-  // ==========================================================
   // DATA
-  // ==========================================================
-
   set data(value) {
     this._raw = value;
 
@@ -356,8 +322,9 @@ export class CalendarWeather extends Component {
     }
 
     this.hours = this._raw.list.map((entry) => ({
-      date: new Date(entry.dt * 1000), // dt est en secondes (unix)
-      temp: entry.main.temp - 273.15, // Kelvin -> Celsius (l'API OWM renvoie du Kelvin par défaut)
+      date: new Date(entry.dt * 1000),
+      temp: entry.main.temp - 273.15,
+      icon: entry.weather?.[0]?.icon ?? "01d",
     }));
   }
 
@@ -374,13 +341,36 @@ export class CalendarWeather extends Component {
   }
 
   #createTemperatureLine(svg) {
-    if (!this.hours.length) {
+    if (!this.hours.length && !this.historyHours.length) {
       return;
     }
 
     const start = [...this.#ranges.values()][0][0];
 
-    const points = this.hours.map(({ date, temp }) => {
+    //  (Données R2)
+    if (this.historyHours.length) {
+      const historyPoints = this.historyHours.map(({ date, temp, icon }) => {
+        const diff = date.getTime() - start.getTime();
+        const hourIndex = diff / (1000 * 60 * 60);
+
+        return {
+          x: this.#hourToX(hourIndex),
+          y: this.#tempToY(temp),
+          temp,
+          icon: icon || "01d",
+        };
+      });
+
+      const historyCurve = new TemperatureCurve({
+        height: this.#height,
+        color: "#64748b",
+        gradientId: "historyGradient",
+      });
+
+      historyCurve.draw(svg, historyPoints);
+    }
+
+    const historyPoints = this.historyHours.map(({ date, temp, icon }) => {
       const diff = date.getTime() - start.getTime();
       const hourIndex = diff / (1000 * 60 * 60);
 
@@ -388,16 +378,50 @@ export class CalendarWeather extends Component {
         x: this.#hourToX(hourIndex),
         y: this.#tempToY(temp),
         temp,
+        icon: icon || "01d",
       };
     });
 
-    const curve = new TemperatureCurve({ height: this.#height });
-
-    curve.draw(svg, points);
-
-    points.forEach((p) => {
-      this.#createTemperatureLabel(svg, p.x, p.y, p.temp);
+    const historyCurve = new TemperatureCurve({
+      height: this.#height,
+      color: "#2bd0ff",
+      gradientId: "historyGradient",
     });
+
+    historyCurve.draw(svg, historyPoints);
+
+    historyPoints.forEach((p) => {
+      this.#createTemperatureLabel(svg, p.x, p.y, p.temp, "#2bd0ff");
+    });
+
+    // ++++++++++++++++++++++++++++++++++++++++++
+
+    //  (Données API)
+    if (this.hours.length) {
+      const forecastPoints = this.hours.map(({ date, temp, icon }) => {
+        const diff = date.getTime() - start.getTime();
+        const hourIndex = diff / (1000 * 60 * 60);
+
+        return {
+          x: this.#hourToX(hourIndex),
+          y: this.#tempToY(temp),
+          temp,
+          icon,
+        };
+      });
+
+      const forecastCurve = new TemperatureCurve({
+        height: this.#height,
+        color: "#facc15",
+        gradientId: "forecastGradient",
+      });
+
+      forecastCurve.draw(svg, forecastPoints);
+
+      forecastPoints.forEach((p) => {
+        this.#createTemperatureLabel(svg, p.x, p.y, p.temp, "#facc15");
+      });
+    }
   }
 
   render() {

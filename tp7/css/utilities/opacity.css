@@ -1,8 +1,3 @@
-/* ==========================================================================
-   UTILITIES · OPACITY
-   Opacity helper classes based on the opacity scale
-   ========================================================================== */
-
 .opacity-5 {
   opacity: var(--opacity-5);
 }

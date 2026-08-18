@@ -16,28 +16,29 @@ export class TemperatureComponent extends Component {
     // Dimensions
     this.size = 320;
 
-    // Centre du cercle
+    // center circle
     this.cx = this.size / 2;
     this.cy = this.size / 2;
 
-    // Rayon
+    // R
     this.radius = 110;
 
-    // Température
+    // Temp
     this.min = -20;
     this.max = 40;
 
-    // Arc visuel :
     // -135° → +135°
     this.startAngle = this.degToRad(-135);
     this.endAngle = this.degToRad(135);
 
     this.temperature = 0;
+    this.current = null;
   }
 
   set data(data) {
     if (!data || !data.main) return;
 
+    this.current = data;
     const tempInCelsius = Math.round(data.main.temp - 273.15);
 
     this.setAttribute("value", tempInCelsius);
@@ -56,9 +57,20 @@ export class TemperatureComponent extends Component {
   }
 
   connectedCallback() {
+    this._onWeather = this.#onWeather.bind(this);
+    window.addEventListener("weather:all", this._onWeather);
+
     this.temperature = this.getTemperature();
 
     this.render();
+  }
+
+  disconnectedCallback() {
+    window.removeEventListener("weather:all", this._onWeather);
+  }
+
+  #onWeather(e) {
+    this.data = e.detail.current;
   }
 
   getTemperature() {
@@ -71,37 +83,25 @@ export class TemperatureComponent extends Component {
     return Math.min(this.max, Math.max(this.min, value));
   }
 
-  // ==========================================================
   // Degrees → radians
-  // ==========================================================
 
   degToRad(degrees) {
     return (degrees * Math.PI) / 180;
   }
 
-  // ==========================================================
   // Temperature → 0..1
-  // ==========================================================
 
   temperatureToProgress(temperature) {
     return (temperature - this.min) / (this.max - this.min);
   }
 
-  // ==========================================================
-  // Temperature → angle
-  // ==========================================================
+  // Temperature
 
   temperatureToAngle(temperature) {
     const progress = this.temperatureToProgress(temperature);
 
     return this.startAngle + progress * (this.endAngle - this.startAngle);
   }
-
-  // ==========================================================
-  // Angle + radius → X/Y
-  //
-  // C'EST LE CŒUR DU SYSTÈME
-  // ==========================================================
 
   pointOnCircle(radius, angle) {
     return {
@@ -111,9 +111,7 @@ export class TemperatureComponent extends Component {
     };
   }
 
-  // ==========================================================
   // SVG
-  // ==========================================================
 
   createSVG() {
     const svg = document.createElementNS(SVG_NS, "svg");
@@ -123,9 +121,7 @@ export class TemperatureComponent extends Component {
     return svg;
   }
 
-  // ==========================================================
   // Gradient
-  // ==========================================================
 
   createGradient2(svg) {
     this.buildGradient(svg, "temperature-gradient-2");
@@ -163,9 +159,7 @@ export class TemperatureComponent extends Component {
     svg.appendChild(defs);
   }
 
-  // ==========================================================
   // Background circle
-  // ==========================================================
 
   createBackground(svg) {
     new Circle(this.cx, this.cy, this.radius)
@@ -176,9 +170,7 @@ export class TemperatureComponent extends Component {
       .appendTo(svg);
   }
 
-  // ==========================================================
   // Temperature arc
-  // ==========================================================
 
   createTemperatureArc(svg) {
     const temperatureAngle = this.temperatureToAngle(this.temperature);
@@ -201,9 +193,7 @@ export class TemperatureComponent extends Component {
       .appendTo(svg);
   }
 
-  // ==========================================================
   // Graduations
-  // ==========================================================
 
   createTicks(svg) {
     const tickCount = this.max - this.min + 1;
@@ -256,9 +246,7 @@ export class TemperatureComponent extends Component {
     }
   }
 
-  // ==========================================================
   // Labels
-  // ==========================================================
 
   createLabel(svg, temperature, angle, active = false) {
     const position = this.pointOnCircle(active ? 96 : 92, angle);
@@ -286,60 +274,45 @@ export class TemperatureComponent extends Component {
     svg.appendChild(text);
   }
 
-  // ==========================================================
   // Needle
-  // ==========================================================
 
-  createCenterContent(svg) {
+  createCenterContent() {
+    const hasData = !!this.current;
+
+    const city = this.current?.name ?? "";
+    const country = this.current?.sys?.country ?? "";
+    const cityText = [city, country].filter(Boolean).join(", ");
+    const wind = this.current?.wind?.speed ?? 0;
+
     const date = new Intl.DateTimeFormat("fr-FR", {
       weekday: "long",
       day: "numeric",
       month: "long",
     }).format(new Date());
 
-    // ----------------------------------------------------------
-    // Température
-    // ----------------------------------------------------------
+    const cityHTML = hasData
+      ? `<div class="city">${cityText}</div>`
+      : `<div class="skeleton skeleton-city"></div>`;
 
-    const temperature = document.createElementNS(SVG_NS, "text");
+    const windHTML = hasData
+      ? `<div class="wind">
+           <svg class="wind-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+             <path d="M12.8 19.6A2 2 0 1 0 14 16H2"/>
+             <path d="M17.5 8a2.5 2.5 0 1 1 2 4H2"/>
+             <path d="M9.8 4.4A2 2 0 1 1 11 8H2"/>
+           </svg>
+           <span>${wind} m/s</span>
+         </div>`
+      : `<div class="skeleton skeleton-wind"></div>`;
 
-    temperature.setAttribute("x", this.cx);
-
-    temperature.setAttribute("y", this.cy + 20);
-
-    temperature.setAttribute("text-anchor", "middle");
-
-    temperature.setAttribute("fill", "black");
-
-    temperature.setAttribute("font-size", "90");
-
-    temperature.setAttribute("font-weight", "700");
-
-    temperature.textContent = `${this.temperature}°`;
-
-    svg.appendChild(temperature);
-
-    // ----------------------------------------------------------
-    // Date
-    // ----------------------------------------------------------
-
-    const dateText = document.createElementNS(SVG_NS, "text");
-
-    dateText.setAttribute("x", this.cx);
-
-    dateText.setAttribute("y", this.cy + 45);
-
-    dateText.setAttribute("text-anchor", "middle");
-
-    dateText.setAttribute("fill", "#64748b");
-
-    dateText.setAttribute("font-size", "11");
-
-    dateText.setAttribute("font-weight", "500");
-
-    dateText.textContent = date;
-
-    svg.appendChild(dateText);
+    return `
+      <div class="center">
+        ${cityHTML}
+        <div class="temp">${this.temperature}°</div>
+        ${windHTML}
+        <div class="date">${date}</div>
+      </div>
+    `;
   }
 
   createNeedle(svg) {
@@ -380,9 +353,7 @@ export class TemperatureComponent extends Component {
     new Circle(this.cx, this.cy, 4).fill("#ffffff").appendTo(svg);
   }
 
-  // ==========================================================
   // Temperature text
-  // ==========================================================
 
   createTemperatureText(svg) {
     const text = document.createElementNS(SVG_NS, "text");
@@ -427,14 +398,13 @@ export class TemperatureComponent extends Component {
     return 0.25 + progress * 0.6;
   }
 
-  // ==========================================================
   // Render
-  // ==========================================================
 
   render() {
     this.shadowRoot.innerHTML = `
     <style>
       :host {
+        position: relative;
         display: block;
         width: 320px;
         height: 320px;
@@ -445,21 +415,83 @@ export class TemperatureComponent extends Component {
         width: 100%;
         height: 100%;
       }
+
+      .center {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 0.25rem;
+        pointer-events: none;
+      }
+
+      .city {
+        font-size: 0.85rem;
+        font-weight: 600;
+        color: #e2e8f0;
+        text-transform: capitalize;
+      }
+
+      .temp {
+        font-size: 3.25rem;
+        font-weight: 700;
+        color: #f8fafc;
+        line-height: 1;
+      }
+
+      .wind {
+        display: flex;
+        align-items: center;
+        gap: 0.25rem;
+        font-size: 0.8rem;
+        color: #94a3b8;
+      }
+
+      .wind-icon {
+        width: 16px;
+        height: 16px;
+      }
+
+      .date {
+        font-size: 0.7rem;
+        color: #64748b;
+      }
+
+      .skeleton {
+        position: relative;
+        overflow: hidden;
+        background-color: rgba(255, 255, 255, 0.06);
+        border-radius: 4px;
+      }
+      .skeleton::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        transform: translateX(-100%);
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.14), transparent);
+        animation: skeleton-shimmer 1.5s infinite;
+      }
+      @keyframes skeleton-shimmer {
+        100% { transform: translateX(100%); }
+      }
+      .skeleton-city { width: 130px; height: 14px; }
+      .skeleton-wind { width: 90px; height: 14px; }
     </style>
   `;
 
     const svg = this.createSVG();
 
-    // this.createBackground(svg);
-
+    // this.createGradient(svg);
+    this.createGradient2(svg);
     this.createTemperatureArc(svg);
-
     this.createTicks(svg);
 
-    this.createCenterContent(svg);
-
-    this.createGradient2(svg);
-
     this.shadowRoot.appendChild(svg);
+
+    const overlay = document.createElement("div");
+    overlay.innerHTML = this.createCenterContent();
+    this.shadowRoot.appendChild(overlay.firstElementChild);
   }
 }

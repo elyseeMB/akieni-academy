@@ -20,7 +20,7 @@ export class TemperatureCurve {
   /**
    * Dessine area + gradient + path lissé + points sur le svg fourni.
    * @param {SVGSVGElement} svg
-   * @param {Array<{x: number, y: number, temp: number}>} points
+   * @param {Array<{x: number, y: number, temp: number, icon: string}>} points
    */
   draw(svg, points) {
     if (!points.length) {
@@ -71,6 +71,9 @@ export class TemperatureCurve {
   }
 
   #createPath(svg, points) {
+    if (points.length < 2) {
+      return;
+    }
     const path = document.createElementNS(SVG_NS, "path");
 
     path.setAttribute("d", this.#buildSmoothPathD(points));
@@ -116,6 +119,9 @@ export class TemperatureCurve {
   }
 
   #createArea(svg, points) {
+    if (points.length < 2) {
+      return;
+    }
     const line = this.#buildSmoothPathD(points);
 
     const first = points[0];
@@ -139,12 +145,11 @@ export class TemperatureCurve {
   // ==========================================================
 
   #createPoints(svg, points) {
-    const iconSize = 18;
+    const iconSize = 24;
     const offset = iconSize / 2;
-    const iconYOffset = 42; // Distance au-dessus du point (en pixels)
+    const iconYOffset = 36;
 
     points.forEach((p, index) => {
-      // 1. Dessin du point d'origine sur la courbe
       const circle = document.createElementNS(SVG_NS, "circle");
       circle.setAttribute("cx", p.x);
       circle.setAttribute("cy", p.y);
@@ -156,44 +161,22 @@ export class TemperatureCurve {
       circle.classList.add("animated-element");
       circle.style.animationDelay = `${400 + index * 50}ms`;
 
-      // 2. Groupe SVG pour l'icône au-dessus
-      const iconGroup = document.createElementNS(SVG_NS, "g");
+      const image = document.createElementNS(SVG_NS, "image");
 
-      // Positionné centré en X, et décalé vers le haut (p.y - iconYOffset)
-      iconGroup.setAttribute(
-        "transform",
-        `translate(${p.x - offset}, ${p.y - iconYOffset - offset})`,
+      image.setAttribute(
+        "href",
+        `https://openweathermap.org/img/wn/${p.icon}@2x.png`,
       );
+      image.setAttribute("x", p.x - offset);
+      image.setAttribute("y", p.y - iconYOffset - offset);
+      image.setAttribute("width", iconSize);
+      image.setAttribute("height", iconSize);
 
-      iconGroup.setAttribute("width", `${iconSize}`);
-      iconGroup.setAttribute("height", `${iconSize}`);
-      iconGroup.setAttribute("viewBox", "0 0 24 24");
-      iconGroup.setAttribute("fill", this.#color);
-      iconGroup.setAttribute("stroke", this.#color);
-      iconGroup.setAttribute("stroke-width", "2");
-      iconGroup.setAttribute("stroke-linecap", "round");
-      iconGroup.setAttribute("stroke-linejoin", "round");
+      image.classList.add("animated-element");
+      image.style.animationDelay = `${450 + index * 50}ms`;
 
-      iconGroup.classList.add("animated-element");
-      iconGroup.style.animationDelay = `${450 + index * 50}ms`;
-
-      iconGroup.innerHTML = getLucideIconByTemp(p.temp);
       svg.appendChild(circle);
-      svg.appendChild(iconGroup);
+      svg.appendChild(image);
     });
-  }
-}
-
-// Dictionnaire d'icônes Lucide selon la température
-function getLucideIconByTemp(temp) {
-  if (temp >= 25) {
-    // Lucide: Sun
-    return `<path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/><circle cx="12" cy="12" r="4"/>`;
-  } else if (temp >= 15) {
-    // Lucide: CloudSun
-    return `<path d="M12 2v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="M20 12h2"/><path d="m19.07 4.93-1.41 1.41"/><path d="M15.947 12.65a4 4 0 0 0-5.925-4.128"/><path d="M13 22H7a5 5 0 1 1 4.9-6H13a3.5 3.5 0 0 1 0 7Z"/>`;
-  } else {
-    // Lucide: Snowflake
-    return `<path d="M2 12h20"/><path d="M12 2v20"/><path d="m20 16-4-4 4-4"/><path d="m4 8 4 4-4 4"/><path d="m16 4-4 4-4-4"/><path d="m8 20 4-4 4 4"/>`;
   }
 }
