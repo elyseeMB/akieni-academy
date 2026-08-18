@@ -8,7 +8,6 @@ export class AnimatedHero extends HTMLElement {
    * @param {HTMLCanvasElement} canvas
    */
   canvas;
-  // @ts-expect-error It is initialized
   /**@type {Shape[]} */
   shapes;
   /**@type {boolean} */
@@ -335,7 +334,7 @@ class RingGroupPosition {
   /**@type {import("../lib/2d.js").Position} */
   target;
 
-  speed = 0.05; // plus lent que Shape, à ajuster selon l'effet voulu
+  speed = 0.05;
   lastDrawnAt = 0;
 
   constructor(canvas) {
