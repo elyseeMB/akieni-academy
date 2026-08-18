@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Meteo app</title>
+  <meta name="description"
+    content="A simple, elegant weather app with a visual mood that follows the rhythm of the day.">
+  <link rel="stylesheet" href="css/index.css">
+</head>
+
+<body>
+  <header class="header-section">
+    <!-- <header-component id="header-component">
+        <div class="header__row header__row--main">
+          <div class="header__columns header-column--main">
+            <header-action>
+              <input ref="searchInput" value="search" type="text">
+              <button
+                type="button"
+                on:click="header-action/handleClick"
+                aria-label="seach"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="lucide lucide-search-icon lucide-search"
+                >
+                  <path d="m21 21-4.34-4.34" />
+                  <circle cx="11" cy="11" r="8" />
+                </svg>
+              </button>
+            </header-action>
+          </div>
+        </div>
+      </header-component> -->
+  </header>
+
+  <main>
+    <div class="wrapper-main">
+      <temperature-component></temperature-component>
+    </div>
+
+    <weather-card>
+      <template shadowrootmode="open">
+        <style>
+          :host {
+            display: block;
+            width: 100%;
+            min-width: 0;
+          }
+
+          ::-webkit-scrollbar {
+            display: none;
+          }
+
+          ul[part="list"] {
+            display: grid;
+            max-width: 900px;
+            margin: 0 auto;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 0.75rem;
+            list-style: none;
+            width: 100%;
+            box-sizing: border-box;
+          }
+
+          @media (max-width: 640px) {
+            ul[part="list"] {
+              display: flex;
+              overflow-x: auto;
+              -webkit-overflow-scrolling: touch;
+              grid-template-columns: none;
+              mask-image: linear-gradient(to right,
+                  transparent 0,
+                  black 80px,
+                  black calc(100% - 80px),
+                  transparent 100%);
+              -webkit-mask-image: linear-gradient(to right,
+                  transparent 0,
+                  black 80px,
+                  black calc(100% - 80px),
+                  transparent 100%);
+            }
+
+            ::slotted(weather-day) {
+              min-width: 140px;
+              flex-shrink: 0;
+            }
+          }
+        </style>
+        <ul part="list">
+          <slot></slot>
+        </ul>
+      </template>
+    </weather-card>
+
+    <template id="weather-day-tpl">
+      <style>
+        :host {
+          display: block;
+          min-width: 0;
+        }
+
+        .card {
+          position: relative;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 0.25rem;
+          padding: 0.75rem 1rem;
+          border-radius: 0.75rem;
+          background: rgba(255, 255, 255, 0.05);
+          border: 1px solid rgba(255, 255, 255, 0.08);
+
+          backdrop-filter: blur(8px);
+          -webkit-backdrop-filter: blur(8px);
+          transition: background 0.2s;
+        }
+
+        .card:hover {
+          background: rgba(255, 255, 255, 0.1);
+        }
+
+        .day {
+          font-size: 0.8rem;
+          font-weight: 600;
+          color: #e2e8f0;
+          text-transform: capitalize;
+        }
+
+        .icon {
+          width: 48px;
+          height: 48px;
+        }
+
+        .temp {
+          font-size: 0.9rem;
+          font-weight: 700;
+          color: #f8fafc;
+          letter-spacing: -0.02em;
+        }
+
+        .temp .min {
+          color: #94a3b8;
+          font-weight: 400;
+        }
+
+        .desc {
+          font-size: 0.7rem;
+          color: #94a3b8;
+          text-transform: capitalize;
+          text-align: center;
+          max-width: 100%;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+        }
+
+        .skeleton {
+          position: relative;
+          overflow: hidden;
+          background-color: rgba(255, 255, 255, 0.06);
+          border-radius: 0.375rem;
+        }
+
+        .skeleton::after {
+          content: "";
+          position: absolute;
+          inset: 0;
+          transform: translateX(-100%);
+          background: linear-gradient(90deg,
+              transparent,
+              rgba(255, 255, 255, 0.14),
+              transparent);
+          animation: skeleton-shimmer 1.5s infinite;
+        }
+
+        @keyframes skeleton-shimmer {
+          100% {
+            transform: translateX(100%);
+          }
+        }
+
+        .day.skeleton,
+        .desc.skeleton {
+          width: 64px;
+          height: 12px;
+        }
+
+        .temp.skeleton {
+          width: 56px;
+          height: 16px;
+        }
+
+        .icon.skeleton {
+          border-radius: 50%;
+        }
+
+        .icon {
+          background-size: contain;
+          background-repeat: no-repeat;
+          background-position: center;
+        }
+      </style>
+      <div class="card">
+        <span class="day" ref="day"></span>
+        <div class="icon" ref="icon"></div>
+        <span class="temp"><span ref="max"></span>° <span class="min" ref="min"></span>°</span>
+        <span class="desc" ref="desc"></span>
+      </div>
+    </template>
+
+    <calendar-weather id="tl"></calendar-weather>
+
+    <animated-hero class="hero-wrapper"></animated-hero>
+  </main>
+
+  <script type="module" src="index.js" defer></script>
+</body>
+
+</html>

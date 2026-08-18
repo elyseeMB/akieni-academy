@@ -1,0 +1,87 @@
+@layer reset, fonts, base, tokens, layout, components, utilities;
+
+/* TOKEN */
+@import "./tokens/colors.css" layer(tokens);
+@import "./tokens/opacity.css" layer(token);
+@import "./tokens/typography.css" layer(token);
+@import "./tokens/spacing.css" layer(token);
+@import "./tokens/responsive.css" layer(token);
+
+/* Fondation */
+@import "./tools/reset.css" layer(reset);
+@import "./tools/fonts.css" layer(fonts);
+@import "./tools/base.css" layer(base);
+
+/* @import "./components/header/header.css" layer(components); */
+@import "./components/weather.css" layer(components);
+
+@import "./utilities/skeleton.css" layer(utilities);
+
+.canvas-wrapper {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  filter: blur(100px);
+  transform: scale(2);
+}
+
+.hero-wrapper {
+  width: 100%;
+  height: 100%;
+  display: block;
+  overflow: hidden;
+}
+
+main {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-items: center;
+  gap: var(--gap-2xl);
+}
+
+body {
+  mix-blend-mode: exclusion;
+  font-family: "Inter", sans-serif;
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden;
+}
+
+.viewport {
+  width: 100%;
+  overflow-x: auto;
+}
+
+svg {
+  display: block;
+  max-width: none;
+}
+
+.wrapper-main {
+  max-width: 900px;
+  margin: 0 auto;
+  display: grid;
+  place-items: center;
+  padding-top: var(--padding-lg);
+}
+
+calendar-weather {
+  position: relative;
+  padding-inline: 1rem;
+
+  mask-image: linear-gradient(
+    to right,
+    transparent 0,
+    black 80px,
+    black calc(100% - 80px),
+    transparent 100%
+  );
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0,
+    black 80px,
+    black calc(100% - 80px),
+    transparent 100%
+  );
+}

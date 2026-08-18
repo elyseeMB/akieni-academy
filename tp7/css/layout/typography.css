@@ -1,0 +1,29 @@
+/* Links */
+a {
+  --button-color: var(--color, var(--color-primary));
+
+  color: var(--button-color);
+  text-decoration-color: transparent;
+  text-decoration-thickness: 0.075em;
+  text-underline-offset: 0.125em;
+  transition:
+    text-decoration-color var(--animation-speed) var(--animation-easing),
+    color var(--animation-speed) var(--animation-easing);
+}
+
+:is(h1, h2, h3, h4, h5, h6, p) > a:hover {
+  --button-color: var(--color, var(--color-primary-hover));
+}
+
+p:not(.h1, .h2, .h3, .h4, .h5, .h6)
+  a:where(:not(.button, .button-primary, .button-secondary)),
+.rte
+  :is(p, ul, ol, table):not(.h1, .h2, .h3, .h4, .h5, .h6)
+  a:where(:not(.button, .button-primary, .button-secondary)) {
+  text-decoration-color: currentcolor;
+
+  &:hover {
+    text-decoration-color: transparent;
+    color: var(--color-primary-hover);
+  }
+}

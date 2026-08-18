@@ -1,0 +1,37 @@
+/* ==========================================================================
+   TOKENS · SHADOWS & ELEVATION
+   Shadow channel values, shadow presets and z-index stack
+   ========================================================================== */
+
+:root {
+  /* --- Design System (WK) shadow base ------------------------------------ */
+  --wk-shadow-opacity: 15%;
+  --wk-shadow-horizontal-offset: 0px;
+  --wk-shadow-vertical-offset: 2px;
+  --wk-shadow-blur: 4px;
+
+  /* --- Shadow presets ---------------------------------------------------- */
+  --shadow-blur: 20px;
+  --shadow-drawer: 0px 4px 20px rgb(var(--color-shadow-rgb) / var(--opacity-15));
+  --shadow-popover: 0px 4px 20px
+    rgb(var(--color-shadow-rgb) / var(--opacity-15));
+  --shadow-color: var(--color-shadow);
+
+  /* --- Backdrop ---------------------------------------------------------- */
+  --backdrop-opacity: 0.15;
+  --backdrop-color-rgb: var(--color-shadow-rgb);
+
+  /* --- Z-index stack ----------------------------------------------------- */
+  --layer-section-background: -2;
+  --layer-lowest: -1;
+  --layer-base: 0;
+  --layer-flat: 1;
+  --layer-raised: 2;
+  --layer-heightened: 4;
+  --layer-sticky: 8;
+  --layer-window-overlay: 10;
+  --layer-header-menu: 12;
+  --layer-overlay: 16;
+  --layer-menu-drawer: 18;
+  --layer-temporary: 20;
+}
