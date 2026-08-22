@@ -1,0 +1,14 @@
+/* ==========================================================================
+   LAYOUT · CONTAINER
+   Content, page and sidebar max-widths
+   ========================================================================== */
+
+:root {
+  --sidebar-width: 37rem;
+  --narrow-content-width: 65rem;
+  --normal-content-width: 75rem;
+  --wide-content-width: 85rem;
+  --narrow-page-width: 144rem;
+  --normal-page-width: 192rem;
+  --wide-page-width: 240rem;
+}
