@@ -1,39 +1,35 @@
 <!DOCTYPE html>
 <html lang="fr">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calendar movies</title>
-    <meta name="description" content="Calendar movie">
-    <link rel="stylesheet" href="css/index.css">
-  </head>
 
-  <body>
-    <main>
-      <header class="header-action">
-        <div class="calendar-action">
-          <div class="toolbar">
-            <div class="toolbar-left">
-              <input type="text" value="search" placeholder="search...">
-            </div>
-            <div class="toolbar-right">
-              <button
-                on:click="#calendar-movies/scrollToToday"
-                class="toolbar-right__today"
-              >
-                Aujourd'hui
-              </button>
-            </div>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calendar movies</title>
+  <meta name="description" content="Calendar movie">
+  <link rel="stylesheet" href="css/index.css">
+</head>
+
+<body>
+  <main>
+    <header class="header-action">
+      <div class="calendar-action">
+        <div class="toolbar">
+          <div class="toolbar-left">
+            <input type="text" value="search" placeholder="search...">
           </div>
-          <div class="calendar__current-month"></div>
+          <div class="toolbar-right">
+            <button on:click="#calendar-movies/scrollToToday" class="toolbar-right__today">
+              Aujourd'hui
+            </button>
+          </div>
         </div>
-      </header>
-      <head-calendar></head-calendar>
-      <calendar-movies
-        id="calendar-movies"
-        class="calendar-main"
-      ></calendar-movies>
-    </main>
-    <script type="module" src="index.js" defer></script>
-  </body>
+        <div class="calendar__current-month"></div>
+      </div>
+    </header>
+    <head-calendar></head-calendar>
+    <calendar-movies id="calendar-movies" class="calendar-main"></calendar-movies>
+  </main>
+  <script type="module" src="index.js" defer></script>
+</body>
+
 </html>
