@@ -1,0 +1,28 @@
+/* ==========================================================================
+   TOKENS · OPACITY SCALE
+   Functional opacity steps used across color, shadow and state tokens
+   ========================================================================== */
+
+:root {
+  /* Named steps (from theme extraction) */
+  --opacity-5-15: 0.05;
+  --opacity-10-25: 0.1;
+  --opacity-30-60: 0.3;
+  --opacity-35-55: 0.35;
+  --opacity-40-60: 0.4;
+
+  /* Linear scale (supporting references used by other tokens) */
+  --opacity-5: 0.05;
+  --opacity-10: 0.1;
+  --opacity-15: 0.15;
+  --opacity-20: 0.2;
+  --opacity-25: 0.25;
+  --opacity-30: 0.3;
+  --opacity-40: 0.4;
+  --opacity-50: 0.5;
+  --opacity-60: 0.6;
+  --opacity-70: 0.7;
+  --opacity-80: 0.8;
+  --opacity-90: 0.9;
+  --opacity-100: 1;
+}

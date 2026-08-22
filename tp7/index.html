@@ -1,57 +1,25 @@
 <!DOCTYPE html>
 <html lang="fr">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meteo app</title>
+    <meta
+      name="description"
+      content="A simple, elegant weather app with a visual mood that follows the rhythm of the day."
+    >
+    <link rel="stylesheet" href="css/index.css">
+  </head>
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Meteo app</title>
-  <meta name="description"
-    content="A simple, elegant weather app with a visual mood that follows the rhythm of the day.">
-  <link rel="stylesheet" href="css/index.css">
-</head>
+  <body>
+    <main>
+      <div class="wrapper-main">
+        <temperature-component></temperature-component>
+      </div>
 
-<body>
-  <header class="header-section">
-    <!-- <header-component id="header-component">
-        <div class="header__row header__row--main">
-          <div class="header__columns header-column--main">
-            <header-action>
-              <input ref="searchInput" value="search" type="text">
-              <button
-                type="button"
-                on:click="header-action/handleClick"
-                aria-label="seach"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  class="lucide lucide-search-icon lucide-search"
-                >
-                  <path d="m21 21-4.34-4.34" />
-                  <circle cx="11" cy="11" r="8" />
-                </svg>
-              </button>
-            </header-action>
-          </div>
-        </div>
-      </header-component> -->
-  </header>
-
-  <main>
-    <div class="wrapper-main">
-      <temperature-component></temperature-component>
-    </div>
-
-    <weather-card>
-      <template shadowrootmode="open">
-        <style>
+      <weather-card>
+        <template shadowrootmode="open">
+          <style>
           :host {
             display: block;
             width: 100%;
@@ -79,16 +47,20 @@
               overflow-x: auto;
               -webkit-overflow-scrolling: touch;
               grid-template-columns: none;
-              mask-image: linear-gradient(to right,
-                  transparent 0,
-                  black 80px,
-                  black calc(100% - 80px),
-                  transparent 100%);
-              -webkit-mask-image: linear-gradient(to right,
-                  transparent 0,
-                  black 80px,
-                  black calc(100% - 80px),
-                  transparent 100%);
+              mask-image: linear-gradient(
+                to right,
+                transparent 0,
+                black 80px,
+                black calc(100% - 80px),
+                transparent 100%
+              );
+              -webkit-mask-image: linear-gradient(
+                to right,
+                transparent 0,
+                black 80px,
+                black calc(100% - 80px),
+                transparent 100%
+              );
             }
 
             ::slotted(weather-day) {
@@ -96,15 +68,15 @@
               flex-shrink: 0;
             }
           }
-        </style>
-        <ul part="list">
-          <slot></slot>
-        </ul>
-      </template>
-    </weather-card>
+          </style>
+          <ul part="list">
+            <slot></slot>
+          </ul>
+        </template>
+      </weather-card>
 
-    <template id="weather-day-tpl">
-      <style>
+      <template id="weather-day-tpl">
+        <style>
         :host {
           display: block;
           min-width: 0;
@@ -177,10 +149,12 @@
           position: absolute;
           inset: 0;
           transform: translateX(-100%);
-          background: linear-gradient(90deg,
-              transparent,
-              rgba(255, 255, 255, 0.14),
-              transparent);
+          background: linear-gradient(
+            90deg,
+            transparent,
+            rgba(255, 255, 255, 0.14),
+            transparent
+          );
           animation: skeleton-shimmer 1.5s infinite;
         }
 
@@ -210,21 +184,22 @@
           background-repeat: no-repeat;
           background-position: center;
         }
-      </style>
-      <div class="card">
-        <span class="day" ref="day"></span>
-        <div class="icon" ref="icon"></div>
-        <span class="temp"><span ref="max"></span>° <span class="min" ref="min"></span>°</span>
-        <span class="desc" ref="desc"></span>
-      </div>
-    </template>
+        </style>
+        <div class="card">
+          <span class="day" ref="day"></span>
+          <div class="icon" ref="icon"></div>
+          <span class="temp"
+            ><span ref="max"></span>° <span class="min" ref="min"></span>°</span
+          >
+          <span class="desc" ref="desc"></span>
+        </div>
+      </template>
 
-    <calendar-weather id="tl"></calendar-weather>
+      <calendar-weather id="tl"></calendar-weather>
 
-    <animated-hero class="hero-wrapper"></animated-hero>
-  </main>
+      <animated-hero class="hero-wrapper"></animated-hero>
+    </main>
 
-  <script type="module" src="index.js" defer></script>
-</body>
-
+    <script type="module" src="index.js"></script>
+  </body>
 </html>

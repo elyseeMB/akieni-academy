@@ -1,0 +1,150 @@
+/* ==========================================================================
+   TOKENS · COLORS
+   Design System (WK) + Theme functional colors + Brand palette
+   ========================================================================== */
+
+/* --- Design System (WK) — raw channel values (R G B) --------------------- */
+:root {
+  --wk-color-solid-button-label: 255, 255, 255;
+  --wk-color-accent-1: 178, 178, 178;
+  --wk-color-accent-2: 234, 234, 234;
+  --wk-color-outline-button-label: 0, 0, 0;
+  --wk-color-background-1: 255, 255, 255;
+  --wk-color-background-2: 255, 255, 255;
+  --wk-color-text: 0, 0, 0;
+}
+
+/* --- Theme — functional color tokens (applied to :root and .color) -------- */
+:root,
+.color {
+  /* Background / foreground */
+  --color-background: rgb(255 255 255 / 1);
+  --color-background-rgb: 255 255 255;
+  --color-foreground: rgb(0 0 0 / 1);
+  --color-foreground-rgb: 0 0 0;
+  --color-foreground-heading: rgb(0 0 0 / 1);
+  --color-foreground-heading-rgb: 0 0 0;
+  --color-foreground-muted: rgb(
+    var(--color-foreground-rgb) /
+    var(--opacity-60)
+  );
+
+  /* Accent / primary */
+  --color-accent: rgb(66 66 69 / 1);
+  --color-primary: rgb(0 0 0 / 1);
+  --color-primary-rgb: 0 0 0;
+  --color-primary-hover: rgb(178 178 178 / 1);
+  --color-primary-hover-rgb: 178 178 178;
+
+  /* Borders */
+  --color-border: rgb(0 0 0 / 0.13);
+  --color-border-rgb: 0 0 0;
+
+  /* Shadows */
+  --color-shadow: rgb(0 0 0 / 0.31);
+  --color-shadow-rgb: 0 0 0;
+
+  /* Primary button */
+  --color-primary-button-text: rgb(255 255 255 / 1);
+  --color-primary-button-background: rgb(34 34 34 / 1);
+  --color-primary-button-border: rgb(34 34 34 / 1);
+  --color-primary-button-hover-text: rgb(34 34 34 / 1);
+  --color-primary-button-hover-background: rgb(234 234 234 / 1);
+  --color-primary-button-hover-border: rgb(234 234 234 / 1);
+
+  /* Secondary button */
+  --color-secondary-button-text: rgb(34 34 34 / 1);
+  --color-secondary-button-background: rgb(0 0 0 / 0);
+  --color-secondary-button-border: rgb(34 34 34 / 1);
+  --color-secondary-button-hover-text: rgb(34 34 34 / 1);
+  --color-secondary-button-hover-background: rgb(255 255 255 / 1);
+  --color-secondary-button-hover-border: rgb(34 34 34 / 1);
+
+  /* Contrast button */
+  --color-contrast-button-text: #ffffff;
+  --color-contrast-button-background: rgb(0 0 0 / 0);
+  --color-contrast-button-border: #ffffff;
+  --color-contrast-button-hover-text: #222222;
+  --color-contrast-button-hover-background: #ffffff;
+  --color-contrast-button-hover-border: #ffffff;
+
+  /* Inputs */
+  --color-input-background: rgb(0 0 0 / 0);
+  --color-input-text: rgb(0 0 0 / 1);
+  --color-input-text-rgb: 0 0 0;
+  --color-input-border: rgb(0 0 0 / 1);
+  --color-input-hover-background: rgb(0 0 0 / 0.31);
+
+  /* Variants (product options) */
+  --color-variant-background: rgb(255 255 255 / 1);
+  --color-variant-border: rgb(0 0 0 / 0);
+  --color-variant-text: rgb(0 0 0 / 1);
+  --color-variant-text-rgb: 0 0 0;
+  --color-variant-hover-background: rgb(34 34 34 / 1);
+  --color-variant-hover-text: rgb(255 255 255 / 1);
+  --color-variant-hover-border: rgb(0 0 0 / 0);
+  --color-selected-variant-background: rgb(255 255 255 / 1);
+  --color-selected-variant-border: rgb(0 0 0 / 0);
+  --color-selected-variant-text: rgb(0 0 0 / 1);
+  --color-selected-variant-hover-background: rgb(34 34 34 / 1);
+  --color-selected-variant-hover-text: rgb(255 255 255 / 1);
+  --color-selected-variant-hover-border: rgb(0 0 0 / 0);
+
+  /* Inputs — disabled states */
+  --input-disabled-background-color: rgb(
+    var(--color-foreground-rgb) /
+    var(--opacity-10)
+  );
+  --input-disabled-border-color: rgb(
+    var(--color-foreground-rgb) /
+    var(--opacity-5-15)
+  );
+  --input-disabled-text-color: rgb(
+    var(--color-foreground-rgb) /
+    var(--opacity-50)
+  );
+}
+
+/* --- Brand palette (legacy project tokens, kept for compatibility) ------- */
+:root {
+  --color-blue-600: #155dfc;
+  --color-gray-200: #e5e7eb;
+  --color-neutral-50: #fafafa;
+  --color-neutral-100: #f5f5f5;
+  --color-neutral-200: #e5e5e5;
+  --color-neutral-300: #d4d4d4;
+  --color-neutral-400: #a1a1a1;
+  --color-neutral-500: #737373;
+  --color-neutral-600: #525252;
+  --color-neutral-700: #404040;
+  --color-neutral-800: #262626;
+  --color-neutral-900: #171717;
+  --color-black: #000;
+  --color-white: #ede4dd;
+  --color-cream: #ede4dd;
+  --color-red: #ff0001;
+}
+
+:root {
+  --opacity-5: 0.05;
+  --opacity-8: 0.08;
+  --opacity-10: 0.1;
+  --opacity-15: 0.15;
+  --opacity-20: 0.2;
+  --opacity-25: 0.25;
+  --opacity-30: 0.3;
+  --opacity-40: 0.4;
+  --opacity-50: 0.5;
+  --opacity-60: 0.6;
+  --opacity-70: 0.7;
+  --opacity-80: 0.8;
+  --opacity-85: 0.85;
+  --opacity-90: 0.9;
+  --opacity-subdued-text: var(--opacity-70);
+  --shadow-button: 0 2px 3px rgb(0 0 0 / 20%);
+  --gradient-image-overlay: linear-gradient(
+    to top,
+    rgb(0 0 0 / 0.5),
+    transparent
+  );
+}
