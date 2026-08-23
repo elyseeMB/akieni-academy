@@ -1,4 +1,4 @@
-import { addDays } from "../lib/date.js";
+import { addDays, toDateKey } from "../lib/date.js";
 
 export class WeekCalendar {
   today;
@@ -36,6 +36,7 @@ export class WeekCalendar {
     const cell = document.createElement("div");
     cell.setAttribute("class", "calendar__cell");
     cell.dataset.month = date.getMonth();
+    cell.dataset.date = toDateKey(date);
 
     const dateEl = document.createElement("div");
     dateEl.setAttribute("class", "calendar__date");

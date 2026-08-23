@@ -1,3 +1,5 @@
+import { getAllCalendarMovies } from "../api.js";
+import { moviesStore } from "../events/movies-store.js";
 import {
   addDays,
   buildYearRanges,
@@ -6,6 +8,8 @@ import {
   weeksCount,
 } from "../lib/date.js";
 import { Component } from "./component.js";
+import { MovieCellRenderer } from "./movie-dialog.js";
+import { MovieRenderer } from "./movie-renderer.js";
 import { WeekCalendar } from "./week-calendar.js";
 
 export class CalendarMovies extends Component {
@@ -35,17 +39,51 @@ export class CalendarMovies extends Component {
   /** @type {number | null} */
   #currentVisibleMonth = null;
 
+  /** @type {Set<string>} */
+  #renderedDates = new Set();
+
+  /** @type {Map<string, HTMLElement>} */
+  #cellsByDate = new Map();
+
+  /** @type {Set<number>} mois déjà chargés */
+  #loadedMonths = new Set();
+
+  /** @type {MovieDayDialog} */
+  #dayDialog;
+
+  /** @type {MovieCellRenderer} */
+  #cellRenderer;
+
+  /** @type {IntersectionObserver | undefined} */
+  #preloadObserver;
+
+  #onMoviesUpdate = (e) => this.#applyMovies(e.detail);
+
   connectedCallback() {
+    this.#dayDialog = new MovieCellRenderer(this);
+    this.#cellRenderer = new MovieRenderer({
+      maxVisible: 2,
+      onMore: (cell, movies) => this.#dayDialog.open(movies),
+    });
+
     super.connectedCallback();
     this.#applyPadding();
     this.#build();
     this.#observeResize();
     this.#observeMonths();
+
+    moviesStore.addEventListener("movies:update", this.#onMoviesUpdate);
+    const cached = moviesStore.get();
+    if (cached) {
+      this.#applyMovies(cached);
+    }
   }
 
   disconnectedCallback() {
     this.#resizeObserver?.disconnect();
     this.#monthObserver?.disconnect();
+    this.#preloadObserver?.disconnect();
+    moviesStore.removeEventListener("update", this.#onMoviesUpdate);
 
     if (this.#resizeFrame !== null) {
       cancelAnimationFrame(this.#resizeFrame);
@@ -58,8 +96,6 @@ export class CalendarMovies extends Component {
   }
 
   /**
-   * Scroll jusqu'au mois courant.
-   *
    * @param {boolean} smooth
    */
   #scrollToCurrentMonth() {
@@ -123,6 +159,10 @@ export class CalendarMovies extends Component {
       slot.dataset.week = w;
       slot.dataset.month = monthIndex;
 
+      slot.querySelectorAll(".calendar__cell").forEach((cell) => {
+        this.#cellsByDate.set(cell.dataset.date, cell);
+      });
+
       this.appendChild(slot);
 
       if (monthIndex !== lastMonthIndex) {
@@ -135,10 +175,33 @@ export class CalendarMovies extends Component {
     this.#layout();
   }
 
+  #applyMovies({ movies }) {
+    const byDate = new Map();
+    for (const movie of movies) {
+      const key = movie.release_date;
+      if (!byDate.has(key)) {
+        byDate.set(key, []);
+      }
+      byDate.get(key).push(movie);
+    }
+
+    for (const [dateKey, list] of byDate) {
+      if (this.#renderedDates.has(dateKey)) {
+        continue;
+      }
+
+      const cell = this.#cellsByDate.get(dateKey);
+      if (!cell) {
+        continue;
+      }
+
+      this.#cellRenderer.render(cell, list);
+      this.#renderedDates.add(dateKey);
+    }
+  }
+
   /**
-   * Recalcule uniquement les dimensions et positions.
    *
-   * Aucun DOM n'est recréé ici.
    */
   #layout() {
     const { total } = this.#getOffsets();
@@ -161,7 +224,7 @@ export class CalendarMovies extends Component {
       const rowHeight = availableHeight / weekCount;
 
       slot.style.setProperty("--height-calc", `${rowHeight}px`);
-      slot.style.transform = `translate3d(0, ${cumulativeOffset}px, 0)`;
+      slot.style.transform = `translate(0, ${cumulativeOffset}px)`;
       cumulativeOffset += rowHeight;
     }
 
@@ -207,55 +270,66 @@ export class CalendarMovies extends Component {
    * @param {number} monthIndex
    */
   #setCurrentVisibleMonth(monthIndex) {
-    if (monthIndex === this.#currentVisibleMonth) {
+    const month = this.#months.get(monthIndex);
+    if (!month || monthIndex === this.#currentVisibleMonth) {
       return;
     }
 
     this.#currentVisibleMonth = monthIndex;
-
-    const month = this.#months.get(monthIndex);
-    if (!month) {
-      return;
-    }
-
     this.#setCurrentMonthLabel(month.start);
+
     this.querySelectorAll(".calendar__cell").forEach((cell) => {
       const cellMonth = Number(cell.dataset.month);
       cell.classList.toggle("calendar__date-other", cellMonth !== monthIndex);
     });
   }
 
-  #observeMonths() {
-    const { total } = this.#getOffsets();
+  #loadMonth(monthIndex) {
+    if (this.#loadedMonths.has(monthIndex)) {
+      return;
+    }
+    this.#loadedMonths.add(monthIndex);
 
+    const year = this.#now.getFullYear();
+    getAllCalendarMovies(year, monthIndex + 1).then((data) => {
+      moviesStore.set(data);
+    });
+  }
+
+  #observeMonths() {
     this.#monthObserver = new IntersectionObserver(
       (entries) => {
-        let current = null;
         for (const entry of entries) {
-          if (!entry.isIntersecting) {
-            continue;
-          }
-
-          if (!current || entry.intersectionRatio > current.intersectionRatio) {
-            current = entry;
+          if (entry.isIntersecting) {
+            this.#setCurrentVisibleMonth(Number(entry.target.dataset.month));
+            break;
           }
         }
-
-        if (!current) {
-          return;
-        }
-
-        const monthIndex = Number(current.target.dataset.month);
-        this.#setCurrentVisibleMonth(monthIndex);
       },
       {
-        rootMargin: `-${total}px 0px -60% 0px`,
+        rootMargin: "-40% 0px -60% 0px",
+        threshold: 0,
+      },
+    );
+
+    // Observer 2 : précharge les films avant que le mois soit visible
+    this.#preloadObserver = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            this.#loadMonth(Number(entry.target.dataset.month));
+          }
+        }
+      },
+      {
+        rootMargin: "0px 0px 50% 0px",
         threshold: 0,
       },
     );
 
     this.querySelectorAll(".calendar__week-slot").forEach((slot) => {
       this.#monthObserver.observe(slot);
+      this.#preloadObserver.observe(slot);
     });
   }
 }
