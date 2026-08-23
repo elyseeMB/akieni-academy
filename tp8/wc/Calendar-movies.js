@@ -23,9 +23,6 @@ export class CalendarMovies extends Component {
   /** @type {HTMLElement} */
   #headCalendar = document.querySelector("head-calendar");
 
-  /** @type {Map<number, number>} */
-  #visibleRowsByMonth = new Map();
-
   #resizeObserver;
   #monthObserver;
   #currentVisibleMonth = null;
@@ -44,13 +41,6 @@ export class CalendarMovies extends Component {
   }
 
   scrollToToday() {
-    const previousYear = this.#now.getFullYear();
-    this.#now = new Date();
-
-    if (this.#now.getFullYear() !== previousYear) {
-      this.#rebuild();
-    }
-
     this.#scrollToCurrentMonth(true);
   }
 
@@ -60,11 +50,13 @@ export class CalendarMovies extends Component {
   #scrollToCurrentMonth(smooth = true) {
     const monthIndex = this.#now.getMonth();
     const slotEl = this.#monthWeekStarts.get(monthIndex);
-    if (!slotEl) return;
+
+    if (!slotEl) {
+      return;
+    }
 
     const { total } = this.#getOffsets();
     const targetY = window.scrollY + slotEl.getBoundingClientRect().top - total;
-
     window.scrollTo({ top: targetY, behavior: smooth ? "smooth" : "auto" });
   }
 
@@ -174,15 +166,17 @@ export class CalendarMovies extends Component {
 
     label.textContent = Intl.DateTimeFormat(undefined, {
       month: "long",
+      year: "numeric",
     }).format(date);
   }
 
   /**
-   * Met à jour le label ET grise les cellules hors du mois visible.
    * @param {number} monthIndex
    */
   #setCurrentVisibleMonth(monthIndex) {
-    if (monthIndex === this.#currentVisibleMonth) return;
+    if (monthIndex === this.#currentVisibleMonth) {
+      return;
+    }
     this.#currentVisibleMonth = monthIndex;
 
     const { start } = this.#months.get(monthIndex);
@@ -202,19 +196,23 @@ export class CalendarMovies extends Component {
         let current = null;
 
         for (const entry of entries) {
-          if (!entry.isIntersecting) continue;
+          if (!entry.isIntersecting) {
+            continue;
+          }
           if (!current || entry.intersectionRatio > current.intersectionRatio) {
             current = entry;
           }
         }
 
-        if (!current) return;
+        if (!current) {
+          return;
+        }
 
         const monthIndex = Number(current.target.dataset.month);
         this.#setCurrentVisibleMonth(monthIndex);
       },
       {
-        rootMargin: `-${total}px 0px -40% 0px`,
+        rootMargin: `-${total}px 0px -60% 0px`,
         threshold: 0,
       },
     );

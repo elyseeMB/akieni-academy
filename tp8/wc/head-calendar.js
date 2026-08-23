@@ -1,4 +1,4 @@
-import { addDays, startOfMonth, startOfWeek } from "../lib/date.js";
+import { addDays, startOfWeek } from "../lib/date.js";
 import { Component } from "./component.js";
 
 export class HeadCalendar extends Component {

@@ -55,6 +55,10 @@ export class WeekCalendar {
       ? `${dateFormat}`
       : String(date.getDate());
 
+    if (isFirstOfMonth) {
+      dateEl.classList.add("calendar__date-first");
+    }
+
     if (isCurrentDate) {
       dateEl.classList.add("calendar__date-current");
     }
