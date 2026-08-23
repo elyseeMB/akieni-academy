@@ -23,14 +23,22 @@ export class CalendarMovies extends Component {
   /** @type {HTMLElement} */
   #headCalendar = document.querySelector("head-calendar");
 
+  /** @type {ResizeObserver | undefined} */
   #resizeObserver;
+
+  /** @type {IntersectionObserver | undefined} */
   #monthObserver;
+
+  /** @type {number | null} */
+  #resizeFrame = null;
+
+  /** @type {number | null} */
   #currentVisibleMonth = null;
 
   connectedCallback() {
     super.connectedCallback();
     this.#applyPadding();
-    this.#buildbase();
+    this.#build();
     this.#observeResize();
     this.#observeMonths();
   }
@@ -38,51 +46,44 @@ export class CalendarMovies extends Component {
   disconnectedCallback() {
     this.#resizeObserver?.disconnect();
     this.#monthObserver?.disconnect();
+
+    if (this.#resizeFrame !== null) {
+      cancelAnimationFrame(this.#resizeFrame);
+      this.#resizeFrame = null;
+    }
   }
 
   scrollToToday() {
-    this.#scrollToCurrentMonth(true);
+    this.#scrollToCurrentMonth();
   }
 
   /**
+   * Scroll jusqu'au mois courant.
+   *
    * @param {boolean} smooth
    */
-  #scrollToCurrentMonth(smooth = true) {
+  #scrollToCurrentMonth() {
     const monthIndex = this.#now.getMonth();
     const slotEl = this.#monthWeekStarts.get(monthIndex);
-
     if (!slotEl) {
       return;
     }
 
     const { total } = this.#getOffsets();
     const targetY = window.scrollY + slotEl.getBoundingClientRect().top - total;
-    window.scrollTo({ top: targetY, behavior: smooth ? "smooth" : "auto" });
-  }
-
-  #observeResize() {
-    this.#resizeObserver = new ResizeObserver(() => this.#rebuild());
-    this.#resizeObserver.observe(this.#headerAction);
-    this.#resizeObserver.observe(this.#headCalendar);
-    this.#resizeObserver.observe(document.documentElement);
-  }
-
-  #rebuild() {
-    this.#monthObserver?.disconnect();
-    this.innerHTML = "";
-    this.#months.clear();
-    this.#monthWeekStarts.clear();
-    this.#currentVisibleMonth = null;
-    this.#applyPadding();
-    this.#buildbase();
-    this.#observeMonths();
+    window.scrollTo({
+      top: targetY,
+      behavior: "auto",
+    });
   }
 
   #getOffsets() {
     const headerHeight =
       this.#headerAction?.getBoundingClientRect().height ?? 0;
+
     const headCalHeight =
       this.#headCalendar?.getBoundingClientRect().height ?? 0;
+
     return {
       headerHeight,
       headCalHeight,
@@ -92,52 +93,35 @@ export class CalendarMovies extends Component {
 
   #applyPadding() {
     const { headerHeight, total } = this.#getOffsets();
-    document.body.setAttribute(
-      "style",
-      `--padding:${total}px; --padding-header:${headerHeight}px`,
-    );
+    document.body.style.setProperty("--padding", `${total}px`);
+    document.body.style.setProperty("--padding-header", `${headerHeight}px`);
   }
 
-  #buildbase() {
+  /**
+   * Build Struct
+   */
+  #build() {
     const year = this.#now.getFullYear();
     const months = buildYearRanges(year);
 
-    months.forEach(({ start, end }, monthIndex) => {
+    for (const [monthIndex, { start, end }] of months.entries()) {
       this.#months.set(monthIndex, { start, end });
-    });
-
-    const { total } = this.#getOffsets();
-    const viewport = document.documentElement.clientHeight;
-    const availableHeight = viewport - total;
-
-    const weekCounts = months.map(({ start, end }) => {
-      const s = startOfWeek(start);
-      const e = endOfWeek(end);
-      return weeksCount(s, e);
-    });
+    }
 
     const yearStart = startOfWeek(months[0].start);
     const yearEnd = endOfWeek(months[months.length - 1].end);
     const totalWeeks = weeksCount(yearStart, yearEnd);
-
     const weekBuilder = new WeekCalendar(this.#now);
 
-    let cumulativeOffset = 0;
     let lastMonthIndex = -1;
-
     for (let w = 0; w < totalWeeks; w++) {
       const weekStart = addDays(yearStart, w * 7);
       const pivotDay = addDays(weekStart, 3);
       const monthIndex = pivotDay.getMonth();
-      const monthWeekCount = weekCounts[monthIndex] || 1;
-      const rowHeight = availableHeight / monthWeekCount;
-
       const slot = weekBuilder.buildWeek(weekStart);
 
       slot.dataset.week = w;
       slot.dataset.month = monthIndex;
-      slot.style.setProperty("--height-calc", `${rowHeight}px`);
-      slot.style.transform = `translate(0, ${cumulativeOffset}px)`;
 
       this.appendChild(slot);
 
@@ -145,14 +129,63 @@ export class CalendarMovies extends Component {
         this.#monthWeekStarts.set(monthIndex, slot);
         lastMonthIndex = monthIndex;
       }
+    }
 
+    this.#setCurrentVisibleMonth(this.#now.getMonth());
+    this.#layout();
+  }
+
+  /**
+   * Recalcule uniquement les dimensions et positions.
+   *
+   * Aucun DOM n'est recréé ici.
+   */
+  #layout() {
+    const { total } = this.#getOffsets();
+    const viewportHeight = document.documentElement.clientHeight;
+    const availableHeight = Math.max(0, viewportHeight - total);
+
+    const monthWeekCounts = new Map();
+
+    for (const [monthIndex, { start, end }] of this.#months) {
+      const monthStart = startOfWeek(start);
+      const monthEnd = endOfWeek(end);
+
+      monthWeekCounts.set(monthIndex, weeksCount(monthStart, monthEnd));
+    }
+
+    let cumulativeOffset = 0;
+    for (const slot of this.querySelectorAll(".calendar__week-slot")) {
+      const monthIndex = Number(slot.dataset.month);
+      const weekCount = monthWeekCounts.get(monthIndex) ?? 1;
+      const rowHeight = availableHeight / weekCount;
+
+      slot.style.setProperty("--height-calc", `${rowHeight}px`);
+      slot.style.transform = `translate3d(0, ${cumulativeOffset}px, 0)`;
       cumulativeOffset += rowHeight;
     }
 
     this.style.position = "relative";
     this.style.height = `${cumulativeOffset}px`;
+  }
 
-    this.#setCurrentVisibleMonth(this.#now.getMonth());
+  #observeResize() {
+    this.#resizeObserver = new ResizeObserver(() => {
+      if (this.#resizeFrame !== null) {
+        return;
+      }
+
+      this.#resizeFrame = requestAnimationFrame(() => {
+        this.#resizeFrame = null;
+
+        this.#applyPadding();
+        this.#layout();
+      });
+    });
+
+    this.#resizeObserver.observe(this.#headerAction);
+    this.#resizeObserver.observe(this.#headCalendar);
+    this.#resizeObserver.observe(document.documentElement);
   }
 
   /**
@@ -177,11 +210,15 @@ export class CalendarMovies extends Component {
     if (monthIndex === this.#currentVisibleMonth) {
       return;
     }
+
     this.#currentVisibleMonth = monthIndex;
 
-    const { start } = this.#months.get(monthIndex);
-    this.#setCurrentMonthLabel(start);
+    const month = this.#months.get(monthIndex);
+    if (!month) {
+      return;
+    }
 
+    this.#setCurrentMonthLabel(month.start);
     this.querySelectorAll(".calendar__cell").forEach((cell) => {
       const cellMonth = Number(cell.dataset.month);
       cell.classList.toggle("calendar__date-other", cellMonth !== monthIndex);
@@ -194,11 +231,11 @@ export class CalendarMovies extends Component {
     this.#monthObserver = new IntersectionObserver(
       (entries) => {
         let current = null;
-
         for (const entry of entries) {
           if (!entry.isIntersecting) {
             continue;
           }
+
           if (!current || entry.intersectionRatio > current.intersectionRatio) {
             current = entry;
           }
@@ -217,8 +254,8 @@ export class CalendarMovies extends Component {
       },
     );
 
-    this.querySelectorAll(".calendar__week-slot").forEach((el) => {
-      this.#monthObserver.observe(el);
+    this.querySelectorAll(".calendar__week-slot").forEach((slot) => {
+      this.#monthObserver.observe(slot);
     });
   }
 }

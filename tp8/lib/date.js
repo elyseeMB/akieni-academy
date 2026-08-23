@@ -1,4 +1,4 @@
-const MILLISECONDES_IN_A_DAY = 86400000;
+import { MILLISECONDES_IN_A_DAY } from "../constant.js";
 
 /**
  * @param {Date} date
@@ -25,8 +25,7 @@ export const immutDate = (date) => {
 };
 
 /**
- * Construit le premier et dernier jour d'un mois donné
- * @param {Date} date - une date quelconque dans le mois ciblé
+ * @param {Date} date
  * @returns {{ start: Date, end: Date }}
  */
 export function getMonthRange(date) {
@@ -38,11 +37,10 @@ export function getMonthRange(date) {
 
 /**
  * @param {number} year
- * @returns {{ start: Date, end: Date }[]}
+ * @returns {Array<{start: Date, end: Date}>}
  */
 export function buildYearRanges(year) {
   const ranges = [];
-
   for (let month = 0; month < 12; month++) {
     const current = new Date(year, month, 1);
     ranges.push(getMonthRange(current));

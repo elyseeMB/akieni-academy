@@ -1,4 +1,4 @@
-import { addDays, startOfMonth } from "../lib/date.js";
+import { addDays } from "../lib/date.js";
 
 export class WeekCalendar {
   today;
@@ -37,31 +37,34 @@ export class WeekCalendar {
     cell.setAttribute("class", "calendar__cell");
     cell.dataset.month = date.getMonth();
 
-    const isCurrentDate =
-      date.getDate() === this.today.getDate() &&
-      date.getMonth() === this.today.getMonth() &&
-      date.getFullYear() === this.today.getFullYear();
+    const dateEl = document.createElement("div");
+    dateEl.setAttribute("class", "calendar__date");
 
     const isFirstOfMonth = date.getDate() === 1;
     const dateFormat =
       date.getDate() +
       " " +
       Intl.DateTimeFormat(undefined, { month: "long" }).format(date);
-
-    const dateEl = document.createElement("div");
-    dateEl.setAttribute("class", "calendar__date");
-
-    dateEl.textContent = isFirstOfMonth
-      ? `${dateFormat}`
-      : String(date.getDate());
-
     if (isFirstOfMonth) {
       dateEl.classList.add("calendar__date-first");
     }
 
+    const isCurrentDate =
+      date.getDate() === this.today.getDate() &&
+      date.getMonth() === this.today.getMonth() &&
+      date.getFullYear() === this.today.getFullYear();
     if (isCurrentDate) {
       dateEl.classList.add("calendar__date-current");
     }
+
+    const isWeekend = [0, 6].includes(date.getDay());
+    if (isWeekend) {
+      dateEl.classList.add("calendar__date-weekend");
+    }
+
+    dateEl.textContent = isFirstOfMonth
+      ? `${dateFormat}`
+      : String(date.getDate());
 
     cell.appendChild(dateEl);
     return cell;

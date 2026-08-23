@@ -159,3 +159,6 @@ head-calendar {
   border-radius: var(--radius-md);
   background-color: rgb(255, 69, 36);
 }
+.calendar__cell:has(.calendar__date-weekend) {
+  background-color: rgba(228, 227, 227, 0.164);
+}
