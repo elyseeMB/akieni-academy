@@ -7,6 +7,12 @@ async function getCalendar(year, month, page = 1) {
   return res.json();
 }
 
+/**
+ *
+ * @param {string} year
+ * @param {string} month
+ * @returns
+ */
 export async function getAllCalendarMovies(year, month) {
   const first = await getCalendar(year, month, 1);
   const allResults = [...first.results];

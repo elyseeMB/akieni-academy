@@ -8,7 +8,7 @@ import {
   weeksCount,
 } from "../lib/date.js";
 import { Component } from "./component.js";
-import { MovieCellRenderer } from "./movie-dialog.js";
+import { MovieDialog } from "./movie-dialog.js";
 import { MovieRenderer } from "./movie-renderer.js";
 import { WeekCalendar } from "./week-calendar.js";
 
@@ -48,11 +48,11 @@ export class CalendarMovies extends Component {
   /** @type {Set<number>} mois déjà chargés */
   #loadedMonths = new Set();
 
-  /** @type {MovieDayDialog} */
+  /** @type {MovieDialog} */
   #dayDialog;
 
-  /** @type {MovieCellRenderer} */
-  #cellRenderer;
+  /**@type {MovieRenderer} */
+  #movieRenderer;
 
   /** @type {IntersectionObserver | undefined} */
   #preloadObserver;
@@ -60,8 +60,8 @@ export class CalendarMovies extends Component {
   #onMoviesUpdate = (e) => this.#applyMovies(e.detail);
 
   connectedCallback() {
-    this.#dayDialog = new MovieCellRenderer(this);
-    this.#cellRenderer = new MovieRenderer({
+    this.#dayDialog = new MovieDialog(this);
+    this.#movieRenderer = new MovieRenderer({
       maxVisible: 2,
       onMore: (cell, movies) => this.#dayDialog.open(movies),
     });
@@ -175,6 +175,11 @@ export class CalendarMovies extends Component {
     this.#layout();
   }
 
+  /**
+   *
+   * @param {{movies: Record<string, any>}} param0
+   * @returns {void}
+   */
   #applyMovies({ movies }) {
     const byDate = new Map();
     for (const movie of movies) {
@@ -195,13 +200,13 @@ export class CalendarMovies extends Component {
         continue;
       }
 
-      this.#cellRenderer.render(cell, list);
+      this.#movieRenderer.render(cell, list);
       this.#renderedDates.add(dateKey);
     }
   }
 
   /**
-   *
+   *@return {void}
    */
   #layout() {
     const { total } = this.#getOffsets();
@@ -240,7 +245,6 @@ export class CalendarMovies extends Component {
 
       this.#resizeFrame = requestAnimationFrame(() => {
         this.#resizeFrame = null;
-
         this.#applyPadding();
         this.#layout();
       });
@@ -312,7 +316,6 @@ export class CalendarMovies extends Component {
       },
     );
 
-    // Observer 2 : précharge les films avant que le mois soit visible
     this.#preloadObserver = new IntersectionObserver(
       (entries) => {
         for (const entry of entries) {

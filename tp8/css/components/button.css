@@ -1,0 +1,40 @@
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--gap-xs);
+  padding-inline: var(--padding-xs);
+  padding-block: var(--padding-2xs);
+  border: 1px solid transparent;
+  border-radius: var(--radius-md);
+
+  font: inherit;
+  font-weight: 500;
+  line-height: 1;
+  text-decoration: none;
+
+  cursor: pointer;
+  transition:
+    background-color 150ms ease,
+    color 150ms ease,
+    border-color 150ms ease;
+}
+
+.btn-ghost {
+  color: var(--color-foreground);
+  background-color: transparent;
+  border-color: transparent;
+}
+
+.btn-ghost:hover {
+  background-color: rgb(var(--color-foreground-rgb) / var(--opacity-10));
+}
+
+.btn-ghost:active {
+  background-color: rgb(var(--color-foreground-rgb) / var(--opacity-15));
+}
+
+.btn-ghost:disabled {
+  opacity: var(--opacity-50);
+  cursor: not-allowed;
+}

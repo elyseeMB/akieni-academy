@@ -1,6 +1,6 @@
 import { TMDB_IMAGE_BASE } from "../constant.js";
 
-export class MovieCellRenderer {
+export class MovieDialog {
   /** @type {HTMLDialogElement} */
   #dialog;
 
