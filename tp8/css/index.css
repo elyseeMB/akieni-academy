@@ -6,11 +6,17 @@
 @import "./tokens/typography.css" layer(token);
 @import "./tokens/spacing.css" layer(token);
 @import "./tokens/responsive.css" layer(token);
+@import "./tokens/shadows.css" layer(token);
 
 /* Fondation */
 @import "./tools/reset.css" layer(reset);
 @import "./tools/fonts.css" layer(fonts);
 @import "./tools/base.css" layer(base);
+
+/* Component */
+@import "./components/button.css" layer(components);
+@import "./components/modal.css" layer(components);
+@import "./components/search.css" layer(components);
 
 @import "./utilities/skeleton.css" layer(utilities);
 
@@ -197,7 +203,6 @@ head-calendar {
   /* justify-content: end; */
   gap: var(--gap-2xs);
   /* pointer-events: none; */
-  z-index: -1;
 }
 
 .calendar__movie {
@@ -280,4 +285,15 @@ head-calendar {
   height: 60px;
   object-fit: cover;
   border-radius: 4px;
+}
+
+.calendar-viewport {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.text-layout {
+  display: flex;
+  flex-direction: row;
+  gap: 5rem;
 }
