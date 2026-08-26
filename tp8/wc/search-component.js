@@ -1,7 +1,7 @@
 import { DialogComponent } from "./dialog-component.js";
 import { GenresBar } from "./genres-bar.js";
-import { SearchBar } from "./search-bar.js";
 import { PreviousItem } from "./previous-item.js";
+import { SearchBar } from "./search-bar.js";
 
 export class SearchComponent extends DialogComponent {
   #genresBar = new GenresBar();
