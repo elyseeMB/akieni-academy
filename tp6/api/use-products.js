@@ -5,7 +5,7 @@ import { apiFetch, withQueryParams } from "../packages/functions/http.js";
 import { toProductProps } from "./transformaters/product-transformater.js";
 
 export const API_BASE =
-  "https://withered-breeze-4769.mboussaemmanuelito.workers.dev/api/v1/";
+  "https://e-commerce.mboussaemmanuelito.workers.dev/api/v1/";
 
 /**
  * Fetches products belonging to a specific category

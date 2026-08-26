@@ -4,8 +4,7 @@ import { ApiError } from "../packages/functions/error.js";
 import { apiFetch } from "../packages/functions/http.js";
 import { toCategoryProps } from "./transformaters/category-transformater.js";
 
-const url =
-  "https://withered-breeze-4769.mboussaemmanuelito.workers.dev/api/v1/";
+const url = "https://e-commerce.mboussaemmanuelito.workers.dev/api/v1/";
 
 const CATEGORIES_CACHE_KEY = "akieni-categories";
 
