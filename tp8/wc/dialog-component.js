@@ -4,7 +4,6 @@ import { Component } from "./component.js";
 export class DialogComponent extends Component {
   /**@type {number} */
   #previousScrollY;
-
   requiredRefs = ["dialog"];
 
   connectedCallback() {
@@ -86,6 +85,6 @@ class DialogCloseEvent extends CustomEvent {
   static eventName = "dialog:close";
 
   constructor() {
-    super(DialogOpenEvent.eventName, { bubbles: true });
+    super(DialogCloseEvent.eventName, { bubbles: true });
   }
 }

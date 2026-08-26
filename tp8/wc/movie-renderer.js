@@ -47,7 +47,7 @@ export class MovieRenderer {
     item.className = "calendar__movie";
     item.style.zIndex = zIndex;
     item.dataset.movieId = movie.id;
-    item.title = movie.title; // tooltip natif au survol
+    item.title = movie.title;
 
     if (movie.poster_path) {
       const img = document.createElement("img");

@@ -6,6 +6,7 @@
 @import "./tokens/typography.css" layer(token);
 @import "./tokens/spacing.css" layer(token);
 @import "./tokens/responsive.css" layer(token);
+@import "./tokens/shadows.css" layer(token);
 
 /* Fondation */
 @import "./tools/reset.css" layer(reset);
@@ -289,4 +290,10 @@ head-calendar {
 .calendar-viewport {
   width: 100%;
   overflow-x: auto;
+}
+
+.text-layout {
+  display: flex;
+  flex-direction: row;
+  gap: 5rem;
 }
