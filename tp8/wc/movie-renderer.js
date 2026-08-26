@@ -44,19 +44,19 @@ export class MovieRenderer {
    */
   #buildPoster(movie, zIndex) {
     const item = document.createElement("div");
+    item.dataset.movieId = movie.id;
     item.className = "calendar__movie";
     item.style.zIndex = zIndex;
-    item.dataset.movieId = movie.id;
     item.title = movie.title;
 
-    if (movie.poster_path) {
-      const img = document.createElement("img");
-      img.className = "calendar__movie-poster";
-      img.src = `${TMDB_IMAGE_BASE}${movie.poster_path}`;
-      img.alt = movie.title;
-      img.loading = "lazy";
-      item.appendChild(img);
-    }
+    // if (movie.poster_path) {
+    //   const img = document.createElement("img");
+    //   img.className = "calendar__movie-poster";
+    //   img.src = `${TMDB_IMAGE_BASE}${movie.poster_path}`;
+    //   img.alt = movie.title;
+    //   img.loading = "lazy";
+    //   item.appendChild(img);
+    // }
 
     const title = document.createElement("span");
     title.className = "calendar__movie-title";
