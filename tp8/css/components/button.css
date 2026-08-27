@@ -27,7 +27,7 @@
 }
 
 .btn-ghost:hover {
-  background-color: rgb(var(--color-foreground-rgb) / var(--opacity-10));
+  background-color: rgb(var(--color-foreground-rgb) / var(--opacity-5));
 }
 
 .btn-ghost:active {
