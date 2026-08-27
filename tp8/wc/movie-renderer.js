@@ -63,6 +63,11 @@ export class MovieRenderer {
 
     item.appendChild(colorSquare);
 
+    item.setAttribute(
+      "on:click",
+      `#movie-popover/open?movie=${encodeURIComponent(JSON.stringify(movie))}`,
+    );
+
     const title = document.createElement("span");
     title.className = "calendar__movie-title";
     title.textContent = movie.title;

@@ -168,7 +168,7 @@ export class CalendarMovies extends Component {
     if (!name) {
       return undefined;
     }
-    return { "--color": `var(--genre${name})` };
+    return { "--color": `var(--genre-${name})` };
   };
 
   /**
