@@ -11,15 +11,6 @@ export class MoviePopover extends Component {
   /** @type {boolean} */
   #isOpen = false;
 
-  /** @type {(e: KeyboardEvent) => void} */
-  #onKeyDown;
-
-  /** @type {(e: PointerEvent) => void} */
-  #onClickOutside;
-
-  /** @type {() => void} */
-  #onScroll;
-
   /** @type {IntersectionObserver | null} */
   #intersectionObserver = null;
 
@@ -30,12 +21,30 @@ export class MoviePopover extends Component {
     this.appendChild(this.#popover);
   }
 
+  disconnectedCallback() {
+    super.disconnectedCallback();
+    this.#removeListeners();
+  }
+
   /**
    * @param {Record<string, any>} data
    * @param {PointerEvent} e
    */
   open(data, e) {
-    this.#target = e.target.closest(".calendar__movie") ?? e.target;
+    const newTarget = e.target.closest(".calendar__movie") ?? e.target;
+
+    if (this.#isOpen && this.#target === newTarget) {
+      this.close();
+      return;
+    }
+
+    if (this.#target && this.#target !== newTarget) {
+      this.#target.classList.remove("active");
+    }
+
+    this.#target = newTarget;
+    this.#target.classList.add("active");
+
     const movie = JSON.parse(data.movie);
     if (!movie) {
       return;
@@ -59,6 +68,10 @@ export class MoviePopover extends Component {
 
     this.#popover.dataset.open = "false";
     this.#isOpen = false;
+
+    if (this.#target) {
+      this.#target.classList.remove("active");
+    }
     this.#removeListeners();
   }
 
@@ -183,22 +196,6 @@ export class MoviePopover extends Component {
   #listenClose() {
     this.#removeListeners();
 
-    this.#onKeyDown = (e) => {
-      if (e.key === "Escape") {
-        this.close();
-      }
-    };
-
-    this.#onClickOutside = (e) => {
-      if (!this.contains(e.target)) {
-        this.close();
-      }
-    };
-
-    this.#onScroll = () => {
-      this.#position();
-    };
-
     const offset = this.#getFixedOffset();
 
     this.#intersectionObserver = new IntersectionObserver(
@@ -220,6 +217,23 @@ export class MoviePopover extends Component {
       passive: true,
     });
   }
+
+  #onKeyDown = (e) => {
+    if (e.key === "Escape") {
+      this.close();
+    }
+  };
+
+  #onClickOutside = (e) => {
+    if (this.contains(e.target) || e.target.closest(".calendar__movie")) {
+      return;
+    }
+    this.close();
+  };
+
+  #onScroll = () => {
+    this.#position();
+  };
 
   #removeListeners() {
     if (this.#onKeyDown) {

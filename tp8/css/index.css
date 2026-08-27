@@ -227,6 +227,11 @@ head-calendar {
   padding-block: 0.2rem;
   border-radius: var(--radius-sm);
 
+  &.active {
+    border-color: color-mix(in srgb, var(--color) 80%, var(--color-border) 10%);
+    border-width: 3.4px;
+  }
+
   &:hover .calendar__movie-title {
     color: color-mix(in srgb, var(--color) 70%, var(--color-foreground) 20%);
   }
