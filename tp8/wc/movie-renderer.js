@@ -1,3 +1,5 @@
+import { startOfMonth } from "../lib/date.js";
+
 export class MovieRenderer {
   /** @type {number} */
   #maxVisible;
@@ -17,10 +19,6 @@ export class MovieRenderer {
     this.#getMovieStyle = getMovieStyle;
   }
 
-  /**
-   * @param {HTMLElement} cell
-   * @param {Array} movies
-   */
   render(cell, movies) {
     const container = document.createElement("div");
     container.className = "calendar__movies";
@@ -40,6 +38,16 @@ export class MovieRenderer {
   }
 
   /**
+   * @param {string} releaseDate
+   * @returns {boolean}
+   */
+  #isCurrentOrFuture(releaseDate) {
+    const movieDate = new Date(releaseDate).setHours(0, 0, 0, 0);
+    const today = new Date().setHours(0, 0, 0, 0);
+    return movieDate >= today;
+  }
+
+  /**
    * @param {Object} movie
    * @param {number} zIndex
    * @returns {HTMLElement}
@@ -50,6 +58,17 @@ export class MovieRenderer {
     item.className = "calendar__movie";
     item.style.zIndex = zIndex;
     item.title = movie.title;
+
+    item.classList.add(
+      this.#isCurrentOrFuture(movie.release_date)
+        ? "calendar__movie--upcoming"
+        : "calendar__movie--past",
+    );
+
+    item.setAttribute(
+      "status",
+      this.#isCurrentOrFuture(movie.release_date) ? "upcoming" : "released",
+    );
 
     const colorSquare = document.createElement("span");
     colorSquare.className = "calendar__movie-poster";

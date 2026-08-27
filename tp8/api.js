@@ -34,10 +34,33 @@ export async function getAllCalendarMovies(year, month) {
   for (let p = 2; p <= first.total_pages; p++) {
     requests.push(getCalendar(year, month, p));
   }
+
   const rest = await Promise.all(requests);
   rest.forEach((r) => allResults.push(...r.results));
-
   return allResults;
+}
+
+export async function getUpcomingMovies(minDate, maxDate, page = 1) {
+  const params = new URLSearchParams({
+    minDate,
+    maxDate,
+    page: String(page),
+  });
+
+  const res = await fetch(`${BASE_URL}/api/discover?${params}`);
+
+  console.log(params.toString());
+
+  if (!res.ok) {
+    const msg = await res.json();
+    console.error(msg);
+
+    throw new Error("Err Server", {
+      cause: { ...msg },
+    });
+  }
+
+  return await res.json();
 }
 
 /**

@@ -3,6 +3,9 @@
   z-index: var(--layer-overlay);
   background: var(--color-background);
   padding: var(--padding-sm);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  max-height: 500px;
   max-width: 300px;
   width: max-content;
   display: flex;
@@ -61,4 +64,10 @@
   padding: 2px 8px;
   border-radius: var(--radius-md);
   width: fit-content;
+}
+
+.movie-popover__status {
+  padding: var(--padding-2xs);
+  font-size: var(--font-size--2xs);
+  color: var(--color-primary-hover);
 }

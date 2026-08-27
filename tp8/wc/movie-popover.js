@@ -94,6 +94,11 @@ export class MoviePopover extends Component {
     title.textContent = movie.title;
     this.#popover.appendChild(title);
 
+    const status = document.createElement("span");
+    status.className = "movie-popover__status";
+    status.textContent = this.#target.getAttribute("status");
+    this.#popover.appendChild(status);
+
     const genrePill = this.#buildGenrePill();
     if (genrePill) {
       this.#popover.appendChild(genrePill);
@@ -113,10 +118,7 @@ export class MoviePopover extends Component {
     if (movie.overview) {
       const overview = document.createElement("div");
       overview.className = "movie-popover__overview";
-      overview.textContent =
-        movie.overview.length > 120
-          ? `${movie.overview.slice(0, 120)}…`
-          : movie.overview;
+      overview.textContent = movie.overview;
       this.#popover.appendChild(overview);
     }
   }

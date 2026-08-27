@@ -237,6 +237,16 @@ head-calendar {
   }
 }
 
+.calendar__movie.calendar__movie--upcoming {
+  border: 1.3px dashed
+    color-mix(in srgb, var(--color) 100%, var(--color-border) 90%);
+}
+
+.calendar__movie.calendar__movie--past {
+  border: 1.3px solid
+    color-mix(in srgb, var(--color) 10%, var(--color-border) 90%);
+}
+
 .calendar__movie-poster {
   height: 15px;
   width: 15px;

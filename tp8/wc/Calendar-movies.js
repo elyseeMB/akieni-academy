@@ -1,8 +1,13 @@
-import { getAllCalendarMovies, getGenresMovie } from "../api.js";
+import {
+  getAllCalendarMovies,
+  getGenresMovie,
+  getUpcomingMovies,
+} from "../api.js";
 import { moviesStore } from "../events/movies-store.js";
 import {
   addDays,
   buildYearRanges,
+  endOfMonth,
   endOfWeek,
   startOfWeek,
   weeksCount,
@@ -61,6 +66,9 @@ export class CalendarMovies extends Component {
 
   /** @type {Map<number, string>} */
   #genreMap = new Map();
+
+  /**@type {boolean} */
+  #upcomingLoaded;
 
   #onMoviesUpdate = (e) => this.#applyMovies(e.detail);
 
@@ -338,12 +346,35 @@ export class CalendarMovies extends Component {
     });
   }
 
+  #loadUpcoming() {
+    if (this.#upcomingLoaded) {
+      return;
+    }
+
+    this.#upcomingLoaded = true;
+
+    const minDate = new Date().toISOString().split("T")[0];
+    const maxDate = endOfMonth(new Date(this.#now.getFullYear(), 11, 1))
+      .toISOString()
+      .split("T")[0];
+
+    getUpcomingMovies(minDate, maxDate).then((data) => {
+      const current = moviesStore.get();
+      moviesStore.set([...current, ...data.results]);
+    });
+  }
+
   #observeMonths() {
     this.#monthObserver = new IntersectionObserver(
       (entries) => {
         for (const entry of entries) {
           if (entry.isIntersecting) {
-            this.#setCurrentVisibleMonth(Number(entry.target.dataset.month));
+            const monthIndex = Number(entry.target.dataset.month);
+            this.#setCurrentVisibleMonth(monthIndex);
+
+            if (monthIndex === this.#now.getMonth()) {
+              this.#loadUpcoming();
+            }
             break;
           }
         }
