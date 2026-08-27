@@ -1,5 +1,3 @@
-import { TMDB_IMAGE_BASE } from "../constant.js";
-
 export class MovieRenderer {
   /** @type {number} */
   #maxVisible;
@@ -7,12 +5,16 @@ export class MovieRenderer {
   /** @type {(cell: HTMLElement, movies: Array) => void} */
   #onMore;
 
+  /** @type {(movie: Object) => Record<string, string> | undefined} */
+  #getMovieStyle;
+
   /**
-   * @param {{ maxVisible?: number, onMore: (cell: HTMLElement, movies: Array) => void }} options
+   * @param {{ maxVisible?: number, onMore: (cell: HTMLElement, movies: Array) => void, getMovieStyle?: (movie: Object) => Record<string, string> | undefined }} options
    */
-  constructor({ maxVisible = 3, onMore }) {
+  constructor({ maxVisible = 3, onMore, getMovieStyle }) {
     this.#maxVisible = maxVisible;
     this.#onMore = onMore;
+    this.#getMovieStyle = getMovieStyle;
   }
 
   /**
@@ -49,14 +51,17 @@ export class MovieRenderer {
     item.style.zIndex = zIndex;
     item.title = movie.title;
 
-    // if (movie.poster_path) {
-    //   const img = document.createElement("img");
-    //   img.className = "calendar__movie-poster";
-    //   img.src = `${TMDB_IMAGE_BASE}${movie.poster_path}`;
-    //   img.alt = movie.title;
-    //   img.loading = "lazy";
-    //   item.appendChild(img);
-    // }
+    const colorSquare = document.createElement("span");
+    colorSquare.className = "calendar__movie-poster";
+
+    const styles = this.#getMovieStyle?.(movie);
+    if (styles) {
+      for (const [prop, value] of Object.entries(styles)) {
+        item.style.setProperty(prop, value);
+      }
+    }
+
+    item.appendChild(colorSquare);
 
     const title = document.createElement("span");
     title.className = "calendar__movie-title";

@@ -116,15 +116,15 @@
   height: 24px;
   line-height: 24px;
   padding: 0 8px;
-  color: var(--c-texSec, #5a5a5a);
-  background-color: var(--ca-bacIntTra, transparent);
+  color: #5a5a5a;
+  background-color: transparent;
   cursor: pointer;
   user-select: none;
   transition: background-color 0.15s ease;
 }
 
 .filter-pill:hover {
-  background-color: var(--ca-bacIntTra-hover, rgba(0, 0, 0, 0.05));
+  background-color: rgba(0, 0, 0, 0.05);
 }
 
 .skeleton-pill {
@@ -172,12 +172,12 @@
   padding: 0 9px 0 5px;
   height: 24px;
   cursor: pointer;
-  color: var(--c-texTer, #888888);
+  color: #888888;
   transition: background-color 0.15s ease;
 }
 
 .btn-add-filter:hover {
-  background-color: var(--ca-bacIntTra-hover, rgba(0, 0, 0, 0.05));
+  background-color: rgba(0, 0, 0, 0.05);
 }
 
 /* Icônes SVG */
@@ -237,7 +237,7 @@ suggestion-component {
   font-size: 13px;
   font-weight: 500;
   line-height: 20px;
-  color: var(--c-texSec, #5a5a5a);
+  color: #5a5a5a;
 }
 
 /* Items de résultat */
@@ -260,11 +260,11 @@ suggestion-component {
 }
 
 .search-item:hover {
-  background-color: var(--ca-bacIntTra-hover, rgba(0, 0, 0, 0.05));
+  background-color: rgba(0, 0, 0, 0.05);
 }
 
 .search-item--active {
-  background-color: var(--ca-bacIntTra-hover, rgba(0, 0, 0, 0.05));
+  background-color: rgba(0, 0, 0, 0.05);
 }
 
 .search-item__icon {
@@ -283,13 +283,13 @@ suggestion-component {
 }
 
 .search-item__separator {
-  color: var(--c-texSec, #5a5a5a);
+  color: #5a5a5a;
   font-size: 12px;
 }
 
 .search-item__subtitle {
   font-size: 12px;
-  color: var(--c-texTer, #888888);
+  color: #888888;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -323,7 +323,7 @@ suggestion-component {
   height: 200px;
   object-fit: cover;
   object-position: center;
-  background-color: var(--c-bacSec, #f5f5f5);
+  background-color: #f5f5f5;
   flex-shrink: 0;
 }
 
@@ -339,32 +339,32 @@ suggestion-component {
   font-size: 20px;
   line-height: 24px;
   font-weight: 600;
-  color: var(--c-texPri, #37352f);
+  color: #37352f;
   word-break: break-word;
 }
 
 .search-preview__content {
   font-size: 13px;
   line-height: 18px;
-  color: var(--c-texSec, #5a5a5a);
+  color: #5a5a5a;
   overflow: hidden;
 }
 
 .search-preview__empty {
-  color: var(--c-texTer, #888888);
+  color: #888888;
   font-size: 15px;
   font-weight: 500;
 }
 
 .search-preview__year {
   font-size: 13px;
-  color: var(--c-texTer, #888888);
+  color: #888888;
 }
 
 .search-preview__overview {
   font-size: 13px;
   line-height: 22px;
-  color: var(--c-texSec, #5a5a5a);
+  color: #5a5a5a;
   margin: 4px 0 0;
 }
 

@@ -1,4 +1,4 @@
-import { getAllCalendarMovies } from "../api.js";
+import { getAllCalendarMovies, getGenresMovie } from "../api.js";
 import { moviesStore } from "../events/movies-store.js";
 import {
   addDays,
@@ -57,18 +57,30 @@ export class CalendarMovies extends Component {
   /** @type {IntersectionObserver | undefined} */
   #preloadObserver;
 
+  #genres;
+
+  /** @type {Map<number, string>} */
+  #genreMap = new Map();
+
   #onMoviesUpdate = (e) => this.#applyMovies(e.detail);
+
+  #onGetGenreMovie = () =>
+    this.#handleApplyGenre(async () => {
+      this.#genres = await getGenresMovie();
+    });
 
   connectedCallback() {
     this.#dayDialog = new MovieDialog(this);
     this.#movieRenderer = new MovieRenderer({
       maxVisible: 2,
       onMore: (cell, movies) => this.#dayDialog.open(movies),
+      getMovieStyle: this.#getMovieStyle,
     });
 
     super.connectedCallback();
     this.#applyPadding();
     this.#build();
+    this.#onGetGenreMovie();
     this.#observeResize();
     this.#observeMonths();
 
@@ -93,6 +105,20 @@ export class CalendarMovies extends Component {
 
   scrollToToday() {
     this.#scrollToCurrentMonth();
+  }
+
+  /**
+   *
+   * @param {Function} callback
+   */
+  async #handleApplyGenre(callback) {
+    await callback();
+    if (this.#genres?.genres) {
+      this.#genreMap.clear();
+      for (const g of this.#genres.genres) {
+        this.#genreMap.set(g.id, g.name);
+      }
+    }
   }
 
   /**
@@ -132,6 +158,18 @@ export class CalendarMovies extends Component {
     document.body.style.setProperty("--padding", `${total}px`);
     document.body.style.setProperty("--padding-header", `${headerHeight}px`);
   }
+
+  #getMovieStyle = (movie) => {
+    const genreId = movie.genre_ids?.[0];
+    if (genreId == null) {
+      return undefined;
+    }
+    const name = this.#genreMap.get(genreId);
+    if (!name) {
+      return undefined;
+    }
+    return { "--color": `var(--genre${name})` };
+  };
 
   /**
    * Build Struct

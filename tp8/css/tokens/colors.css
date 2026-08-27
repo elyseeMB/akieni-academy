@@ -123,6 +123,27 @@
   --color-white: #ede4dd;
   --color-cream: #ede4dd;
   --color-red: #ff0001;
+
+  /* Genre colors */
+  --genreAction: #d98b8b;
+  --genreAventure: #8fbd91;
+  --genreAnimation: #a99acb;
+  --genreComédie: #d9c77e;
+  --genreCrime: #82939a;
+  --genreDocumentaire: #a58d82;
+  --genreDrame: #7fa8cc;
+  --genreFamilial: #7fb9af;
+  --genreFantastique: #b28cb9;
+  --genreHistoire: #a9978d;
+  --genreHorreur: #707070;
+  --genreMusique: #d78fa7;
+  --genreMystère: #8e9ac7;
+  --genreRomance: #d99aaa;
+  --genreScience-Fiction: #70b4be;
+  --genreTéléfilm: #8d9da3;
+  --genreThriller: #68777d;
+  --genreGuerre: #c99568;
+  --genreWestern: #ad9b8d;
 }
 
 :root {
