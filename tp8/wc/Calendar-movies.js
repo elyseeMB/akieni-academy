@@ -10,6 +10,7 @@ import {
   endOfMonth,
   endOfWeek,
   startOfWeek,
+  toDateKey,
   weeksCount,
 } from "../lib/date.js";
 import { Component } from "./component.js";
@@ -67,8 +68,8 @@ export class CalendarMovies extends Component {
   /** @type {Map<number, string>} */
   #genreMap = new Map();
 
-  /**@type {boolean} */
-  #upcomingLoaded;
+  /** @type {Set<number>}  */
+  #loadedUpcomingMonths = new Set();
 
   #onMoviesUpdate = (e) => this.#applyMovies(e.detail);
 
@@ -346,21 +347,29 @@ export class CalendarMovies extends Component {
     });
   }
 
-  #loadUpcoming() {
-    if (this.#upcomingLoaded) {
+  /**
+   * @param {number} monthIndex
+   */
+  #loadUpcomingForMonth(monthIndex) {
+    if (this.#loadedUpcomingMonths.has(monthIndex)) {
       return;
     }
+    this.#loadedUpcomingMonths.add(monthIndex);
 
-    this.#upcomingLoaded = true;
+    const year = this.#now.getFullYear();
+    const today = new Date();
+    const isCurrentMonth = monthIndex === today.getMonth();
 
-    const minDate = new Date().toISOString().split("T")[0];
-    const maxDate = endOfMonth(new Date(this.#now.getFullYear(), 11, 1))
-      .toISOString()
-      .split("T")[0];
+    const rangeStart = isCurrentMonth ? today : new Date(year, monthIndex, 1);
+    const minDate = toDateKey(rangeStart);
+    const maxDate = toDateKey(endOfMonth(new Date(year, monthIndex, 1)));
 
-    getUpcomingMovies(minDate, maxDate).then((data) => {
-      const current = moviesStore.get();
-      moviesStore.set([...current, ...data.results]);
+    getUpcomingMovies(minDate, maxDate).then(({ results }) => {
+      const current = moviesStore.get() ?? [];
+      const seenIds = new Set(current.map((m) => m.id));
+      const newMovies = results.filter((m) => !seenIds.has(m.id));
+
+      moviesStore.set([...current, ...newMovies]);
     });
   }
 
@@ -369,12 +378,7 @@ export class CalendarMovies extends Component {
       (entries) => {
         for (const entry of entries) {
           if (entry.isIntersecting) {
-            const monthIndex = Number(entry.target.dataset.month);
-            this.#setCurrentVisibleMonth(monthIndex);
-
-            if (monthIndex === this.#now.getMonth()) {
-              this.#loadUpcoming();
-            }
+            this.#setCurrentVisibleMonth(Number(entry.target.dataset.month));
             break;
           }
         }
@@ -389,7 +393,12 @@ export class CalendarMovies extends Component {
       (entries) => {
         for (const entry of entries) {
           if (entry.isIntersecting) {
-            this.#loadMonth(Number(entry.target.dataset.month));
+            const monthIndex = Number(entry.target.dataset.month);
+            this.#loadMonth(monthIndex);
+
+            if (monthIndex >= this.#now.getMonth()) {
+              this.#loadUpcomingForMonth(monthIndex);
+            }
           }
         }
       },

@@ -10,7 +10,7 @@
   width: max-content;
   display: flex;
   flex-direction: column;
-  gap: var(--gap-xs);
+  gap: var(--gap-2xs);
 
   --foreground: #000000;
   --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
@@ -67,7 +67,6 @@
 }
 
 .movie-popover__status {
-  padding: var(--padding-2xs);
   font-size: var(--font-size--2xs);
   color: var(--color-primary-hover);
 }
