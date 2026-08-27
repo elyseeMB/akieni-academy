@@ -103,3 +103,16 @@ export async function getDiscoverMovies({ genreId, query, page = 1 } = {}) {
 
   return await res.json();
 }
+
+export async function getGenresMovie() {
+  const res = await fetch(`${BASE_URL}/api/genres`);
+  if (!res.ok) {
+    console.error(await res.json());
+    throw new Error("Error Server", {
+      cause: {
+        ...res,
+      },
+    });
+  }
+  return await res.json();
+}
