@@ -7,8 +7,7 @@
   padding-block: var(--padding-2xs);
   border: 1px solid transparent;
   border-radius: var(--radius-md);
-
-  font: inherit;
+  font-size: var(--font-size--2xs);
   font-weight: 500;
   line-height: 1;
   text-decoration: none;
