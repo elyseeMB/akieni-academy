@@ -17,6 +17,7 @@
 @import "./components/button.css" layer(components);
 @import "./components/modal.css" layer(components);
 @import "./components/search.css" layer(components);
+@import "./components/popover.css" layer(components);
 
 @import "./utilities/skeleton.css" layer(utilities);
 
@@ -208,9 +209,7 @@ head-calendar {
   right: var(--padding-xs);
   display: flex;
   flex-direction: column;
-  /* justify-content: end; */
   gap: var(--gap-2xs);
-  /* pointer-events: none; */
 }
 
 .calendar__movie {
@@ -227,6 +226,10 @@ head-calendar {
   padding-inline: var(--padding-2xs);
   padding-block: 0.2rem;
   border-radius: var(--radius-sm);
+
+  &:hover .calendar__movie-title {
+    color: color-mix(in srgb, var(--color) 70%, var(--color-foreground) 20%);
+  }
 }
 
 .calendar__movie-poster {
@@ -247,6 +250,7 @@ head-calendar {
   overflow: hidden;
   text-overflow: ellipsis;
   max-width: 100%;
+  transition: color 100ms;
 }
 
 .calendar__movie-more {
