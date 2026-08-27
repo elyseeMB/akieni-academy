@@ -170,7 +170,7 @@ export class SuggestionComponent extends Component {
       : "";
 
     return `
-      <a href="/movie/${movie.id}"
+      <a href="#/movie/${movie.id}"
         on:pointerenter="#suggestion-component/onPreviewItem?id=${movie.id}&title=${encodeURIComponent(movie.title)}&image=${encodeURIComponent(image)}&year=${year}&date=${encodeURIComponent(date)}&overview=${encodeURIComponent(movie.overview ?? "")}"
         class="search-item-link"
       >
