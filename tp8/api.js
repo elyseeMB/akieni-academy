@@ -49,8 +49,6 @@ export async function getUpcomingMovies(minDate, maxDate, page = 1) {
 
   const res = await fetch(`${BASE_URL}/api/discover?${params}`);
 
-  console.log(params.toString());
-
   if (!res.ok) {
     const msg = await res.json();
     console.error(msg);

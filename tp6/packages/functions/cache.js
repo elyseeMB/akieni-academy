@@ -41,12 +41,12 @@ export function cacheApi(api, { ttl = 50_000 } = {}) {
         }
 
         const value = method.apply(target, args);
-
         cache.set(key, {
           value,
           expiresAt: Date.now() + ttl,
         });
 
+        setTimeout(() => cache.delete(key), ttl).unref?.();
         if (value instanceof Promise) {
           value.catch(() => {
             cache.delete(key);
@@ -57,7 +57,6 @@ export function cacheApi(api, { ttl = 50_000 } = {}) {
       };
 
       methods.set(property, cachedMethod);
-
       return cachedMethod;
     },
   });
