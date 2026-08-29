@@ -16,6 +16,7 @@ import {
 import { Component } from "./component.js";
 import { MovieDialog } from "./movie-dialog.js";
 import { MovieRenderer } from "./movie-renderer.js";
+import { PageMeta } from "./pageMeta.js";
 import { WeekCalendar } from "./week-calendar.js";
 
 export class CalendarMovies extends Component {
@@ -70,6 +71,9 @@ export class CalendarMovies extends Component {
 
   /** @type {Set<number>}  */
   #loadedUpcomingMonths = new Set();
+
+  /**@type {PageMeta} */
+  #pageMeta = new PageMeta();
 
   #onMoviesUpdate = (e) => this.#applyMovies(e.detail);
 
@@ -342,6 +346,7 @@ export class CalendarMovies extends Component {
 
     this.#currentVisibleMonth = monthIndex;
     this.#setCurrentMonthLabel(month.start);
+    this.#pageMeta.setMonth(month.start);
 
     this.querySelectorAll(".calendar__cell").forEach((cell) => {
       const cellMonth = Number(cell.dataset.month);
