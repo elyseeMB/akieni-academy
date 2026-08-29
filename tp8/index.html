@@ -1,58 +1,71 @@
 <!DOCTYPE html>
 <html lang="fr">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calendar movies</title>
+    <meta name="description" content="Calendar movie">
+    <link rel="stylesheet" href="css/index.css">
+  </head>
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Calendar movies</title>
-  <meta name="description" content="Calendar movie">
-  <link rel="stylesheet" href="css/index.css">
-</head>
-
-<body>
-  <main>
-    <header class="header-action">
-      <div class="calendar-action">
-        <div class="toolbar">
-          <div class="toolbar-left">
-            <search-component>
-              <button class="btn" on:click="/open" aria-haspopup="dialog">
-                Recherchez un film...
-                <svg class="icon icon-search" aria-hidden="true" role="graphics-symbol" viewBox="0 0 20 20">
+  <body>
+    <main>
+      <header class="header-action">
+        <div class="calendar-action">
+          <div class="toolbar">
+            <div class="toolbar-left">
+              <search-component>
+                <button class="btn" on:click="/open" aria-haspopup="dialog">
+                  Recherchez un film...
+                  <svg
+                    class="icon icon-search"
+                    aria-hidden="true"
+                    role="graphics-symbol"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      d="M8.875 2.625a6.25 6.25 0 1 0 3.955 11.09l3.983 3.982a.625.625 0 1 0 .884-.884l-3.983-3.982a6.25 6.25 0 0 0-4.84-10.205m-5 6.25a5 5 0 1 1 10 0 5 5 0 0 1-10 0"
+                    ></path>
+                  </svg>
+                </button>
+                <dialog class="dialog-search" ref="dialog"></dialog>
+              </search-component>
+            </div>
+            <div class="toolbar-right">
+              <button
+                on:click="#calendar-movies/scrollToToday"
+                class="toolbar-right__today"
+              >
+                Aujourd'hui
+              </button>
+              <button class="toolbar-right__today">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 20 20"
+                  style="width: 18px; height: 18px;"
+                >
                   <path
-                    d="M8.875 2.625a6.25 6.25 0 1 0 3.955 11.09l3.983 3.982a.625.625 0 1 0 .884-.884l-3.983-3.982a6.25 6.25 0 0 0-4.84-10.205m-5 6.25a5 5 0 1 1 10 0 5 5 0 0 1-10 0">
-                  </path>
+                    fill="currentColor"
+                    d="M16.25 3.625c1.174 0 2.125.951 2.125 2.125v8.5a2.125 2.125 0 0 1-2.125 2.125H3.75a2.125 2.125 0 0 1-2.125-2.125v-8.5c0-1.174.951-2.125 2.125-2.125zm-12.5 1.25a.875.875 0 0 0-.875.875v8.5c0 .483.392.875.875.875h8.7V4.875zm9.8 10.25h2.7a.875.875 0 0 0 .875-.875v-8.5a.875.875 0 0 0-.875-.875h-2.7z"
+                  ></path>
                 </svg>
               </button>
-              <dialog class="dialog-search" ref="dialog"></dialog>
-            </search-component>
+            </div>
           </div>
-          <div class="toolbar-right">
-            <button on:click="#calendar-movies/scrollToToday" class="toolbar-right__today">
-              Aujourd'hui
-            </button>
-            <button class="toolbar-right__today">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20"
-                style="width: 18px; height: 18px;">
-                <path fill="currentColor"
-                  d="M16.25 3.625c1.174 0 2.125.951 2.125 2.125v8.5a2.125 2.125 0 0 1-2.125 2.125H3.75a2.125 2.125 0 0 1-2.125-2.125v-8.5c0-1.174.951-2.125 2.125-2.125zm-12.5 1.25a.875.875 0 0 0-.875.875v8.5c0 .483.392.875.875.875h8.7V4.875zm9.8 10.25h2.7a.875.875 0 0 0 .875-.875v-8.5a.875.875 0 0 0-.875-.875h-2.7z">
-                </path>
-              </svg>
-            </button>
-          </div>
+          <div class="calendar__current-month"></div>
         </div>
-        <div class="calendar__current-month"></div>
-      </div>
-    </header>
-    <head-calendar></head-calendar>
-    <calendar-movies id="calendar-movies" class="calendar-main">
+      </header>
+      <head-calendar></head-calendar>
+      <calendar-movies
+        id="calendar-movies"
+        class="calendar-main"
+      ></calendar-movies>
       <movie-popover id="movie-popover"></movie-popover>
       <movie-dialog>
         <dialog ref="dialog" class="calendar__day-dialog"></dialog>
       </movie-dialog>
-    </calendar-movies>
-  </main>
-  <script type="module" src="index.js" defer></script>
-</body>
-
+    </main>
+    <script type="module" src="index.js" defer></script>
+  </body>
 </html>
