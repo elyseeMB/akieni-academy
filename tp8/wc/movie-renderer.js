@@ -67,7 +67,7 @@ export class MovieRenderer {
 
     item.setAttribute(
       "status",
-      this.#isCurrentOrFuture(movie.release_date) ? "upcoming" : "released",
+      this.#isCurrentOrFuture(movie.release_date) ? "Prochainement" : "Sorti",
     );
 
     const colorSquare = document.createElement("span");
