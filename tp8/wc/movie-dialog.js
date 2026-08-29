@@ -1,47 +1,67 @@
 import { TMDB_IMAGE_BASE } from "../constant.js";
+import { DialogComponent } from "./dialog-component.js";
 
-export class MovieDialog {
-  /** @type {HTMLDialogElement} */
-  #dialog;
+export class MovieDialog extends DialogComponent {
+  requiredRefs = ["dialog"];
 
   /**
-   * @param {HTMLElement} root
+   * @param {Array} movies
+   * @param {string} date - date au format YYYY-MM-DD du jour sélectionné
+   * @param {(movie: Object) => ({ name: string, color: string } | undefined)} getGenreInfo
    */
-  constructor(root) {
-    this.#dialog = document.createElement("dialog");
-    this.#dialog.className = "calendar__day-dialog";
-    root.appendChild(this.#dialog);
-
-    this.#dialog.addEventListener("click", (e) => {
-      if (e.target === this.#dialog) {
-        this.#dialog.close();
-      }
-    });
+  open(movies, date, getGenreInfo) {
+    const { dialog } = this.refs;
+    if (dialog.open) {
+      return;
+    }
+    this.#build(movies, date, getGenreInfo);
+    this.showDialog();
   }
 
   /**
-   * Ouvre le dialog avec la liste complète des films du jour.
    * @param {Array} movies
+   * @param {string} date
+   * @param {(movie: Object) => ({ name: string, color: string } | undefined)} getGenreInfo
    */
-  open(movies) {
-    this.#dialog.innerHTML = "";
+  #build(movies, date, getGenreInfo) {
+    const { dialog } = this.refs;
+    dialog.innerHTML = "";
+
+    const header = document.createElement("header");
+    header.className = "calendar__day-dialog-header";
+    header.textContent = this.#formatDate(date);
+    dialog.appendChild(header);
 
     const list = document.createElement("div");
     list.className = "calendar__day-dialog-list";
 
     movies.forEach((movie) => {
-      list.appendChild(this.#buildItem(movie));
+      list.appendChild(this.#buildItem(movie, getGenreInfo));
     });
 
-    this.#dialog.appendChild(list);
-    this.#dialog.showModal();
+    dialog.appendChild(list);
+  }
+
+  /**
+   * @param {string} date
+   * @returns {string}
+   */
+  #formatDate(date) {
+    const [year, month, day] = date.split("-").map(Number);
+    return new Intl.DateTimeFormat(undefined, {
+      weekday: "long",
+      day: "numeric",
+      month: "long",
+      year: "numeric",
+    }).format(new Date(year, month - 1, day));
   }
 
   /**
    * @param {Object} movie
+   * @param {(movie: Object) => ({ name: string, color: string } | undefined)} getGenreInfo
    * @returns {HTMLElement}
    */
-  #buildItem(movie) {
+  #buildItem(movie, getGenreInfo) {
     const item = document.createElement("div");
     item.className = "calendar__day-dialog-item";
 
@@ -52,9 +72,31 @@ export class MovieDialog {
       item.appendChild(img);
     }
 
+    const info = document.createElement("div");
+    info.className = "calendar__day-dialog-info";
+
     const title = document.createElement("span");
+    title.className = "calendar__day-dialog-title";
     title.textContent = movie.title;
-    item.appendChild(title);
+    info.appendChild(title);
+
+    const genre = getGenreInfo?.(movie);
+    if (genre) {
+      const pill = document.createElement("span");
+      pill.className = "calendar__day-dialog-genre";
+      pill.style.setProperty("--color", genre.color);
+      pill.textContent = genre.name;
+      info.appendChild(pill);
+    }
+
+    if (movie.overview) {
+      const overview = document.createElement("p");
+      overview.className = "calendar__day-dialog-overview";
+      overview.textContent = movie.overview;
+      info.appendChild(overview);
+    }
+
+    item.appendChild(info);
 
     return item;
   }

@@ -79,10 +79,11 @@ export class CalendarMovies extends Component {
     });
 
   connectedCallback() {
-    this.#dayDialog = new MovieDialog(this);
+    this.#dayDialog = document.querySelector("movie-dialog");
     this.#movieRenderer = new MovieRenderer({
       maxVisible: 2,
-      onMore: (cell, movies) => this.#dayDialog.open(movies),
+      onMore: (cell, movies) =>
+        this.#dayDialog.open(movies, cell.dataset.date, this.#getGenreInfo),
       getMovieStyle: this.#getMovieStyle,
     });
 
@@ -178,6 +179,19 @@ export class CalendarMovies extends Component {
       return undefined;
     }
     return { "--color": `var(--genre-${name})` };
+  };
+
+  /**
+   * @param {Object} movie
+   * @returns {{ name: string, color: string } | undefined}
+   */
+  #getGenreInfo = (movie) => {
+    const styles = this.#getMovieStyle(movie);
+    if (!styles) {
+      return undefined;
+    }
+    const name = this.#genreMap.get(movie.genre_ids?.[0]);
+    return { name, color: styles["--color"] };
   };
 
   /**

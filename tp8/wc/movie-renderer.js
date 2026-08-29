@@ -31,7 +31,7 @@ export class MovieRenderer {
     });
 
     if (hidden.length > 0) {
-      container.appendChild(this.#buildMoreBadge(hidden.length, cell, movies));
+      container.appendChild(this.#buildMoreBadge(hidden.length, cell, hidden));
     }
 
     cell.appendChild(container);

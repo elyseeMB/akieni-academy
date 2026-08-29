@@ -44,10 +44,6 @@
   gap: var(--gap-2xs);
 }
 
-.calendar-sidebar {
-  width: 300px;
-  background-color: red;
-}
 /*  */
 
 header {
@@ -284,37 +280,6 @@ head-calendar {
 
 .calendar__movie-more:hover {
   background: rgba(0, 0, 0, 0.12);
-}
-
-.calendar__day-dialog {
-  border: none;
-  border-radius: 12px;
-  padding: 16px;
-  max-width: 320px;
-  width: 90vw;
-}
-
-.calendar__day-dialog::backdrop {
-  background: rgba(0, 0, 0, 0.4);
-}
-
-.calendar__day-dialog-list {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.calendar__day-dialog-item {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.calendar__day-dialog-item img {
-  width: 40px;
-  height: 60px;
-  object-fit: cover;
-  border-radius: 4px;
 }
 
 .calendar-viewport {
