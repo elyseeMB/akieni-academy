@@ -14,6 +14,8 @@
 
 /* @import "./components/header/header.css" layer(components); */
 @import "./components/weather.css" layer(components);
+@import "./components/modal.css" layer(components);
+@import "./components/search.css" layer(components);
 
 @import "./utilities/skeleton.css" layer(utilities);
 
@@ -64,6 +66,16 @@ svg {
   display: grid;
   place-items: center;
   padding-top: var(--padding-lg);
+}
+
+.wrapper-main search-component {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.wrapper-main search-component .weather-search-trigger {
+  margin-inline: auto;
 }
 
 calendar-weather {

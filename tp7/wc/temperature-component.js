@@ -142,16 +142,16 @@ export class TemperatureComponent extends Component {
     gradient.setAttribute("y2", "100%");
 
     const stops = [
-      ["0%", "#38bdf8"],
-      ["35%", "#22c55e"],
-      ["65%", "#facc15"],
-      ["100%", "#ef4444"],
+      ["0%", "#94a3b8", 0.35],
+      ["50%", "#e2e8f0", 0.85],
+      ["100%", "#f8fafc", 1],
     ];
 
-    for (const [offset, color] of stops) {
+    for (const [offset, color, opacity] of stops) {
       const stop = document.createElementNS(SVG_NS, "stop");
       stop.setAttribute("offset", offset);
       stop.setAttribute("stop-color", color);
+      stop.setAttribute("stop-opacity", opacity);
       gradient.appendChild(stop);
     }
 
