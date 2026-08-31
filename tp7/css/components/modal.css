@@ -39,11 +39,11 @@
   justify-content: flex-start;
   gap: var(--gap-sm);
   padding-inline: var(--padding-md);
-  padding-block: var(--padding-sm);
+  padding-block: var(--padding-xs);
   border: 1px solid rgb(var(--color-foreground-rgb) / 0.13);
-  border-radius: var(--radius-xl);
+  border-radius: var(--radius-md);
   background: rgb(255 255 255 / 0.06);
-  color: #e2e8f0;
+  color: #252525;
   font-size: 0.95rem;
   font-weight: 500;
   backdrop-filter: blur(8px);

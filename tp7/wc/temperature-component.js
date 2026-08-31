@@ -40,7 +40,6 @@ export class TemperatureComponent extends Component {
 
     this.current = data;
     const tempInCelsius = Math.round(data.main.temp - 273.15);
-
     this.setAttribute("value", tempInCelsius);
   }
 
@@ -59,9 +58,7 @@ export class TemperatureComponent extends Component {
   connectedCallback() {
     this._onWeather = this.#onWeather.bind(this);
     window.addEventListener("weather:all", this._onWeather);
-
     this.temperature = this.getTemperature();
-
     this.render();
   }
 
@@ -79,7 +76,6 @@ export class TemperatureComponent extends Component {
     if (Number.isNaN(value)) {
       return 0;
     }
-
     return Math.min(this.max, Math.max(this.min, value));
   }
 
@@ -99,14 +95,12 @@ export class TemperatureComponent extends Component {
 
   temperatureToAngle(temperature) {
     const progress = this.temperatureToProgress(temperature);
-
     return this.startAngle + progress * (this.endAngle - this.startAngle);
   }
 
   pointOnCircle(radius, angle) {
     return {
       x: this.cx + radius * Math.cos(angle),
-
       y: this.cy + radius * Math.sin(angle),
     };
   }
@@ -115,9 +109,7 @@ export class TemperatureComponent extends Component {
 
   createSVG() {
     const svg = document.createElementNS(SVG_NS, "svg");
-
     svg.setAttribute("viewBox", `0 0 ${this.size} ${this.size}`);
-
     return svg;
   }
 
@@ -171,7 +163,6 @@ export class TemperatureComponent extends Component {
   }
 
   // Temperature arc
-
   createTemperatureArc(svg) {
     const temperatureAngle = this.temperatureToAngle(this.temperature);
 
@@ -194,10 +185,8 @@ export class TemperatureComponent extends Component {
   }
 
   // Graduations
-
   createTicks(svg) {
     const tickCount = this.max - this.min + 1;
-
     const outerRadius = 132;
     const innerRadius = 119;
 
@@ -205,16 +194,12 @@ export class TemperatureComponent extends Component {
 
     for (let i = 0; i < tickCount; i++) {
       const temperature = this.min + i;
-
       const progress = this.temperatureToProgress(temperature);
-
       const angle =
         this.startAngle + progress * (this.endAngle - this.startAngle);
 
       const isActive = temperature === currentTemperature;
-
       const isMajor = temperature % 10 === 0;
-
       const r1 = isActive
         ? outerRadius + 16
         : isMajor
@@ -222,11 +207,8 @@ export class TemperatureComponent extends Component {
           : outerRadius - 6;
 
       const r2 = isMajor ? innerRadius - 5 : innerRadius;
-
       const p1 = this.pointOnCircle(r1, angle);
-
       const p2 = this.pointOnCircle(r2, angle);
-
       const opacity = isActive ? 1 : 0.25 + progress * 0.5;
 
       new Line(p1.x, p1.y, p2.x, p2.y)
@@ -250,32 +232,22 @@ export class TemperatureComponent extends Component {
 
   createLabel(svg, temperature, angle, active = false) {
     const position = this.pointOnCircle(active ? 96 : 92, angle);
-
     const text = document.createElementNS(SVG_NS, "text");
 
     text.setAttribute("x", position.x);
-
     text.setAttribute("y", position.y);
-
     text.setAttribute("text-anchor", "middle");
-
     text.setAttribute("dominant-baseline", "middle");
-
     text.setAttribute("fill", "black");
-
     text.setAttribute("font-size", active ? "0" : "10");
-
     text.setAttribute("font-weight", active ? "700" : "400");
-
     text.setAttribute("opacity", active ? "1" : "0.5");
 
     text.textContent = `${temperature}°`;
-
     svg.appendChild(text);
   }
 
   // Needle
-
   createCenterContent() {
     const hasData = !!this.current;
 
@@ -326,7 +298,6 @@ export class TemperatureComponent extends Component {
 
     // Base droite
     const right = this.pointOnCircle(12, angle - Math.PI / 2);
-
     const polygon = document.createElementNS(SVG_NS, "polygon");
 
     polygon.setAttribute(
@@ -339,7 +310,6 @@ export class TemperatureComponent extends Component {
     );
 
     polygon.setAttribute("fill", "#ffffff");
-
     svg.appendChild(polygon);
 
     // Centre de l'aiguille
@@ -349,7 +319,6 @@ export class TemperatureComponent extends Component {
       .stroke("#ffffff")
       .strokeWidth(4)
       .appendTo(svg);
-
     new Circle(this.cx, this.cy, 4).fill("#ffffff").appendTo(svg);
   }
 
@@ -359,47 +328,32 @@ export class TemperatureComponent extends Component {
     const text = document.createElementNS(SVG_NS, "text");
 
     text.setAttribute("x", this.cx);
-
     text.setAttribute("y", this.cy);
-
     text.setAttribute("text-anchor", "middle");
-
     text.setAttribute("fill", "#000");
-
     text.setAttribute("font-size", "42");
-
     text.setAttribute("font-weight", "700");
-
     text.textContent = `${this.temperature}°`;
-
     svg.appendChild(text);
 
     const label = document.createElementNS(SVG_NS, "text");
 
     label.setAttribute("x", this.cx);
-
     label.setAttribute("y", this.cy + 20);
-
     label.setAttribute("text-anchor", "middle");
-
     label.setAttribute("fill", "#64748b");
-
     label.setAttribute("font-size", "11");
 
     label.textContent = "TEMPÉRATURE";
-
     svg.appendChild(label);
   }
 
   temperatureOpacity(temperature) {
     const progress = this.temperatureToProgress(temperature);
-
-    // Entre 0.25 et 0.85
     return 0.25 + progress * 0.6;
   }
 
   // Render
-
   render() {
     this.shadowRoot.innerHTML = `
     <style>
@@ -430,14 +384,14 @@ export class TemperatureComponent extends Component {
       .city {
         font-size: 0.85rem;
         font-weight: 600;
-        color: #e2e8f0;
+        color: #484848;
         text-transform: capitalize;
       }
 
       .temp {
         font-size: 3.25rem;
         font-weight: 700;
-        color: #f8fafc;
+        color: #484848;
         line-height: 1;
       }
 

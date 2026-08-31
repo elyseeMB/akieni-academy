@@ -237,7 +237,7 @@ export class CalendarWeather extends Component {
     text.setAttribute("x", x);
     text.setAttribute("y", 105);
     text.setAttribute("text-anchor", "middle");
-    text.setAttribute("fill", "var(--color-background)");
+    text.setAttribute("fill", "var(--color-foreground)");
     text.setAttribute("font-size", 10);
 
     text.textContent = `${String(hour).padStart(2, "0")}`;
@@ -355,7 +355,7 @@ export class CalendarWeather extends Component {
 
       const historyCurve = new TemperatureCurve({
         height: this.#height,
-        color: "#64748b",
+        color: "#484848",
         gradientId: "historyGradient",
       });
 

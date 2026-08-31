@@ -76,7 +76,6 @@ export class SuggestionComponent extends Component {
       <div class="search-results__list">
         <div class="search-results__scroller">
           <div class="search-section search-section--cities" hidden>
-            <div class="search-section__title">Villes</div>
             <div class="search-section__items"></div>
           </div>
         </div>
