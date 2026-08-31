@@ -1,7 +1,30 @@
-body {
+main {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-items: center;
+  gap: var(--gap-2xl);
 }
 
-.section {
+html {
+  overflow-x: hidden;
+}
+
+svg {
+  display: block;
+  max-width: none;
+}
+
+body {
+  mix-blend-mode: exclusion;
+  font-family: "Inter", sans-serif;
+  width: 100%;
+  height: 100vh;
+  overflow-x: hidden;
+}
+
+dialog {
+  border: none;
 }
 
 img {
@@ -27,7 +50,4 @@ img {
   width: var(--icon-size-sm);
   height: var(--icon-size-sm);
   pointer-events: none;
-}
-
-main {
 }

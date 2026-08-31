@@ -14,6 +14,22 @@
   <body>
     <main>
       <div class="wrapper-main">
+        <search-component>
+          <button class="btn btn-ghost weather-search-trigger" on:click="/open" aria-haspopup="dialog">
+            <svg
+              class="icon icon-search"
+              aria-hidden="true"
+              role="graphics-symbol"
+              viewBox="0 0 20 20"
+            >
+              <path
+                d="M8.875 2.625a6.25 6.25 0 1 0 3.955 11.09l3.983 3.982a.625.625 0 1 0 .884-.884l-3.983-3.982a6.25 6.25 0 0 0-4.84-10.205m-5 6.25a5 5 0 1 1 10 0 5 5 0 0 1-10 0"
+              ></path>
+            </svg>
+            Recherchez une ville…
+          </button>
+          <dialog class="dialog-search" ref="dialog"></dialog>
+        </search-component>
         <temperature-component></temperature-component>
       </div>
 
@@ -90,11 +106,11 @@
           gap: 0.25rem;
           padding: 0.75rem 1rem;
           border-radius: 0.75rem;
-          background: rgba(255, 255, 255, 0.05);
+          background: rgba(255, 255, 255, 0.158);
           border: 1px solid rgba(255, 255, 255, 0.08);
 
-          backdrop-filter: blur(8px);
-          -webkit-backdrop-filter: blur(8px);
+          backdrop-filter: blur(100px);
+          -webkit-backdrop-filter: blur(100px);
           transition: background 0.2s;
         }
 
@@ -105,7 +121,7 @@
         .day {
           font-size: 0.8rem;
           font-weight: 600;
-          color: #e2e8f0;
+          color: #616161;
           text-transform: capitalize;
         }
 
@@ -117,18 +133,18 @@
         .temp {
           font-size: 0.9rem;
           font-weight: 700;
-          color: #f8fafc;
+          color: #5c5c5c;
           letter-spacing: -0.02em;
         }
 
         .temp .min {
-          color: #94a3b8;
+          color: #454545;
           font-weight: 400;
         }
 
         .desc {
           font-size: 0.7rem;
-          color: #94a3b8;
+          color: #3a3a3a;
           text-transform: capitalize;
           text-align: center;
           max-width: 100%;
@@ -196,7 +212,6 @@
       </template>
 
       <calendar-weather id="tl"></calendar-weather>
-
       <animated-hero class="hero-wrapper"></animated-hero>
     </main>
 
