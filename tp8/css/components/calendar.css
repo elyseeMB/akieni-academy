@@ -22,7 +22,7 @@ header {
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 2;
+  z-index: 6;
 }
 
 .calendar-action {
@@ -259,8 +259,16 @@ head-calendar {
   gap: 5rem;
 }
 
+layout-mobile {
+  display: none;
+}
+
 /* Responsive */
 @media screen and (max-width: 600px) {
+  .calendar__current-month {
+    display: none;
+  }
+
   .calendar__date-first {
     font-size: 0.7rem;
   }
@@ -271,6 +279,91 @@ head-calendar {
 
   .calendar__movie-title {
     display: none;
+  }
+
+  .layout-mobile {
+    display: block;
+    position: fixed;
+    inset: 0;
+    background-color: var(--color-background);
+    z-index: 5;
+  }
+
+  .layout-mobile__list {
+    height: 100%;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .layout-mobile__section {
+    padding-bottom: var(--padding-md);
+  }
+
+  .layout-mobile__month {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    margin: 0;
+    padding-block: var(--padding-xs);
+    padding-inline: var(--padding-sm);
+    background-color: var(--color-background);
+    font-size: var(--font-size--2xs);
+    font-weight: var(--font-weight-bold);
+    text-transform: capitalize;
+    border-bottom: 1px solid #efefef;
+  }
+
+  .layout-mobile__body {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .layout-mobile__item {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--gap-sm);
+    padding-block: var(--padding-xs);
+    padding-inline: var(--padding-sm);
+    border-bottom: 1px solid #efefef;
+  }
+
+  .layout-mobile__poster {
+    width: 46px;
+    height: 66px;
+    border-radius: var(--radius-sm);
+    object-fit: cover;
+    flex-shrink: 0;
+    background-color: var(--color-neutral-300);
+  }
+
+  img.layout-mobile__poster:not([src]) {
+    display: none;
+  }
+
+  .layout-mobile__info {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+  }
+
+  .layout-mobile__title {
+    font-size: var(--font-size--xs);
+    font-weight: var(--font-weight-medium);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .layout-mobile__meta {
+    font-size: var(--font-size--2xs);
+    color: var(--color-foreground-muted);
+  }
+
+  .layout-mobile__empty {
+    padding: var(--padding-sm);
+    font-size: var(--font-size--2xs);
+    color: var(--color-foreground-muted);
   }
 }
 
