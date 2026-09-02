@@ -1,18 +1,30 @@
 import { getAllCalendarMovies, getUpcomingMovies } from "../api.js";
-import { TMDB_IMAGE_BASE } from "../constant.js";
 import { endOfMonth, toDateKey } from "../lib/date.js";
+import {
+  formatDate,
+  getMovieStyle,
+  getStatusClass,
+  getStatusText,
+  loadGenreMap,
+  popoverClick,
+} from "../lib/movie.js";
 import { Component } from "./component.js";
 
 export class LayoutMobile extends Component {
   #months = new Map();
-
+  #genreMap = new Map();
   #now = new Date();
   #year = new Date().getFullYear();
 
   connectedCallback() {
     super.connectedCallback();
     this.#buildShell();
+    this.#loadGenreMap();
     this.#loadAll();
+  }
+
+  async #loadGenreMap() {
+    this.#genreMap = await loadGenreMap();
   }
 
   #buildShell() {
@@ -20,7 +32,6 @@ export class LayoutMobile extends Component {
 
     const list = document.createElement("div");
     list.className = "layout-mobile__list";
-
     for (let monthIndex = 0; monthIndex < 12; monthIndex++) {
       const section = document.createElement("section");
       section.className = "layout-mobile__section";
@@ -38,7 +49,6 @@ export class LayoutMobile extends Component {
       body.className = "layout-mobile__body";
       body.setAttribute("aria-live", "polite");
       section.appendChild(body);
-
       list.appendChild(section);
       this.#months.set(monthIndex, { el: section, movies: new Map() });
     }
@@ -56,7 +66,6 @@ export class LayoutMobile extends Component {
     try {
       const calendar = await getAllCalendarMovies(this.#year, monthIndex + 1);
       this.#addMovies(monthIndex, calendar);
-
       if (monthIndex >= this.#now.getMonth()) {
         await this.#loadUpcoming(monthIndex);
       }
@@ -137,13 +146,26 @@ export class LayoutMobile extends Component {
    */
   #buildItem(movie) {
     const item = document.createElement("div");
-    item.className = "layout-mobile__item";
+    item.className = "layout-mobile__item calendar__movie";
+    item.title = movie.title;
+
+    item.classList.add(getStatusClass(movie.release_date));
+    item.setAttribute("status", getStatusText(movie.release_date));
+
+    const styles = getMovieStyle(movie, this.#genreMap);
+    if (styles) {
+      for (const [prop, value] of Object.entries(styles)) {
+        item.style.setProperty(prop, value);
+      }
+    }
+
+    item.setAttribute("on:click", popoverClick(movie));
 
     const poster = document.createElement("img");
     poster.className = "layout-mobile__poster";
     poster.alt = movie.title;
     if (movie.poster_path) {
-      poster.src = `${TMDB_IMAGE_BASE}${movie.poster_path}`;
+      poster.src = `https://image.tmdb.org/t/p/w500${movie.poster_path}`;
     }
     item.appendChild(poster);
 
@@ -155,24 +177,21 @@ export class LayoutMobile extends Component {
     title.textContent = movie.title;
     info.appendChild(title);
 
+    const genreName = this.#genreMap.get(movie.genre_ids?.[0]);
+    if (genreName) {
+      const genre = document.createElement("span");
+      genre.className = "layout-mobile__genre";
+      genre.textContent = genreName;
+      genre.style.setProperty("background", `var(--genre-${genreName})`);
+      info.appendChild(genre);
+    }
+
     const meta = document.createElement("span");
     meta.className = "layout-mobile__meta";
-    meta.textContent = this.#formatDate(movie.release_date);
+    meta.textContent = `${formatDate(movie.release_date)} · ${getStatusText(movie.release_date)}`;
     info.appendChild(meta);
 
     item.appendChild(info);
     return item;
-  }
-
-  /**
-   * @param {string} dateKey
-   * @returns {string}
-   */
-  #formatDate(dateKey) {
-    const [year, month, day] = dateKey.split("-").map(Number);
-    return new Intl.DateTimeFormat(undefined, {
-      day: "numeric",
-      month: "long",
-    }).format(new Date(year, month - 1, day));
   }
 }

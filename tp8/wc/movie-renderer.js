@@ -1,4 +1,4 @@
-import { startOfMonth } from "../lib/date.js";
+import { getStatusClass, getStatusText, popoverClick } from "../lib/movie.js";
 
 export class MovieRenderer {
   /** @type {number} */
@@ -22,29 +22,16 @@ export class MovieRenderer {
   render(cell, movies) {
     const container = document.createElement("div");
     container.className = "calendar__movies";
-
     const visible = movies.slice(0, this.#maxVisible);
     const hidden = movies.slice(this.#maxVisible);
 
     visible.forEach((movie, index) => {
       container.appendChild(this.#buildPoster(movie, visible.length - index));
     });
-
     if (hidden.length > 0) {
       container.appendChild(this.#buildMoreBadge(hidden.length, cell, hidden));
     }
-
     cell.appendChild(container);
-  }
-
-  /**
-   * @param {string} releaseDate
-   * @returns {boolean}
-   */
-  #isCurrentOrFuture(releaseDate) {
-    const movieDate = new Date(releaseDate).setHours(0, 0, 0, 0);
-    const today = new Date().setHours(0, 0, 0, 0);
-    return movieDate >= today;
   }
 
   /**
@@ -58,40 +45,24 @@ export class MovieRenderer {
     item.className = "calendar__movie";
     item.style.zIndex = zIndex;
     item.title = movie.title;
-
-    item.classList.add(
-      this.#isCurrentOrFuture(movie.release_date)
-        ? "calendar__movie--upcoming"
-        : "calendar__movie--past",
-    );
-
-    item.setAttribute(
-      "status",
-      this.#isCurrentOrFuture(movie.release_date) ? "Prochainement" : "Sorti",
-    );
+    item.classList.add(getStatusClass(movie.release_date));
+    item.setAttribute("status", getStatusText(movie.release_date));
 
     const colorSquare = document.createElement("span");
     colorSquare.className = "calendar__movie-poster";
-
     const styles = this.#getMovieStyle?.(movie);
     if (styles) {
       for (const [prop, value] of Object.entries(styles)) {
         item.style.setProperty(prop, value);
       }
     }
-
     item.appendChild(colorSquare);
-
-    item.setAttribute(
-      "on:click",
-      `#movie-popover/open?movie=${encodeURIComponent(JSON.stringify(movie))}`,
-    );
+    item.setAttribute("on:click", popoverClick(movie));
 
     const title = document.createElement("span");
     title.className = "calendar__movie-title";
     title.textContent = movie.title;
     item.appendChild(title);
-
     return item;
   }
 

@@ -1,8 +1,4 @@
-import {
-  getAllCalendarMovies,
-  getGenresMovie,
-  getUpcomingMovies,
-} from "../api.js";
+import { getAllCalendarMovies, getUpcomingMovies } from "../api.js";
 import { moviesStore } from "../events/movies-store.js";
 import {
   addDays,
@@ -13,6 +9,7 @@ import {
   toDateKey,
   weeksCount,
 } from "../lib/date.js";
+import { getGenreInfo, getMovieStyle, loadGenreMap } from "../lib/movie.js";
 import { Component } from "./component.js";
 import { MovieDialog } from "./movie-dialog.js";
 import { MovieRenderer } from "./movie-renderer.js";
@@ -64,8 +61,6 @@ export class CalendarMovies extends Component {
   /** @type {IntersectionObserver | undefined} */
   #preloadObserver;
 
-  #genres;
-
   /** @type {Map<number, string>} */
   #genreMap = new Map();
 
@@ -77,10 +72,9 @@ export class CalendarMovies extends Component {
 
   #onMoviesUpdate = (e) => this.#applyMovies(e.detail);
 
-  #onGetGenreMovie = () =>
-    this.#handleApplyGenre(async () => {
-      this.#genres = await getGenresMovie();
-    });
+  #onGetGenreMovie = async () => {
+    this.#genreMap = await loadGenreMap();
+  };
 
   connectedCallback() {
     this.#dayDialog = document.querySelector("movie-dialog");
@@ -110,7 +104,6 @@ export class CalendarMovies extends Component {
     this.#monthObserver?.disconnect();
     this.#preloadObserver?.disconnect();
     moviesStore.removeEventListener("update", this.#onMoviesUpdate);
-
     if (this.#resizeFrame !== null) {
       cancelAnimationFrame(this.#resizeFrame);
       this.#resizeFrame = null;
@@ -121,19 +114,13 @@ export class CalendarMovies extends Component {
     this.#scrollToCurrentMonth();
   }
 
+  #getMovieStyle = (movie) => getMovieStyle(movie, this.#genreMap);
+
   /**
-   *
-   * @param {Function} callback
+   * @param {Object} movie
+   * @returns {{ name: string, color: string } | undefined}
    */
-  async #handleApplyGenre(callback) {
-    await callback();
-    if (this.#genres?.genres) {
-      this.#genreMap.clear();
-      for (const g of this.#genres.genres) {
-        this.#genreMap.set(g.id, g.name);
-      }
-    }
-  }
+  #getGenreInfo = (movie) => getGenreInfo(movie, this.#genreMap);
 
   /**
    * @param {boolean} smooth
@@ -156,10 +143,8 @@ export class CalendarMovies extends Component {
   #getOffsets() {
     const headerHeight =
       this.#headerAction?.getBoundingClientRect().height ?? 0;
-
     const headCalHeight =
       this.#headCalendar?.getBoundingClientRect().height ?? 0;
-
     return {
       headerHeight,
       headCalHeight,
@@ -173,38 +158,12 @@ export class CalendarMovies extends Component {
     document.body.style.setProperty("--padding-header", `${headerHeight}px`);
   }
 
-  #getMovieStyle = (movie) => {
-    const genreId = movie.genre_ids?.[0];
-    if (genreId == null) {
-      return undefined;
-    }
-    const name = this.#genreMap.get(genreId);
-    if (!name) {
-      return undefined;
-    }
-    return { "--color": `var(--genre-${name})` };
-  };
-
-  /**
-   * @param {Object} movie
-   * @returns {{ name: string, color: string } | undefined}
-   */
-  #getGenreInfo = (movie) => {
-    const styles = this.#getMovieStyle(movie);
-    if (!styles) {
-      return undefined;
-    }
-    const name = this.#genreMap.get(movie.genre_ids?.[0]);
-    return { name, color: styles["--color"] };
-  };
-
   /**
    * Build Struct
    */
   #build() {
     const year = this.#now.getFullYear();
     const months = buildYearRanges(year);
-
     for (const [monthIndex, { start, end }] of months.entries()) {
       this.#months.set(monthIndex, { start, end });
     }
@@ -220,16 +179,13 @@ export class CalendarMovies extends Component {
       const pivotDay = addDays(weekStart, 3);
       const monthIndex = pivotDay.getMonth();
       const slot = weekBuilder.buildWeek(weekStart);
-
       slot.dataset.week = w;
       slot.dataset.month = monthIndex;
-
       slot.querySelectorAll(".calendar__cell").forEach((cell) => {
         this.#cellsByDate.set(cell.dataset.date, cell);
       });
 
       this.appendChild(slot);
-
       if (monthIndex !== lastMonthIndex) {
         this.#monthWeekStarts.set(monthIndex, slot);
         lastMonthIndex = monthIndex;
@@ -264,7 +220,6 @@ export class CalendarMovies extends Component {
       if (!cell) {
         continue;
       }
-
       this.#movieRenderer.render(cell, list);
       this.#renderedDates.add(dateKey);
     }
@@ -279,11 +234,9 @@ export class CalendarMovies extends Component {
     const availableHeight = Math.max(0, viewportHeight - total);
 
     const monthWeekCounts = new Map();
-
     for (const [monthIndex, { start, end }] of this.#months) {
       const monthStart = startOfWeek(start);
       const monthEnd = endOfWeek(end);
-
       monthWeekCounts.set(monthIndex, weeksCount(monthStart, monthEnd));
     }
 
@@ -292,12 +245,10 @@ export class CalendarMovies extends Component {
       const monthIndex = Number(slot.dataset.month);
       const weekCount = monthWeekCounts.get(monthIndex) ?? 1;
       const rowHeight = availableHeight / weekCount;
-
       slot.style.setProperty("--height-calc", `${rowHeight}px`);
       slot.style.transform = `translate(0, ${cumulativeOffset}px)`;
       cumulativeOffset += rowHeight;
     }
-
     this.style.position = "relative";
     this.style.height = `${cumulativeOffset}px`;
   }
@@ -347,7 +298,6 @@ export class CalendarMovies extends Component {
     this.#currentVisibleMonth = monthIndex;
     this.#setCurrentMonthLabel(month.start);
     this.#pageMeta.setMonth(month.start);
-
     this.querySelectorAll(".calendar__cell").forEach((cell) => {
       const cellMonth = Number(cell.dataset.month);
       cell.classList.toggle("calendar__date-other", cellMonth !== monthIndex);
@@ -359,7 +309,6 @@ export class CalendarMovies extends Component {
       return;
     }
     this.#loadedMonths.add(monthIndex);
-
     const year = this.#now.getFullYear();
     getAllCalendarMovies(year, monthIndex + 1).then((data) => {
       moviesStore.set(data);
@@ -378,7 +327,6 @@ export class CalendarMovies extends Component {
     const year = this.#now.getFullYear();
     const today = new Date();
     const isCurrentMonth = monthIndex === today.getMonth();
-
     const rangeStart = isCurrentMonth ? today : new Date(year, monthIndex, 1);
     const minDate = toDateKey(rangeStart);
     const maxDate = toDateKey(endOfMonth(new Date(year, monthIndex, 1)));
@@ -387,7 +335,6 @@ export class CalendarMovies extends Component {
       const current = moviesStore.get() ?? [];
       const seenIds = new Set(current.map((m) => m.id));
       const newMovies = results.filter((m) => !seenIds.has(m.id));
-
       moviesStore.set([...current, ...newMovies]);
     });
   }
@@ -414,7 +361,6 @@ export class CalendarMovies extends Component {
           if (entry.isIntersecting) {
             const monthIndex = Number(entry.target.dataset.month);
             this.#loadMonth(monthIndex);
-
             if (monthIndex >= this.#now.getMonth()) {
               this.#loadUpcomingForMonth(monthIndex);
             }
@@ -426,7 +372,6 @@ export class CalendarMovies extends Component {
         threshold: 0,
       },
     );
-
     this.querySelectorAll(".calendar__week-slot").forEach((slot) => {
       this.#monthObserver.observe(slot);
       this.#preloadObserver.observe(slot);
