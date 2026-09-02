@@ -269,6 +269,14 @@ layout-mobile {
     display: none;
   }
 
+  head-calendar {
+    display: none;
+  }
+
+  .toolbar-right__today:first-child {
+    display: none;
+  }
+
   .calendar__date-first {
     font-size: 0.7rem;
   }
@@ -284,7 +292,9 @@ layout-mobile {
   .layout-mobile {
     display: block;
     position: fixed;
-    inset: 0;
+    top: var(--padding, 0px);
+    inset-inline: 0;
+    bottom: 0;
     background-color: var(--color-background);
     z-index: 5;
   }
@@ -321,11 +331,31 @@ layout-mobile {
 
   .layout-mobile__item {
     display: flex;
-    align-items: flex-start;
+    align-items: center;
     gap: var(--gap-sm);
     padding-block: var(--padding-xs);
     padding-inline: var(--padding-sm);
     border-bottom: 1px solid #efefef;
+  }
+
+  .layout-mobile__item.calendar__movie {
+    padding-block: var(--padding-xs);
+    padding-inline: var(--padding-sm);
+    border-radius: 0;
+    border: none;
+    background: none;
+    white-space: normal;
+    overflow: visible;
+    text-overflow: unset;
+  }
+
+  .layout-mobile__genre {
+    background: var(--color);
+    color: white;
+    font-size: var(--font-size--2xs);
+    padding: 2px 8px;
+    border-radius: var(--radius-md);
+    width: fit-content;
   }
 
   .layout-mobile__poster {

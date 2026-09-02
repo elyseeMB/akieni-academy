@@ -32,7 +32,6 @@ export class MoviePopover extends Component {
    */
   open(data, e) {
     const newTarget = e.target.closest(".calendar__movie") ?? e.target;
-
     if (this.#isOpen && this.#target === newTarget) {
       this.close();
       return;
@@ -44,7 +43,6 @@ export class MoviePopover extends Component {
 
     this.#target = newTarget;
     this.#target.classList.add("active");
-
     const movie = JSON.parse(data.movie);
     if (!movie) {
       return;
@@ -52,7 +50,6 @@ export class MoviePopover extends Component {
 
     this.#buildContent(movie);
     this.#popover.dataset.open = "true";
-
     requestAnimationFrame(() => {
       this.#position();
     });
@@ -65,10 +62,9 @@ export class MoviePopover extends Component {
     if (!this.#isOpen) {
       return;
     }
-
     this.#popover.dataset.open = "false";
-    this.#isOpen = false;
 
+    this.#isOpen = false;
     if (this.#target) {
       this.#target.classList.remove("active");
     }
@@ -143,12 +139,10 @@ export class MoviePopover extends Component {
     if (!name) {
       return null;
     }
-
     const pill = document.createElement("span");
     pill.className = "movie-popover__genre";
     pill.style.setProperty("--color", rawColor);
     pill.textContent = name;
-
     return pill;
   }
 
@@ -199,7 +193,6 @@ export class MoviePopover extends Component {
     this.#removeListeners();
 
     const offset = this.#getFixedOffset();
-
     this.#intersectionObserver = new IntersectionObserver(
       ([entry]) => {
         if (!entry.isIntersecting) {
