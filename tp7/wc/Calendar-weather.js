@@ -43,12 +43,11 @@ export class CalendarWeather extends Component {
     });
   }
 
-  async connectedCallback() {
+  connectedCallback() {
     this._onWeather = this.#onWeather.bind(this);
     window.addEventListener("weather:all", this._onWeather);
 
     this.#buildMeta();
-    await this.#fetchHistory();
     this.render();
   }
 
@@ -57,30 +56,23 @@ export class CalendarWeather extends Component {
     window.removeEventListener("weather:all", this._onWeather);
   }
 
-  // FETCH R2 HISTORY
-  async #fetchHistory() {
-    try {
-      const res = await fetch(
-        "https://weather-api.mboussaemmanuelito.workers.dev/weather/history",
-      );
-      if (!res.ok) {
-        return;
-      }
-
-      const data = await res.json();
-      this.historyHours = data.map((entry) => ({
-        date: new Date(entry.dt),
-        temp: entry.temp,
-        icon: entry.icon || "01d",
-      }));
-    } catch (err) {
-      console.error("Erreur de chargement de l'historique R2:", err);
-      this.historyHours = [];
-    }
+  // HISTOIRE R2 — uniquement pour Brazzaville (celle-ci est fournie via weather:all)
+  #setHistory(data) {
+    this.historyHours = (data ?? []).map((entry) => ({
+      date: new Date(entry.dt),
+      temp: entry.temp,
+      icon: entry.icon || "01d",
+    }));
   }
 
   #onWeather(e) {
-    this.data = e.detail.forecast;
+    const { forecast, history, withHistory } = e.detail;
+    if (withHistory) {
+      this.#setHistory(history);
+    } else {
+      this.historyHours = [];
+    }
+    this.data = forecast;
   }
 
   attributeChangedCallback(name) {
@@ -245,7 +237,7 @@ export class CalendarWeather extends Component {
     text.setAttribute("x", x);
     text.setAttribute("y", 105);
     text.setAttribute("text-anchor", "middle");
-    text.setAttribute("fill", "var(--color-background)");
+    text.setAttribute("fill", "var(--color-foreground)");
     text.setAttribute("font-size", 10);
 
     text.textContent = `${String(hour).padStart(2, "0")}`;
@@ -363,7 +355,7 @@ export class CalendarWeather extends Component {
 
       const historyCurve = new TemperatureCurve({
         height: this.#height,
-        color: "#64748b",
+        color: "#484848",
         gradientId: "historyGradient",
       });
 

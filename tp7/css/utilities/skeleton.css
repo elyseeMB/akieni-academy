@@ -35,3 +35,15 @@
     transform: translateX(100%);
   }
 }
+
+
+.skeleton-item {
+  width: 100%;
+}
+
+.skeleton-item__title {
+  width: 100%;
+}
+.skeleton-item__subtitle {
+    width: 250px;
+}

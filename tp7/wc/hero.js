@@ -71,11 +71,11 @@ export class AnimatedHero extends HTMLElement {
 
   #onWeather(e) {
     const { sunrise, sunset } = e.detail.current?.sys ?? {};
-
-    if (!sunrise || !sunset) return;
+    if (!sunrise || !sunset) {
+      return;
+    }
 
     const palette = getSkyPalette({ sunrise, sunset });
-
     this.canvas.style.background = palette.background;
 
     this.shapes.forEach((shape, i) => {
@@ -95,16 +95,16 @@ export class AnimatedHero extends HTMLElement {
     }
     ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     ctx.save();
-    ctx.globalCompositeOperation = "lighter";
+    ctx.globalCompositeOperation = "source-over";
 
     for (const shape of this.shapes) {
       shape.draw();
     }
 
-    this.ringGroup.update();
-    for (const ring of this.rings) {
-      ring.draw();
-    }
+    // this.ringGroup.update();
+    // for (const ring of this.rings) {
+    //   ring.draw();
+    // }
 
     this.dispatchEvent(
       new CustomEvent("shapes-updated", {
@@ -171,7 +171,7 @@ class Shape {
   constructor(canvas, colors) {
     this.canvas = canvas;
 
-    this.scale = randomInt(50, 150) / 100;
+    this.scale = randomInt(50, 100) / 100;
     this.updateSize();
     this.position = {
       x: randomInt(0, canvas.width),
@@ -183,8 +183,8 @@ class Shape {
   }
 
   updateSize() {
-    const baseWidth = Math.max((360 / 1920) * this.canvas.width, 200);
-    const baseHeight = (170 / 1080) * this.canvas.height;
+    const baseWidth = Math.max((260 / 1920) * this.canvas.width, 200);
+    const baseHeight = (120 / 1080) * this.canvas.height;
 
     this.width = baseWidth * this.scale;
     this.height = baseHeight * this.scale;
@@ -212,7 +212,6 @@ class Shape {
       return;
     }
     ctx.save();
-    // ctx.filter = `blur(${this.blur}px)`;
     ctx.fillStyle = this.color;
     ctx.beginPath();
     ctx.ellipse(

@@ -1,4 +1,4 @@
-import { getSearchMovie, getDiscoverMovies } from "../api.js";
+import { getDiscoverMovies, getSearchMovie } from "../api.js";
 import { debounce } from "../utils/utils.js";
 import { Component } from "./component.js";
 import { Trending } from "./trending.js";
@@ -170,7 +170,7 @@ export class SuggestionComponent extends Component {
       : "";
 
     return `
-      <a href="#/movie/${movie.id}"
+      <a href="#"
         on:pointerenter="#suggestion-component/onPreviewItem?id=${movie.id}&title=${encodeURIComponent(movie.title)}&image=${encodeURIComponent(image)}&year=${year}&date=${encodeURIComponent(date)}&overview=${encodeURIComponent(movie.overview ?? "")}"
         class="search-item-link"
       >

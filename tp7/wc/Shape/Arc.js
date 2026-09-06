@@ -8,9 +8,7 @@ export class Arc extends Shape {
     const end = Arc.point(cx, cy, r, endAngle);
 
     const angle = endAngle - startAngle;
-
     const largeArcFlag = Math.abs(angle) > Math.PI ? 1 : 0;
-
     const sweepFlag = 1;
 
     const d = `

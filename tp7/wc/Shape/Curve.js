@@ -126,11 +126,9 @@ export class TemperatureCurve {
 
     const first = points[0];
     const last = points[points.length - 1];
-
     const d = `${line} L ${last.x},${this.#height} L ${first.x},${this.#height} Z`;
 
     const area = document.createElementNS(SVG_NS, "path");
-
     area.classList.add("animated-element");
     area.style.animationDelay = "0ms";
     area.setAttribute("d", d);

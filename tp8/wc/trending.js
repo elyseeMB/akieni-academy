@@ -64,7 +64,7 @@ export class Trending {
       : "";
 
     return `
-      <a href="/movie/${movie.id}"
+      <a href="#"
         on:pointerenter="#suggestion-component/onPreviewItem?id=${movie.id}&title=${encodeURIComponent(movie.title)}&image=${encodeURIComponent(image)}&year=${year}&date=${encodeURIComponent(date)}&overview=${encodeURIComponent(movie.overview ?? "")}"
         class="search-item-link"
       >
