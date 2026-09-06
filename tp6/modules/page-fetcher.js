@@ -1,7 +1,7 @@
 const cache = new Map();
 const inflight = new Map();
 
-const LS_PREFIX = "akieni-cache:";
+const LS_PREFIX = "cache:";
 const LS_TTL = 24 * 60 * 60 * 1000;
 
 function readPersisted(url) {

@@ -1,3 +1,5 @@
+import { Entity } from "../core/Entity.js";
+
 /**
  * @typedef {Object} ImageProduct
  * @property {string} id
@@ -6,8 +8,6 @@
  * @property {string} image_url
  * @property {string} thumbnail_url
  */
-
-import { Entity } from "../core/Entity.js";
 
 /**
  * @typedef {Object} CategoryProduct

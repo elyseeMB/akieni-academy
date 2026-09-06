@@ -8,15 +8,15 @@
   </head>
 
   <body>
-    <header class="header-section" role="banner">
+    <header class="header-section">
       <header-component id="header-component" class="header" sticky="always">
         <h1 class="visually-hidden">Tous produits | SUMMER BREAK SHOP</h1>
         <div class="header__row header__row--top" ref="headerRowTop">
           <div class="header__columns">
             <div class="header__column header__column--left">
-              <div class="header-logo" aria-label="Vai alla Home">
+              <a class="header-logo" href="/" aria-label="Vai alla Home">
                 SUMMER BREAK SHOP
-              </div>
+              </a>
 
               <header-menu
                 ref="headerMenu"
@@ -25,7 +25,7 @@
                 style="--submenu-animation-speed: 200ms;"
               >
                 <div class="header-menu__inner">
-                  <nav header-menu>
+                  <nav>
                     <div class="menu-list">
                       <overflow-list
                         ref="overflowMenu"
@@ -133,7 +133,7 @@
         <category-nav-component id="category-nav"></category-nav-component>
         <div class="column-options-wrapper">
           <div class="column-options">
-            <legend class="column-options__legend">View</legend>
+            <span class="column-options__legend">View</span>
             <label class="column-options__option">
               <input
                 type="radio"
@@ -201,7 +201,6 @@
                 class="product-grid product-grid--grid"
                 product-grid-view="default"
                 ref="grid"
-                role="list"
               ></ul>
             </div>
           </div>
@@ -209,6 +208,6 @@
       </results-list>
     </main>
 
-    <script type="module" src="index.js" defer></script>
+    <script type="module" src="index.js"></script>
   </body>
 </html>

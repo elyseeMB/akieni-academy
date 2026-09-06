@@ -99,7 +99,9 @@ export class PaginatedList extends Component {
     const dtos = [];
     for (const json of jsons) {
       for (const dto of json.data ?? []) {
-        if (seen.has(dto.id)) continue;
+        if (seen.has(dto.id)) {
+          continue;
+        }
         seen.add(dto.id);
         dtos.push(dto);
       }

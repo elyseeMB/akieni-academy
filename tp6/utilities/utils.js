@@ -205,7 +205,9 @@ export function calculateHeaderGroupHeight(
   header = document.querySelector("#header-component"),
   headerGroup = document.querySelector("#header-group"),
 ) {
-  if (!headerGroup) return 0;
+  if (!headerGroup) {
+    return 0;
+  }
 
   let totalHeight = 0;
   const children = headerGroup.children;
@@ -231,7 +233,9 @@ export function calculateHeaderGroupHeight(
 
 function updateHeaderHeights() {
   const header = document.querySelector("header-component");
-  if (!(header instanceof HTMLElement)) return;
+  if (!(header instanceof HTMLElement)) {
+    return;
+  }
 
   const headerHeight = header.offsetHeight;
   const headerGroupHeight = calculateHeaderGroupHeight(header);
@@ -248,10 +252,13 @@ export function updateAllHeaderCustomProperties() {
 }
 
 function getCardsToAnimate(grid, cards) {
-  if (!grid || !cards || cards.length === 0) return 0;
-
+  if (!grid || !cards || cards.length === 0) {
+    return 0;
+  }
   const itemSample = cards[0];
-  if (!itemSample) return 0;
+  if (!itemSample) {
+    return 0;
+  }
 
   const gridRect = grid.getBoundingClientRect();
   const visibleArea = {
@@ -260,7 +267,9 @@ function getCardsToAnimate(grid, cards) {
   };
   const visibleHeight = Math.round(visibleArea.bottom - visibleArea.top);
 
-  if (visibleHeight <= 0) return 0;
+  if (visibleHeight <= 0) {
+    return 0;
+  }
 
   const cardSample = itemSample.querySelector("product-card");
   const gridStyle = getComputedStyle(grid);

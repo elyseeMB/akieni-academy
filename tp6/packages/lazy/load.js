@@ -1,5 +1,8 @@
 /**
+ * Final form of a resolved step, once the entire chain is built.
+ *
  * Forme finale d'un step résolu, une fois toute la chaîne construite.
+ *
  * @template {Record<string, any>} M
  * @template {Extract<keyof M, string>} E
  * @template {M[E] extends Record<string, any> ? Extract<keyof M[E], string> : never} K
@@ -13,7 +16,10 @@
  */
 
 /**
+ * Builds the final step object and attaches it to an eventName.
+ *
  * Construit l'objet final d'un step et le rattache à un eventName.
+ *
  * @param {Object} params
  * @param {() => Promise<any>} params.importer
  * @param {string} params.exportName
@@ -30,8 +36,12 @@ function eventListener({ importer, exportName, method, args }) {
 }
 
 /**
+ * Attaches arguments to pass to the method, or allows omitting them
+ * by calling `.on(...)` directly if the method does not need them.
+ *
  * Attache les arguments à passer à la méthode, ou permet de les omettre
  * en appelant directement `.on(...)` si la méthode n'en a pas besoin.
+ *
  * @param {Object} params
  * @param {() => Promise<any>} params.importer
  * @param {string} params.exportName
@@ -55,6 +65,9 @@ function handler({ importer, exportName, method }) {
 }
 
 /**
+ * Defines a typed step for `loadSteps`, with cascading autocompletion:
+ * exportName → method → args (optional) → eventName.
+ *
  * Définit un step typé pour `loadSteps`, avec autocomplétion en cascade :
  * exportName → method → args (optionnel) → eventName.
  *
@@ -93,6 +106,10 @@ export function defineStep(importer, exportName) {
 }
 
 /**
+ * Executes a single step: lazy-imports the module, resolves the targeted
+ * export/method, invokes it with the provided arguments, then dispatches
+ * a CustomEvent with the result.
+ *
  * Exécute une étape unique : lazy-import du module, résolution de
  * l'export/méthode ciblés, appel avec les arguments fournis, puis
  * dispatch d'un CustomEvent avec le résultat.
@@ -110,9 +127,7 @@ async function runStep({ importer, exportName, method, args = [], eventName }) {
   const target = module[exportName];
 
   if (!target || typeof target[method] !== "function") {
-    throw new Error(
-      `Méthode "${method}" introuvable sur l'export "${exportName}"`,
-    );
+    throw new Error(`Method "${method}" not found on export "${exportName}"`);
   }
 
   const result = await target[method](...args);
@@ -127,6 +142,9 @@ async function runStep({ importer, exportName, method, args = [], eventName }) {
 }
 
 /**
+ * Lazy loads modules, executes their method, and dispatches a CustomEvent
+ * per step. Can execute sequentially or in parallel.
+ *
  * Charge des modules en lazy loading, exécute leur méthode et dispatch
  * un CustomEvent par étape. Peut s'exécuter en séquentiel ou en parallèle.
  *
@@ -135,7 +153,7 @@ async function runStep({ importer, exportName, method, args = [], eventName }) {
  * @param {"sequential" | "parallel"} [config.mode]
  * @returns {Promise<void>}
  *
- * @throws {Error} Si une importation, une méthode ou un dispatch échoue
+ * @throws {Error} If an import, method execution, or dispatch fails
  */
 export async function loadSteps({ steps, mode = "sequential" }) {
   try {
@@ -160,6 +178,10 @@ export async function loadSteps({ steps, mode = "sequential" }) {
 }
 
 /**
+ * Executes step configuration groups sequentially.
+ *
+ * Exécute les groupes de configurations de steps de manière séquentielle.
+ *
  * @param {Array<Parameters<typeof loadSteps>[0]>} configs
  */
 export async function loadStepGroups(configs) {
