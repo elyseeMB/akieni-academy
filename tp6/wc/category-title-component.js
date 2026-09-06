@@ -2,7 +2,7 @@ import { ThemeEvents } from "../../theme/event.js";
 import { Component } from "./component.js";
 
 const SITE_NAME = "SUMMER BREAK SHOP";
-const DEFAULT_TITLE = "Tous produits";
+const DEFAULT_TITLE = "Tous les produits";
 
 /**
  * Custom element for displaying category title
