@@ -145,6 +145,7 @@ head-calendar {
 }
 
 .calendar__date-first {
+  font-size: var(--font-size--3xs);
   background-color: var(--color-blue-600);
   height: fit-content;
   padding-inline: var(--padding-2xs);
@@ -182,38 +183,38 @@ head-calendar {
   display: flex;
   align-items: center;
   gap: var(--gap-2xs);
-  border: 1.3px solid
-    color-mix(in srgb, var(--color) 10%, var(--color-border) 90%);
+  /* border: 1.3px solid
+    color-mix(in srgb, var(--color) 10%, var(--color-border) 90%); */
   background: color-mix(in srgb, var(--color) 10%, transparent);
   padding-inline: var(--padding-2xs);
   padding-block: 0.2rem;
   border-radius: var(--radius-sm);
 
   &:hover .calendar__movie-title {
-    color: color-mix(in srgb, var(--color) 70%, var(--color-foreground) 20%);
+    color: color-mix(in srgb, var(--color) 20%, var(--color-foreground) 60%);
   }
 }
 
 .calendar__movie.active.calendar__movie--upcoming,
 .calendar__movie.active.calendar__movie--past {
-  border-color: color-mix(in srgb, var(--color) 80%, var(--color-border) 10%);
+  /* border-color: color-mix(in srgb, var(--color) 80%, var(--color-border) 10%); */
   border-bottom-width: 3.4px;
-  background: color-mix(in srgb, var(--color) 50%, transparent);
+  background: color-mix(in srgb, var(--color) 30%, transparent);
 }
 
 .calendar__movie.calendar__movie--upcoming {
-  border: 1.6px dashed
-    color-mix(in srgb, var(--color) 100%, var(--color-border) 0%);
+  /* border: 1.6px dashed
+    color-mix(in srgb, var(--color) 100%, var(--color-border) 0%); */
 }
 
 .calendar__movie.calendar__movie--past {
-  border: 1.3px solid
-    color-mix(in srgb, var(--color) 10%, var(--color-border) 90%);
+  /* border: 1.3px solid
+    color-mix(in srgb, var(--color) 10%, var(--color-border) 90%); */
 }
 
 .calendar__movie-poster {
   height: 15px;
-  width: 15px;
+  width: 3px;
   aspect-ratio: 1 / 1;
   border-radius: var(--radius-sm);
   flex-shrink: 0;
@@ -222,7 +223,7 @@ head-calendar {
 
 .calendar__movie-title {
   display: block;
-  font-size: var(--font-size--2xs);
+  font-size: var(--font-size--3xs);
   font-weight: var(--font-weight-medium);
   line-height: 1.2;
   white-space: nowrap;
@@ -278,7 +279,7 @@ layout-mobile {
   }
 
   .calendar__date-first {
-    font-size: 0.7rem;
+    font-size: var(--font-size--3xs);
   }
 
   .calendar__movie-poster {
