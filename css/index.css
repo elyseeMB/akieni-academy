@@ -1,17 +1,36 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
 @import "./reset.css";
 @import "./comps/lists.css";
 @import "./layout.css";
 @import "./comps/title.css";
 
 :root {
-  --background: black;
+  --background: #171717;
   --color: white;
+  --size: 15px;
+  --color-secondary: rgb(163, 163, 163);
 }
 
 body {
+  overflow-x: clip;
   color: var(--color);
   height: 100vh;
   background-color: var(--background);
-  font-family: monospace;
-  letter-spacing: -0.8px;
+  font-family: "Inter", sans-serif;
+  line-height: 22.5px;
+  letter-spacing: 0em;
+}
+
+.info h1 {
+  font-size: 22px;
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.info p {
+  color: var(--color-secondary);
 }

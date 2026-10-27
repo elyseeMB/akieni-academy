@@ -25,6 +25,6 @@
 
 @media only screen and (min-width: 1920px) {
   :root {
-    --container-width: 700px;
+    --container-width: 800px;
   }
 }
